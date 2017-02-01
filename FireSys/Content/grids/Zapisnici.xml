@@ -122,7 +122,7 @@
 <ActionShowEdit>True</ActionShowEdit>
 <ActionEdit>Edit</ActionEdit>
 <ActionShowDelete>True</ActionShowDelete>
-<ActionDelete>Delete</ActionDelete>
+<ActionDelete>DeleteConfirmed</ActionDelete>
 <ActionShowPrint>True</ActionShowPrint>
 <ActionPrint>Report</ActionPrint>
 </GridSettings>

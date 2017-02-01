@@ -595,6 +595,7 @@ namespace FireSys.Controllers
             if (ModelState.IsValid)
             {
                 zapisnik.DatumKreiranja = DateTime.Now;
+                zapisnik.StatusId = 4;
                 db.Zapisniks.Add(zapisnik);
                 db.SaveChanges();
                 return RedirectToAction("Edit", new { id = zapisnik.ZapisnikId });
@@ -690,14 +691,31 @@ namespace FireSys.Controllers
         [HttpPost]
         public JsonResult Report(int id)
         {
-            ZapisnikReport report = new ZapisnikReport();
+            ZapisnikAparatReport report = new ZapisnikAparatReport();
 
-            report.Parameters["BrojZapisnika"].Value = "test";
-            report.Parameters["Narucilac"].Value = "test";
-            report.Parameters["Lokacija"].Value = "test";
-            report.Parameters["Adresa"].Value = "test";
-            report.Parameters["Mjesto"].Value = "test";
-            report.Parameters["Grad"].Value = "test";
+            Zapisnik zapisnik = db.Zapisniks.Find(id);
+
+            bool ispravan = true;
+
+            foreach(var aparat in zapisnik.ZapisnikAparats)
+            {
+                if(aparat.IspravnostId != 1)
+                {
+                    ispravan = false;
+                    break;
+                }
+            }
+
+            Korisnik pregledao = DataProvider.DB.Korisniks.Find(zapisnik.PregledIzvrsioId);
+            Korisnik kreirao = DataProvider.DB.Korisniks.Find(zapisnik.KorisnikKreiraoId);
+
+            report.Parameters["BrojZapisnika"].Value = zapisnik.FullBrojZapisnika;
+            report.Parameters["Kreirao"].Value = kreirao != null ? kreirao.Prezime + " " + kreirao.Ime : string.Empty;
+            report.Parameters["PregledIzvrsen"].Value = zapisnik.DatumZapisnika.ToString("dd.MM.yyyy");
+            report.Parameters["PregledIzvrsio"].Value = pregledao != null ? pregledao.Prezime + " " + pregledao.Ime : string.Empty;
+            report.Parameters["Status"].Value = ispravan ? "ISPRAVNI" : "NEISPRAVNI";
+            report.Parameters["VrijediDo"].Value = zapisnik.DatumZapisnika.AddMonths(6).ToString("dd.MM.yyyy");
+            report.Parameters["ID"].Value = id;
 
             report.RequestParameters = false;
             report.CreateDocument();

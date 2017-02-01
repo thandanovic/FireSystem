@@ -242,12 +242,14 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Manager\EvidencijskeKarticeManager.cs" />
     <Compile Include="Manager\AuthHelper.cs" />
     <Compile Include="Controllers\HidrantsController.cs" />
     <Compile Include="Helpers\DataProvider.cs" />
     <Compile Include="Helpers\GridViewHelper.cs" />
     <Compile Include="Manager\AccountManager.cs" />
     <Compile Include="Models\DashboardViewModel.cs" />
+    <Compile Include="Models\EvidencijskaKarticaViewModel.cs" />
     <Compile Include="Models\RadniNalogViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
@@ -265,6 +267,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="401.html" />
     <Content Include="404.html" />
     <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker.css" />
     <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker.min.css" />
@@ -611,6 +614,7 @@
     <Content Include="Views\RadniNalog\_DetailsCreate.cshtml" />
     <Content Include="Views\RadniNalog\RadniNalogDolazeciGridView.cshtml" />
     <Content Include="Views\RadniNalog\RadniNalogDolazeci.cshtml" />
+    <Content Include="Views\EvidencijskaKartica\_DetailsCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

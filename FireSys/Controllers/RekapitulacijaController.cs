@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FireSys.Attributes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -6,7 +7,8 @@ using System.Web.Mvc;
 
 namespace FireSys.Controllers
 {
-    public class RekapitulacijaController : Controller
+    [AuthorizeRoles("user")]
+    public class RekapitulacijaController : BaseController
     {
         // GET: Rekapitulacija
         public ActionResult Index()

@@ -11,10 +11,12 @@ using FireSys.Entities;
 using System.Collections;
 using DevExpress.Web.Mvc;
 using DevExpress.Web;
+using FireSys.Attributes;
 
 namespace FireSys.Controllers
 {
-    public class VatrogasniAparatController : Controller
+    [AuthorizeRoles("user")]
+    public class VatrogasniAparatController : BaseController
     {
         private FireSysModel db = new FireSysModel();
 

@@ -9,6 +9,7 @@ using System.Web.Mvc;
 
 namespace FireSys.Controllers
 {
+    [AuthorizeRoles("user")]
     public class DashController : BaseController
     {
         private FireSysModel db = new FireSysModel();
@@ -17,7 +18,7 @@ namespace FireSys.Controllers
         /// Test only
         /// </summary>
         /// <returns></returns>
-        [AuthorizeRoles("user")]
+        
         public ActionResult Index()
         {
             DashboardViewModel model = new DashboardViewModel();

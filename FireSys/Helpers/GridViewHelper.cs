@@ -1061,14 +1061,14 @@ namespace FireSys.Helpers
             {
                 s.FieldName = "edit";
                 s.Caption = "Akcije";
-                s.Width = 70;
+                s.Width = 0;
                 s.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.False;
 
                 s.SetDataItemTemplateContent(c =>
                 {
                     var keyValue = DataBinder.Eval(c.DataItem, "EvidencijskaKarticaId");
 
-                    htmlHelper.ViewContext.Writer.Write(String.Format("<a href='{0}'><i class='fa fa-pencil-square-o edit-icon'></i></a>", DevExpressHelper.GetUrl(new { Controller = "EvidencijskaKartica", Action = "Edit", id = keyValue })));
+                    //htmlHelper.ViewContext.Writer.Write(String.Format("<a href='{0}'><i class='fa fa-pencil-square-o edit-icon'></i></a>", DevExpressHelper.GetUrl(new { Controller = "EvidencijskaKartica", Action = "Edit", id = keyValue })));
                     htmlHelper.ViewContext.Writer.Write(String.Format("<a style='margin-left: 10px;' class='delete-row' href='#' data-ref='{0}'><i class='fa fa-trash-o delete-icon'></i></a>", DevExpressHelper.GetUrl(new { Controller = "EvidencijskaKartica", Action = "Delete", id = keyValue })));
                 });
             });

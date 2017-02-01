@@ -1,8 +1,8 @@
-﻿@model FireSys.Entities.EvidencijskaKartica
+﻿@model FireSys.Models.EvidencijskaKarticaViewModel
 
 @{
     ViewBag.Title = "Alokacija evidencijske kartice";
     Layout = "~/Views/Shared/_FormLayout.cshtml";
 }
 
-@{ Html.RenderPartial("_Details", Model);  }
+@{ Html.RenderPartial("_DetailsCreate", Model);  }

@@ -16,9 +16,11 @@ using FireSys.Manager;
 using FireSys.Models;
 using Microsoft.AspNet.Identity;
 using System.Data.SqlClient;
+using FireSys.Attributes;
 
 namespace FireSys.Controllers
 {
+    [AuthorizeRoles("user")]
     public class RadniNalogController : BaseController
     {
         private FireSysModel db = new FireSysModel();

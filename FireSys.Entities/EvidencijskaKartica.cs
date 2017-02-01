@@ -19,14 +19,17 @@ namespace FireSys.Entities
 
         [Required]
         [StringLength(10)]
+        [Display(Name = "Raspon kartica")]
         public string BrojEvidencijskeKartice { get; set; }
 
+        [Display(Name = "Korisnik")]
         public Guid UserId { get; set; }
 
         public bool Validna { get; set; }
 
         public bool Obrisana { get; set; }
 
+        [Display(Name = "Tip Kartice")]
         public int EvidencijskaKarticaTipId { get; set; }
 
         public DateTime DatumZaduzenja { get; set; }

@@ -11,12 +11,18 @@ using FireSys.Entities;
 using System.Collections;
 using DevExpress.Web.Mvc;
 using DevExpress.Web;
+using FireSys.Attributes;
+using FireSys.UI.Manager;
+using FireSys.Models;
 
 namespace FireSys.Controllers
 {
-    public class EvidencijskaKarticaController : Controller
+    [AuthorizeRoles("user")]
+    public class EvidencijskaKarticaController : BaseController
     {
         private FireSysModel db = new FireSysModel();
+
+        public EvidencijskeKarticeManager EvidendijskaManager = new EvidencijskeKarticeManager();
 
         public ActionResult Index()
         {
@@ -153,6 +159,13 @@ namespace FireSys.Controllers
         public ActionResult Create()
         {
             ViewBag.EvidencijskaKarticaTipId = new SelectList(db.EvidencijskaKarticaTips, "EvidencijskaKarticaTipId", "EvidencijskaKarticaTipNaziv");
+            ViewBag.UserId = db.Korisniks
+                   .Select(x => new SelectListItem
+                   {
+                       Value = x.KorisnikId.ToString(),
+                       Text = x.Ime + " " + x.Prezime
+                   })
+                   .ToList();
             return View();
         }
 
@@ -161,17 +174,60 @@ namespace FireSys.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "EvidencijskaKarticaId,BrojEvidencijskeKartice,UserId,Validna,Obrisana,EvidencijskaKarticaTipId,DatumZaduzenja")] EvidencijskaKartica evidencijskaKartica)
+        public ActionResult Create([Bind(Include = "EvidencijskaKarticaId,UserId,Rasponod,RasponDo,RemoveKartica,EvidencijskaKarticaTipId,DatumZaduzenja")] EvidencijskaKarticaViewModel evidencijskaKartica)
         {
             if (ModelState.IsValid)
             {
-                db.EvidencijskaKarticas.Add(evidencijskaKartica);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    EvidendijskaManager.DodajEvidencijskeKartice(evidencijskaKartica);
+                    return RedirectToAction("Index");
+                }
+                catch(Exception ex)
+                {
+                    ViewBag.ErrorMessage = ex.Message;
+                }
             }
 
             ViewBag.EvidencijskaKarticaTipId = new SelectList(db.EvidencijskaKarticaTips, "EvidencijskaKarticaTipId", "EvidencijskaKarticaTipNaziv", evidencijskaKartica.EvidencijskaKarticaTipId);
+            ViewBag.UserId = db.Korisniks
+                   .Select(x => new SelectListItem
+                   {
+                       Value = x.KorisnikId.ToString(),
+                       Text = x.Ime + " " + x.Prezime
+                   })
+                   .ToList();
             return View(evidencijskaKartica);
+        }
+
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateZaduzenje([Bind(Include = "EvidencijskaKarticaId,UserId,Rasponod,RasponDo,RemoveKartica,EvidencijskaKarticaTipId,DatumZaduzenja")] EvidencijskaKarticaViewModel evidencijskaKartica)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    EvidendijskaManager.DodajEvidencijskeKartice(evidencijskaKartica);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    ViewBag.ErrorMessage = ex.Message;
+                }
+            }
+
+            ViewBag.EvidencijskaKarticaTipId = new SelectList(db.EvidencijskaKarticaTips, "EvidencijskaKarticaTipId", "EvidencijskaKarticaTipNaziv", evidencijskaKartica.EvidencijskaKarticaTipId);
+            ViewBag.UserId = db.Korisniks
+                   .Select(x => new SelectListItem
+                   {
+                       Value = x.KorisnikId.ToString(),
+                       Text = x.Ime + " " + x.Prezime
+                   })
+                   .ToList();
+            return View("Create", evidencijskaKartica);
         }
 
         // GET: EvidencijskaKartica/Edit/5
@@ -219,7 +275,11 @@ namespace FireSys.Controllers
             {
                 return HttpNotFound();
             }
-            return View(evidencijskaKartica);
+
+            evidencijskaKartica.Obrisana = true;
+            db.Entry(evidencijskaKartica).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
         }
 
         // POST: EvidencijskaKartica/Delete/5

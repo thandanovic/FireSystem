@@ -313,8 +313,19 @@ namespace FireSys.Helpers
                     s.SetDataItemTemplateContent(c =>
                     {
                         var keyValue = DataBinder.Eval(c.DataItem, settings.KeyFieldName);
+                        var status = DataBinder.Eval(c.DataItem, "StatusId");
+
                         if (settings.ActionShowEdit)
-                            htmlHelper.ViewContext.Writer.Write(String.Format("<a href='{0}'><i class='fa fa-pencil-square-o edit-icon'></i></a>", DevExpressHelper.GetUrl(new { Controller = settings.Controller, Action = settings.ActionEdit, id = keyValue })));
+                        {
+                            if(Convert.ToInt16(status) == 2)
+                            {
+                                htmlHelper.ViewContext.Writer.Write(String.Format("<a href='{0}'><i class='fa fa-eye edit-icon'></i></a>", DevExpressHelper.GetUrl(new { Controller = settings.Controller, Action = settings.ActionEdit, id = keyValue })));
+                            }
+                            else
+                            {
+                                htmlHelper.ViewContext.Writer.Write(String.Format("<a href='{0}'><i class='fa fa-pencil-square-o edit-icon'></i></a>", DevExpressHelper.GetUrl(new { Controller = settings.Controller, Action = settings.ActionEdit, id = keyValue })));
+                            }
+                        }
                         if (settings.ActionShowDelete)
                             htmlHelper.ViewContext.Writer.Write(String.Format("<a style='margin-left: 10px;' class='delete-row' href='#' data-ref='{0}'><i class='fa fa-trash-o delete-icon'></i></a>", DevExpressHelper.GetUrl(new { Controller = settings.Controller, Action = settings.ActionDelete, id = keyValue })));
                         if (settings.ActionShowPrint)

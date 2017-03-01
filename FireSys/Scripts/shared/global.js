@@ -137,10 +137,12 @@ function mySpinner(isStart) {
     }
     else if (spinner) {
         setTimeout(function () {
-            spinner.stop();
-            spinner = null;
-            $('#waitSpinner').remove();
-            $('#overlay').remove(); //overlay  
+            if (spinner != null) {
+                spinner.stop();
+                spinner = null;
+                $('#waitSpinner').remove();
+                $('#overlay').remove(); //overlay  
+            }
         }, 1000);  //timeout – just to show the spinner for a while
     }
 };

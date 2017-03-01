@@ -747,6 +747,39 @@ namespace FireSys.Controllers
             });
         }
 
+        [HttpPost]
+        public JsonResult CreateWorkOrder(int? zapisnikID)
+        {
+            if (zapisnikID == null)
+            {
+                throw new ClientException("Zapisnik ID nedostaje.");
+            }
+
+            Zapisnik zapisnik = db.Zapisniks.Find(zapisnikID);
+
+            RadniNalog rn = new RadniNalog();
+
+            rn.BrojNalogaGodina = zapisnik.BrojZapisnikaGodina;
+            rn.BrojNalogaMjesec = zapisnik.BrojZapisnikaMjesec;
+            rn.BrojNaloga = db.RadniNalogs.Max(x => x.BrojNaloga) + 1;
+            rn.DatumKreiranja = DateTime.Now;
+            rn.DatumNaloga = zapisnik.DatumZapisnika;
+            rn.BrojAparata = zapisnik.ZapisnikAparats.Count;
+            rn.BrojHidranata = zapisnik.ZapisnikHidrants.Count;
+            rn.LokacijaId = zapisnik.LokacijaId;
+            rn.StatusId = 4;
+
+            db.RadniNalogs.Add(rn);
+            db.SaveChanges();
+            zapisnik.IzRadnogNalogaId = rn.RadniNalogId;
+            db.SaveChanges();
+
+            return Json(new
+            {
+                message = "Radni nalog uspjesno je kreiran"
+            });
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

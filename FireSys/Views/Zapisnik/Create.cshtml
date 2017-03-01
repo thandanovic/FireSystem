@@ -47,7 +47,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Zapisnik.Datum zapisnika">Datum zapisnika</label>
-                                @Html.EditorFor(model => model.Zapisnik.DatumZapisnika, new { htmlAttributes = new { @Value = Model.Zapisnik.DatumZapisnika.ToShortDateString(), @class = "form-control date", placeholder = "Datum zapisnika" } })
+                                @Html.EditorFor(model => model.Zapisnik.DatumZapisnika, new { htmlAttributes = new { @Value = Model.Zapisnik.DatumZapisnika.ToString("dd.MM.yyyy"), @class = "form-control date", placeholder = "Datum zapisnika" } })
                             </div>
                         </div>
                         <div class="col-lg-6">

@@ -87,6 +87,8 @@
     .box-action {
         height: 6%;
         padding: 0 15px;
+        display: flex;
+        justify-content: space-between;
     }
 
     .header-actions {
@@ -98,9 +100,26 @@
         border-color: #e06377;
     }
 
-    .jsgrid-selected-row > .jsgrid-cell{
-        background:  #d6d4e0 !important;
-        border-color:  #d6d4e0 !important;
+    .jsgrid-selected-row > .jsgrid-cell {
+        background: #d6d4e0 !important;
+        border-color: #d6d4e0 !important;
+    }
+
+
+    .whiteButton {
+        background: white;
+        border: 0;
+        color: black;
+        padding: 0;
+        height: auto;
+    }
+
+    .yellowButton {
+        background: yellow;
+        border: 0;
+        color: black;
+        padding: 0;
+        height: auto;
     }
 </style>
 
@@ -124,9 +143,9 @@
         $("#aparatiGrid").jsGrid({
             width: "100%",
             height: "100%",
-            inserting: true,
+            inserting: @Model.Zapisnik.StatusId != 2,
             noDataContent: "Not found",
-            editing: true,
+            editing: @Model.Zapisnik.StatusId != 2,
             sorting: true,
             data: [],
             paging: true,
@@ -207,7 +226,9 @@
                 { name: "VrstaId", title: "Vrsta", type: "select", width: 70, items: vrsta, valueField: "VatrogasniAparatVrstaId", textField: "Naziv", validate: "required" },
                 {
                     type: "control",
-                    title: "Akcije"
+                    title: "Akcije",
+                    deleteButton: @Model.Zapisnik.StatusId != 2,
+                    editButton: @Model.Zapisnik.StatusId != 2
                     //itemTemplate: function (_, item) {
                     //    return '<a class="fa fa-edit" href="/Hidrants/Edit/' + item.ID + '"> </a> | <a class="fa fa-search" href="/Hidrants/Details/' + item.ID + '"> </a> | <a class="fa fa-trash-o" href="/Hidrants/Delete/' + item.ID + '"> </a>';
                     //}
@@ -218,6 +239,26 @@
 
 
     });
+
+    function createWorkOrder(s, e){
+        var d = $.Deferred();
+        $.ajax({
+            type: "POST",
+            url: "@Url.Action("CreateWorkOrder", "Zapisnik")",
+            data: { zapisnikID: $("#ZapisnikId").val()}
+        }).success(function (response) {
+            d.resolve();
+            Utility.showErrorMessage(response.message);
+        }).error(function (xhr, ajaxOptions, thrownError) {
+            d.resolve();
+        });
+
+        return d.promise();
+    }
+
+    function returnOnOrderList(s, e){
+        window.location.href = '/Zapisnik/Index';
+    }
 
 </script>
 
@@ -235,7 +276,10 @@
         }
     </script>
 
-    @Html.DevExpress().Button(btn =>
+
+    @if (Model.Zapisnik.StatusId != 2)
+    {
+        @Html.DevExpress().Button(btn =>
 {
     btn.Name = "btnAddDevices";
     btn.Text = "Dodaj aparate";
@@ -244,6 +288,8 @@
     //btn.ControlStyle.CssClass = "export-button";
     //btn.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
 }).GetHtml()
+    }
+
 
 }
 
@@ -355,8 +401,44 @@
             </div>
 
             <div class="box-action">
-                <button id="close_zapisnik" type="button" class="btn btn-default">Zatvori</button>
-                <button type="submit" class="btn btn-danger pull-right">Spasi</button>
+
+                @*<a class="btn btn-default" href="@Url.Action("Index", "Zapisnik")">Zatvori</a>*@
+
+                @Html.DevExpress().Button(btn =>
+               {
+                   btn.Name = "btnClose";
+                   btn.Text = "Zatvori";
+                   btn.UseSubmitBehavior = false;
+                   btn.ClientSideEvents.Click = "returnOnOrderList";
+                   btn.ControlStyle.CssClass = "whiteButton";
+
+               }).GetHtml()
+
+                @if (Model.Zapisnik.StatusId == 2 && Model.Zapisnik.IzRadnogNalogaId == null && Model.Zapisnik.KreiraniRadniNalogId == null)
+                {
+
+                    @Html.DevExpress().Button(btn =>
+               {
+                   btn.Name = "btnCreateWorkOrder";
+                   btn.Text = "Kreiraj radni nalog";
+                   btn.UseSubmitBehavior = false;
+                   btn.ClientSideEvents.Click = "createWorkOrder";
+                   btn.ControlStyle.CssClass = "yellowButton";
+
+               }).GetHtml();
+                }
+
+                    @if (Model.Zapisnik.StatusId != 2)
+                    {
+                    @Html.DevExpress().Button(btn =>
+               {
+                   btn.Name = "btnSubmitRecord";
+                   btn.Text = "Spasi zapisnik";
+                   btn.UseSubmitBehavior = true;
+
+               }).GetHtml();
+                    @*<button type="submit" class="btn btn-danger pull-right">Spasi</button>*@
+                }
             </div>
         </div>
 

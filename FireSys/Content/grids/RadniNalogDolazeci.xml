@@ -1,0 +1,93 @@
+<GridSettings>
+<Name>radniNalogDolazeciGrid</Name>
+<Controller>RadniNalog</Controller>
+<Action>RadniNalogDolazeciGridView</Action>
+<WidthPercentage>100</WidthPercentage>
+<KeyFieldName>ZapisnikId</KeyFieldName>
+<ShowFilterRow>True</ShowFilterRow>
+<CommandColumnVisible>True</CommandColumnVisible>
+<ShowSelectCheckBox>True</ShowSelectCheckBox>
+<ExportSelectedRowsOnly>True</ExportSelectedRowsOnly>
+<ExportPageHeaderCenter>DOSTAH</ExportPageHeaderCenter>
+<ExportReportHeader>Vatrosistemi</ExportReportHeader>
+<ExportLandscape>True</ExportLandscape>
+<SelectAllCheckboxMode>Page</SelectAllCheckboxMode>
+<ShowFilterRowMenu>True</ShowFilterRowMenu>
+<ShowClearFilterButton>True</ShowClearFilterButton>
+<EnableAdaptivity>True</EnableAdaptivity>
+<ShowNewButton>False</ShowNewButton>
+<ShowDeleteButton>False</ShowDeleteButton>
+<ShowEditButton>False</ShowEditButton>
+<PagerMode>ShowPager</PagerMode>
+<PageSize>100</PageSize>
+<Columns>
+	<Column>
+		<FieldName>ZapisnikId</FieldName>
+		<Caption>ID</Caption>
+		<Visible>False</Visible>
+	</Column>
+	 <Column>
+		<IsReferential>True</IsReferential>
+		<FieldName>Klijent</FieldName>
+		<Caption>Klijent</Caption>
+		<Visible>True</Visible>
+		<ColumnType>TextBox</ColumnType>
+		<DataSource>GetClients</DataSource>
+		<TextField>Naziv</TextField>
+		<ValueField>Naziv</ValueField>
+		<ValueType>string</ValueType>
+		<DropDownStyle>DropDown</DropDownStyle>
+		<Width></Width>
+		<AllowAutoFilter>True</AllowAutoFilter>
+	</Column>
+	<Column>
+		<IsReferential>True</IsReferential>
+		<FieldName>Lokacija</FieldName>
+		<Caption>Lokacija</Caption>
+		<Visible>True</Visible>
+		<ColumnType>TextBox</ColumnType>
+		<DataSource>GetRegions</DataSource>
+		<TextField>Naziv</TextField>
+		<ValueField>Naziv</ValueField>
+		<ValueType>string</ValueType>
+		<DropDownStyle>DropDown</DropDownStyle>
+		<Width></Width>
+		<AllowAutoFilter>True</AllowAutoFilter>
+	</Column>
+	<Column>
+		<FieldName>BrojZapisnika</FieldName>
+		<Caption>Broj zapisnika</Caption>
+		<Visible>True</Visible>		
+	</Column>  
+	<Column>
+		<IsDate>True</IsDate>
+		<FieldName>DatumZapisnika</FieldName>
+		<Caption>Datum zapisnika</Caption>
+		<Visible>True</Visible>	
+		<ColumnType>DateEdit</ColumnType>		
+	</Column>
+	<Column>
+		<IsReferential>True</IsReferential>
+		<FieldName>VrstaZapisnika</FieldName>
+		<Caption>Tip</Caption>
+		<Visible>True</Visible>
+		<ColumnType>ComboBox</ColumnType>
+		<DataSource>GetZapisnikTip</DataSource>
+		<TextField>Naziv</TextField>
+		<ValueField>Naziv</ValueField>
+		<ValueType>string</ValueType>
+		<DropDownStyle>DropDown</DropDownStyle>
+		<Width></Width>
+		<AllowAutoFilter>True</AllowAutoFilter>
+	</Column>
+</Columns>
+<ActionFieldName>edit</ActionFieldName>
+<ActionCaption>Akcije</ActionCaption>
+<ActionWidth>0</ActionWidth>
+<ActionShowEdit>True</ActionShowEdit>
+<ActionEdit>Edit</ActionEdit>
+<ActionShowDelete>True</ActionShowDelete>
+<ActionDelete>Delete</ActionDelete>
+<ActionShowPrint>True</ActionShowPrint>
+<ActionPrint>Report</ActionPrint>
+</GridSettings>

@@ -88,7 +88,7 @@
     <div class="form-group col-lg-12 ">
         @Html.LabelFor(model => model.LokacijaId, "Lokacija", htmlAttributes: new { @class = "control-label " })
         <div>
-            @Html.DropDownListFor(x => x.LokacijaId, Enumerable.Empty<SelectListItem>(), "Odaberi lokaciju", new { @class = "form-control dropdown-lokacije" })
+            @Html.DropDownListFor(x => x.LokacijaId, Model.Lokacije, "Odaberi lokaciju", new { @class = "form-control dropdown-lokacije" })
             @Html.ValidationMessageFor(model => model.LokacijaId, "", new { @class = "text-danger" })
         </div>
     </div>

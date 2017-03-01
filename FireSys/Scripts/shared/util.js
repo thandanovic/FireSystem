@@ -37,6 +37,7 @@
     }
     function initLocationChangeEvent() {
         if ($(".dropdown-regije, .dropdown-klijenti").length > 0) {
+
             $(".dropdown-regije, .dropdown-klijenti").change(function () {
                 var regijaId = $(".dropdown-regije").val();
                 var klijentId = $(".dropdown-klijenti").val();

@@ -29,18 +29,7 @@ namespace FireSys.Controllers
 
         // GET: RadniNalog
         public ActionResult Index()
-        {
-            //var radniNalogs = db.RadniNalogs.Include(r => r.Lokacija);
-            //return View(radniNalogs.ToList());
-
-            //GridViewHelper.GetConfiguration(string.Empty);
-
-            var datumOd = new SqlParameter("@DatumOd", DateTime.Now.AddMonths(-24));
-                var datumDo = new SqlParameter("@DatumDo", DateTime.Now.AddMonths(24));
-            var result = db.Database
-                .SqlQuery<RadniNalogDolazeci>("spGetDolazeceNaloge @DatumOd, @DatumDo", datumOd, datumDo )
-                .ToList();
-
+        {            
             Session["WorkingSheetModel"] = GetSheets();
             return View(Session["WorkingSheetModel"]);
         }
@@ -55,6 +44,29 @@ namespace FireSys.Controllers
         {
             FireSysModel DB = new FireSysModel();
             return DB.RadniNalogs.ToList();
+        }
+
+
+        public ActionResult RadniNalogDolazeci()
+        {
+            Session["WorkingSheetModel"] = DolazeciGetSheets();
+            return View(Session["WorkingSheetModel"]);
+        }
+
+        public ActionResult RadniNalogDolazeciGridView()
+        {
+            Session["WorkingSheetModel"] = DolazeciGetSheets();
+            return PartialView("RadniNalogDolazeciGridView", Session["WorkingSheetModel"]);
+        }
+
+        public IEnumerable DolazeciGetSheets()
+        {
+            var datumOd = new SqlParameter("@DatumOd", DateTime.Now.AddMonths(-24));
+            var datumDo = new SqlParameter("@DatumDo", DateTime.Now.AddMonths(24));
+            var result = db.Database
+                .SqlQuery<RadniNalogDolazeci>("spGetDolazeceNaloge @DatumOd, @DatumDo", datumOd, datumDo)
+                .ToList();
+            return result;
         }
 
         public ActionResult ExportTo(string OutputFormat)
@@ -413,6 +425,113 @@ namespace FireSys.Controllers
             return Json(new
             {
                 message = "OK"
+            });
+        }
+
+        [HttpPost]
+        public JsonResult PoveziRadniNalog(string IDs)
+        {
+            int? lokacija = 0;
+            bool zapisnikHidrant = false ;
+            bool zapisnikAparat = false ;
+
+            int brojHidranta=0;
+            int brojAparata=0;
+
+            if (string.IsNullOrEmpty(IDs))
+            {
+                return Json(new
+                {
+                    message = "ERROR"
+                });
+            }
+
+            List<int> ids = IDs.Split(',').ToList().Select(int.Parse).ToList();
+            List<Zapisnik> zapisnici = db.Zapisniks.Where(x => ids.Contains(x.ZapisnikId)).ToList();
+
+            foreach (var zapisnik in zapisnici)
+            {
+                if (lokacija == 0)
+                {
+                    lokacija = zapisnik.LokacijaId;
+                }
+                else if (lokacija != zapisnik.LokacijaId)
+                {        
+                    return Json(new
+                    {
+                        message = "ERROR",
+                        errorMessage = "Nalog se može kreirati za samo jednu lokaciju."
+                    });
+                }
+
+                if (zapisnik.ZapisnikHidrants.Count > 0)
+                {
+                    zapisnikHidrant = true;
+                    brojHidranta += zapisnik.ZapisnikHidrants.Count;
+                }
+
+                if (zapisnik.ZapisnikAparats.Count > 0)
+                {
+                    zapisnikAparat = true;
+                    brojAparata += zapisnik.ZapisnikAparats.Count;
+                }
+            }
+
+            RadniNalog newRadniNalog = new RadniNalog
+            {
+                LokacijaId = lokacija.Value
+            };
+
+
+            int lastRadniNalogId = db.RadniNalogs.Max(r => r.RadniNalogId);
+
+            RadniNalog radniNalog = db.RadniNalogs.Find(lastRadniNalogId);
+
+            if(radniNalog.BrojNalogaGodina == DateTime.Now.Year)
+            {
+                newRadniNalog.BrojNaloga = radniNalog.BrojNaloga + 1;
+            }
+            else
+            {
+                newRadniNalog.BrojNaloga = 1;
+            }
+
+            newRadniNalog.BrojNalogaMjesec = DateTime.Now.Month;
+            newRadniNalog.BrojNalogaGodina = DateTime.Now.Year;
+            newRadniNalog.DatumKreiranja = DateTime.Now;
+            newRadniNalog.DatumNaloga = DateTime.Now;
+            newRadniNalog.KorisnikKreiraiId = Guid.Parse(base.User.Identity.GetUserId());
+            newRadniNalog.Hidranti = zapisnikHidrant;
+            newRadniNalog.Aparati = zapisnikAparat;
+            newRadniNalog.BrojHidranata = new int?(brojHidranta);
+            newRadniNalog.BrojAparata = new int?(brojAparata);
+            newRadniNalog.StatusId = 4;
+            db.RadniNalogs.Add(newRadniNalog);
+            db.SaveChanges();
+
+            foreach (var zapisnik in zapisnici)
+            {
+                zapisnik.KreiraniRadniNalogId = newRadniNalog.RadniNalogId;
+                db.Entry(zapisnik).State = EntityState.Modified;
+            }
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch
+            {
+                return Json(new
+                {
+                    message = "ERROR",
+                    errorMessage = "Desio se problem pri spasavanju u bazu."
+                });
+            }
+
+            return Json(new
+            {
+                message = "OK",
+                radniNalogId = newRadniNalog.RadniNalogId.ToString()
             });
         }
 

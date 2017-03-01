@@ -130,6 +130,7 @@ namespace FireSys.Models
         private SelectList _klijenti;
         private SelectList _regije;
         private SelectList _lokacijaVrste;
+        private SelectList _lokacije;
 
 
         public SelectList Klijenti
@@ -153,6 +154,15 @@ namespace FireSys.Models
             get
             {
                 return _lokacijaVrste ?? new SelectList(DataProvider.DB.LokacijaVrstas, "LokacijaVrstaId", "Naziv");
+            }
+            set { }
+        }
+
+        public SelectList Lokacije
+        {
+            get
+            {
+                return _lokacije ?? new SelectList(DataProvider.DB.Lokacijas, "LokacijaId", "Naziv");
             }
             set { }
         }

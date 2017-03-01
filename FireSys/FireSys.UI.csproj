@@ -366,6 +366,7 @@
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
     <Content Include="Content\grids\Hidranti.xml" />
     <Content Include="Content\grids\RadniNalozi.xml" />
+    <Content Include="Content\grids\RadniNalogDolazeci.xml" />
     <Content Include="Content\grids\Zapisnici.xml" />
     <Content Include="Content\img\CaWe-logo.png" />
     <Content Include="Content\plugins\jsgrid-1.5.3\i18n\jsgrid-de.js" />
@@ -604,6 +605,8 @@
     <Content Include="Views\Zapisnik\Reports\ZapisnikReport.cshtml" />
     <Content Include="Views\Zapisnik\AparatPartial.cshtml" />
     <Content Include="Views\RadniNalog\_DetailsCreate.cshtml" />
+    <Content Include="Views\RadniNalog\RadniNalogDolazeciGridView.cshtml" />
+    <Content Include="Views\RadniNalog\RadniNalogDolazeci.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

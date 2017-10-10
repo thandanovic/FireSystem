@@ -1,0 +1,17 @@
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\FireSys.Service.dll
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\FireSys.Service.pdb
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\FireSys.Common.dll
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\FireSys.Entities.dll
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\FireSys.Manager.dll
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\FireSys.DB.dll
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\EntityFramework.dll
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\FireSys.Common.pdb
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\FireSys.Entities.pdb
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\FireSys.Manager.pdb
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\FireSys.DB.pdb
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\EntityFramework.xml
+C:\DEV\FireSystem\FireSys.Service\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\DEV\FireSystem\FireSys.Service\obj\Debug\FireSys.Service.csprojResolveAssemblyReference.cache
+C:\DEV\FireSystem\FireSys.Service\obj\Debug\FireSys.Service.dll
+C:\DEV\FireSystem\FireSys.Service\obj\Debug\FireSys.Service.pdb

@@ -1,0 +1,14 @@
+C:\DEV\MVCBase\CaWe.DB\bin\Debug\MVCBase.DB.dll.config
+C:\DEV\MVCBase\CaWe.DB\bin\Debug\MVCBase.DB.dll
+C:\DEV\MVCBase\CaWe.DB\bin\Debug\MVCBase.DB.pdb
+C:\DEV\MVCBase\CaWe.DB\bin\Debug\EntityFramework.dll
+C:\DEV\MVCBase\CaWe.DB\bin\Debug\EntityFramework.SqlServer.dll
+C:\DEV\MVCBase\CaWe.DB\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\DEV\MVCBase\CaWe.DB\bin\Debug\MVCBase.Entities.dll
+C:\DEV\MVCBase\CaWe.DB\bin\Debug\MVCBase.Entities.pdb
+C:\DEV\MVCBase\CaWe.DB\bin\Debug\EntityFramework.xml
+C:\DEV\MVCBase\CaWe.DB\bin\Debug\EntityFramework.SqlServer.xml
+C:\DEV\MVCBase\CaWe.DB\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\DEV\MVCBase\CaWe.DB\obj\Debug\MVCBase.DB.csprojResolveAssemblyReference.cache
+C:\DEV\MVCBase\CaWe.DB\obj\Debug\MVCBase.DB.dll
+C:\DEV\MVCBase\CaWe.DB\obj\Debug\MVCBase.DB.pdb

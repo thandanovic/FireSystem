@@ -1,0 +1,1 @@
+C:\DEV\CaWe\CaWe.WebAPI\obj\Debug\CaWe.WebAPI.csprojResolveAssemblyReference.cache

@@ -1,0 +1,40 @@
+﻿@model FireSys.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Account";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@Html.HiddenFor(model => model.SuccessMessage);
+<div class="row">
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3>Basic information about user</h3>
+            </div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-lg-3">Email: </div>
+                    <div class="col-lg-9">@Model.UserInfo.Email</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">First Name: </div>
+                    <div class="col-lg-9">@Model.UserInfo.FirstName</div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-3">Last Name: </div>
+                    <div class="col-lg-9">@Model.UserInfo.LastName</div>
+                </div>
+
+            </div>
+            <div class="panel-footer clearfix">
+                <col-lg-12>
+                    <a role="button" href="@Url.Action("Edit", "Account")" class="btn btn-primary pull-right">Edit</a>
+                    <a role="button" href="@Url.Action("ChangePassword", "Account")" class="btn btn-primary pull-right margin-right-10 change-pass-btn">Change password</a>
+                </col-lg-12>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

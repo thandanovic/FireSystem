@@ -1,0 +1,4 @@
+C:\DEV\MVCBase\CaWe.Common\bin\Debug\MVCBase.Common.dll
+C:\DEV\MVCBase\CaWe.Common\bin\Debug\MVCBase.Common.pdb
+C:\DEV\MVCBase\CaWe.Common\obj\Debug\MVCBase.Common.dll
+C:\DEV\MVCBase\CaWe.Common\obj\Debug\MVCBase.Common.pdb

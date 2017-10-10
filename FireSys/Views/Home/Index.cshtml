@@ -1,0 +1,172 @@
+﻿@model FireSys.Entities.Order
+@{
+    ViewBag.Title = "View";
+    Layout = "~/Views/Shared/_HomeLayout.cshtml";
+}
+<hr class="style-one" />
+<div class="banner">
+    <img width="100" src="http://localhost:62610/Content/img/banner.jpg" />
+</div>
+
+<div class="col-lg-6 margin-top-25">
+    <div class="well">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-horizontal">
+                <h4>Order here</h4>
+                <hr />
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserInfo.Email, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.UserInfo.Email, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserInfo.Email, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserInfo.Company, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.UserInfo.Company, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserInfo.Company, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserInfo.ContactPerson, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.UserInfo.ContactPerson, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserInfo.ContactPerson, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserInfo.Street, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.UserInfo.Street, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserInfo.Street, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserInfo.ContactEmail, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.UserInfo.ContactEmail, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserInfo.ContactEmail, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.LocationId, "LocationId", htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-7">
+                        @Html.DropDownListFor(model => model.LocationId, new SelectList(Model.LocationsList.Select(x => new { Value = x.LocationId, Text = x.LocationName+ " - " + x.LocationPrice + " €" }), "Value", "Text"), "Select Location", new { @class = "form-control", @name = "Supervisor" })
+                        @Html.ValidationMessageFor(model => model.LocationId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ContainerId, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.ContainerId, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.ContainerId, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Deadline, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.Deadline, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.Deadline, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.TotalPrice, htmlAttributes: new { @class = "control-label col-md-4" })
+                    <div class="col-md-7">
+                        @Html.EditorFor(model => model.TotalPrice, new { htmlAttributes = new { disabled="disabled", @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TotalPrice, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-md-offset-4 col-md-7">
+                        <input type="submit" value="Create" class="btn btn-success pull-right" />
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+<div class="col-lg-6 margin-top-25">
+    <div class="well">
+        <h4 class="line-height-1-5">
+            Get your weight solution in 4 steps: <br>
+            &nbsp;&nbsp;&nbsp;1. Fill in the fields below.<br>
+            &nbsp;&nbsp;&nbsp;2. Select a location.<br>
+            &nbsp;&nbsp;&nbsp;3. Pay and weigh.<br>
+            &nbsp;&nbsp;&nbsp;4. Receive your weight by e-mail.<br>
+        </h4>
+    </div>
+    
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Available Locations
+        </div>
+        <!-- /.panel-heading -->
+        <div class="panel-body">
+            <div class="table-responsive">
+                <table class="table table-striped">
+                    <tr>
+                        <th>
+                            #
+                        </th>
+                        <th>
+                            Name
+                        </th>
+                        <th>
+                            Address
+                        </th>                        
+                        <th>
+                            Time
+                        </th>
+                        
+                        <th>
+                            Price
+                        </th>
+                       
+                    </tr>
+
+                    @foreach (var item in Model.LocationsList)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LocationId)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LocationName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LocationAddress)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LocationWorkingDays ) <br /> (@Html.DisplayFor(modelItem => item.LocationStartingTime) -  @Html.DisplayFor(modelItem => item.LocationEndTime) )                             
+                            </td>
+                            
+                            <td>
+                                @Html.DisplayFor(modelItem => item.LocationPrice)  €
+                            </td>
+                           
+                           
+                        </tr>
+                    }
+
+                </table>
+            </div>
+            <!-- /.table-responsive -->
+        </div>
+        <!-- /.panel-body -->
+    </div>
+</div>

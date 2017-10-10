@@ -1,0 +1,4 @@
+C:\DEV\MVCBase\CaWe.Entities\bin\Debug\MVCBase.Entities.dll
+C:\DEV\MVCBase\CaWe.Entities\bin\Debug\MVCBase.Entities.pdb
+C:\DEV\MVCBase\CaWe.Entities\obj\Debug\MVCBase.Entities.dll
+C:\DEV\MVCBase\CaWe.Entities\obj\Debug\MVCBase.Entities.pdb

@@ -1,0 +1,4 @@
+C:\DEV\FireSystem\FireSys.Entities\bin\Debug\FireSys.Entities.dll
+C:\DEV\FireSystem\FireSys.Entities\bin\Debug\FireSys.Entities.pdb
+C:\DEV\FireSystem\FireSys.Entities\obj\Debug\FireSys.Entities.dll
+C:\DEV\FireSystem\FireSys.Entities\obj\Debug\FireSys.Entities.pdb

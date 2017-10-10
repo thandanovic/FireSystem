@@ -1,0 +1,9 @@
+C:\Development\Private\CaWe\CaWe.Entities\bin\Debug\CaWe.Entities.dll
+C:\Development\Private\CaWe\CaWe.Entities\bin\Debug\CaWe.Entities.pdb
+C:\Development\Private\CaWe\CaWe.Entities\obj\Debug\CaWe.Entities.dll
+C:\Development\Private\CaWe\CaWe.Entities\obj\Debug\CaWe.Entities.pdb
+C:\DEV\CaWe\CaWe.Entities\bin\Debug\CaWe.Entities.dll
+C:\DEV\CaWe\CaWe.Entities\bin\Debug\CaWe.Entities.pdb
+C:\DEV\CaWe\CaWe.Entities\obj\Debug\CaWe.Entities.csprojResolveAssemblyReference.cache
+C:\DEV\CaWe\CaWe.Entities\obj\Debug\CaWe.Entities.dll
+C:\DEV\CaWe\CaWe.Entities\obj\Debug\CaWe.Entities.pdb

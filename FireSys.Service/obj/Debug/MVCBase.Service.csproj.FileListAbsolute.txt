@@ -1,0 +1,17 @@
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\CaWe.Service.dll
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\CaWe.Service.pdb
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\MVCBase.Common.dll
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\MVCBase.Entities.dll
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\MVCBase.Manager.dll
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\MVCBase.DB.dll
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\EntityFramework.dll
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\MVCBase.Common.pdb
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\MVCBase.Entities.pdb
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\MVCBase.Manager.pdb
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\MVCBase.DB.pdb
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\EntityFramework.xml
+C:\DEV\MVCBase\CaWe.Service\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+C:\DEV\MVCBase\CaWe.Service\obj\Debug\MVCBase.Service.csprojResolveAssemblyReference.cache
+C:\DEV\MVCBase\CaWe.Service\obj\Debug\CaWe.Service.dll
+C:\DEV\MVCBase\CaWe.Service\obj\Debug\CaWe.Service.pdb

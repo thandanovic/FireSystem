@@ -1,0 +1,74 @@
+﻿@model IEnumerable<FireSys.Entities.UserInfo>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create", "", new { @class = "btn btn-success pull-right margin-bottom-10" })
+</p>
+<table class="table table-striped table-hover" >
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Company)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactPerson)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Street)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ContactEmail)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.LastName)
+        </td>        
+        <td>
+            @Html.DisplayFor(modelItem => item.Company)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactPerson)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Street)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ContactEmail)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedOn)
+        </td>
+        <td>
+            @Html.ActionLink(" ", "Edit", new { id = item.UserId }, new { @class = "fa fa-edit" }) |
+            @Html.ActionLink(" ", "Details", new { id = item.UserId }, new { @class = "fa fa-search" }) |
+            @Html.ActionLink(" ", "Delete", new { id = item.UserId }, new { @class = "fa fa-trash-o" })
+        </td>
+    </tr>
+}
+
+</table>

@@ -13,7 +13,7 @@
 }
 
 .logo{
-    background-image: url("../Content/img/CaWe-logo.png");
+    background-image: url("../Content/img/logo.png");
     background-repeat: no-repeat;
     background-position: center;
     min-height: 160px;
@@ -63,11 +63,11 @@
 
 
 .logo-menu{
-    background-image: url("../Content/img/CaWe-logo-menu.jpg");
+    background-image: url("../Content/img/logo.png");
     background-repeat: no-repeat;
     background-position: center;
     min-height: 85px;   
-    width:86px;
+    width:420px;
     float:left;
 }
 

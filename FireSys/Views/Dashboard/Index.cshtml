@@ -14,8 +14,67 @@
                         <i class="fa fa-users fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">@Model.Clients.Count</div>
-                        <div>Clients</div>
+                        <div class="huge">@Model.Hidranti.Count</div>
+                        <div>Hidranti</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">View Details</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>
+                                Id
+                            </th>
+                            <th>
+                                Tip
+                            </th>
+                            <th>
+                                Company
+                            </th>
+                        </tr>
+
+                        @foreach (var item in Model.Hidranti.Take(10))
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HidrantId)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HidrantTip.Naziv) 
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Kompletnost.Naziv)
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                </div>
+                <!-- /.table-responsive -->
+            </div>
+        </div>
+
+    </div>
+    
+    
+    <div class="col-lg-4 col-md-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-shopping-cart fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">@Model.Hidranti.Count</div>
+                        <div>Radni nalozi</div>
                     </div>
                 </div>
             </div>
@@ -41,91 +100,18 @@
                             </th>
                         </tr>
 
-                        @foreach (var item in Model.Clients)
+                        @foreach (var item in Model.Hidranti.OrderByDescending(x=>x.HidrantId).Take(10))
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Email)
+                                    @Html.DisplayFor(modelItem => item.HidrantId)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.User.FirstName) @Html.DisplayFor(modelItem => item.User.LastName) 
+                                    @Html.DisplayFor(modelItem => item.HidrantTip.Naziv)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.Company)
+                                    @Html.DisplayFor(modelItem => item.Kompletnost.Naziv)
                                 </td>
-                            </tr>
-                        }
-
-                    </table>
-                </div>
-                <!-- /.table-responsive -->
-            </div>
-        </div>
-
-    </div>
-    
-    
-    <div class="col-lg-4 col-md-6">
-        <div class="panel panel-yellow">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-shopping-cart fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge">@Model.Orders.Count</div>
-                        <div>Orders!</div>
-                    </div>
-                </div>
-            </div>
-            <a href="#">
-                <div class="panel-footer">
-                    <span class="pull-left">View Details</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                    <div class="clearfix"></div>
-                </div>
-            </a>
-            <div class="panel-body">
-                <div class="table-responsive">
-                    <table class="table table-striped">
-                        <tr>
-                            <th>
-                                Client
-                            </th>
-                            <th>
-                                Location
-                            </th>
-                            <th>
-                                Payment
-                            </th>
-                            <th>
-                                Status
-                            </th>
-                            <th>
-                                Weight
-                            </th>
-                        </tr>
-
-                        @foreach (var item in Model.Orders)
-                        {
-                            <tr>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.UserInfo.Email)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Location.LocationName) 
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.PaymentStatus)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.OrderStatus)
-                                </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.Weight)
-                                </td>
-
-
                             </tr>
                         }
 
@@ -143,8 +129,8 @@
                         <i class="fa fa-home fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">@Model.Locations.Count()</div>
-                        <div>Locations!</div>
+                        <div class="huge">@Model.Hidranti.Count()</div>
+                        <div>Vatrogasni aparati</div>
                     </div>
                 </div>
             </div>
@@ -160,45 +146,28 @@
                     <table class="table table-striped">
                         <tr>
                             <th>
-                                #
+                                Email
                             </th>
                             <th>
                                 Name
                             </th>
                             <th>
-                                Address
+                                Company
                             </th>
-                            <th>
-                                Time
-                            </th>
-
-                            <th>
-                                Price
-                            </th>
-
                         </tr>
 
-                        @foreach (var item in Model.Locations)
+                        @foreach (var item in Model.Hidranti.Take(10))
                         {
                             <tr>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.LocationId)
+                                    @Html.DisplayFor(modelItem => item.HidrantId)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.LocationName)
+                                    @Html.DisplayFor(modelItem => item.HidrantTip.Naziv)
                                 </td>
                                 <td>
-                                    @Html.DisplayFor(modelItem => item.LocationAddress)
+                                    @Html.DisplayFor(modelItem => item.Kompletnost.Naziv)
                                 </td>
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.LocationWorkingDays) <br /> (@Html.DisplayFor(modelItem => item.LocationStartingTime) -  @Html.DisplayFor(modelItem => item.LocationEndTime) )
-                                </td>
-
-                                <td>
-                                    @Html.DisplayFor(modelItem => item.LocationPrice)  €
-                                </td>
-
-
                             </tr>
                         }
 

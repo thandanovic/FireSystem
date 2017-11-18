@@ -21,7 +21,7 @@ namespace FireSys.Controllers
         public ActionResult Index()
         {
             DashboardViewModel model = new DashboardViewModel();
-           // model.Locations = db.Locations.ToList();
+            model.Hidranti = db.Hidrants.ToList();
            // model.Orders = db.Orders.Include("UserInfo").Include("Location").ToList();
            // model.Clients = db.UserInfos.Include("User").Where(x=>x.Email.StartsWith("user")).ToList();
 

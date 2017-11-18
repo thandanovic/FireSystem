@@ -9,8 +9,8 @@ namespace FireSys.Models
 {
     public class DashboardViewModel : BaseViewModel
     {
-        public List<UserInfo> Clients { get; set; }
-        public List<Order> Orders { get; set; }
-        public List<Location> Locations { get; set; }
+        public List<Hidrant> Hidranti { get; set; }
+        public List<Hidrant> Orders { get; set; }
+        public List<Hidrant> Locations { get; set; }
     }
 }

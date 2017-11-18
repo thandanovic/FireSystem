@@ -1,4 +1,5 @@
 ﻿using FireSys.Attributes;
+using FireSys.DB;
 using FireSys.Entities;
 using FireSys.Manager;
 using FireSys.Models;
@@ -48,7 +49,7 @@ namespace FireSys.Controllers
                 return View("Edit", model);
 
             UserManager userManager = new UserManager();
-            User updateUser = userManager.Find(u => u.Email == User.Identity.Name).FirstOrDefault();
+            FireSys.Entities.AspNetUser updateUser = userManager.Find(u => u.UserName == User.Identity.Name).FirstOrDefault();
             updateUser.FirstName = model.UserInfo.FirstName;
             updateUser.LastName = model.UserInfo.LastName;
             userManager.Update(updateUser);

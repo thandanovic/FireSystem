@@ -69,7 +69,7 @@ namespace FireSys.Manager
 
     #region Partials
 
-    public partial class UserManager : BaseManager<User> { }
+    public partial class UserManager : BaseManager<FireSys.Entities.AspNetUser> { }
     public partial class UserRoleManager : BaseManager<UserRole> { }
     public partial class RoleManager : BaseManager<Role> { }
     public partial class OrderManager : BaseManager<Order> { }

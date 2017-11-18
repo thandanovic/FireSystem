@@ -41,16 +41,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseEntity.cs" />
+    <Compile Include="AspNetRole.cs" />
+    <Compile Include="AspNetUser.cs" />
+    <Compile Include="AspNetUserClaim.cs" />
+    <Compile Include="AspNetUserLogin.cs" />
+    <Compile Include="AspNetUserRole.cs" />
+    <Compile Include="EvidencijskaKartica.cs" />
+    <Compile Include="EvidencijskaKarticaTip.cs" />
+    <Compile Include="Hidrant.cs" />
+    <Compile Include="HidrantTip.cs" />
+    <Compile Include="Instalacija.cs" />
+    <Compile Include="Ispravnost.cs" />
+    <Compile Include="Klijent.cs" />
+    <Compile Include="Kompletnost.cs" />
+    <Compile Include="Korisnik.cs" />
+    <Compile Include="Lokacija.cs" />
+    <Compile Include="LokacijaVrsta.cs" />
+    <Compile Include="Mjesto.cs" />
+    <Compile Include="OldEntities\BaseEntity.cs" />
     <Compile Include="Interface\IRole.cs" />
     <Compile Include="Interface\IUser.cs" />
+    <Compile Include="PromjerMlaznice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Role.cs" />
-    <Compile Include="Location.cs" />
-    <Compile Include="Order.cs" />
-    <Compile Include="UserInfo.cs" />
-    <Compile Include="User.cs" />
-    <Compile Include="UserRole.cs" />
+    <Compile Include="OldEntities\Role.cs" />
+    <Compile Include="OldEntities\Location.cs" />
+    <Compile Include="OldEntities\Order.cs" />
+    <Compile Include="OldEntities\UserInfo.cs" />
+    <Compile Include="OldEntities\User.cs" />
+    <Compile Include="OldEntities\UserRole.cs" />
+    <Compile Include="RadniNalog.cs" />
+    <Compile Include="RadniNalogAparat.cs" />
+    <Compile Include="RadniNalogHidrant.cs" />
+    <Compile Include="Regija.cs" />
+    <Compile Include="SistemskiPodaci.cs" />
+    <Compile Include="VatrogasniAparat.cs" />
+    <Compile Include="VatrogasniAparatTip.cs" />
+    <Compile Include="VatrogasniAparatVrsta.cs" />
+    <Compile Include="viewGridLokacijeList.cs" />
+    <Compile Include="viewGridZapisniciList.cs" />
+    <Compile Include="viewUsersFull.cs" />
+    <Compile Include="viewZapisniciRadniNalozi.cs" />
+    <Compile Include="Zapisnik.cs" />
+    <Compile Include="ZapisnikAparat.cs" />
+    <Compile Include="ZapisnikHidrant.cs" />
+    <Compile Include="ZapisnikTip.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

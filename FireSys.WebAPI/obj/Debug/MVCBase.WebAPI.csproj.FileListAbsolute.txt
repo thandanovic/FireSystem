@@ -114,9 +114,9 @@ C:\DEV\FireSystem\FireSys.WebAPI\bin\System.Web.WebPages.Razor.xml
 C:\DEV\FireSystem\FireSys.WebAPI\bin\Antlr3.Runtime.pdb
 C:\DEV\FireSystem\FireSys.WebAPI\bin\FireSys.Manager.pdb
 C:\DEV\FireSystem\FireSys.WebAPI\bin\FireSys.DB.pdb
+C:\DEV\FireSystem\FireSys.WebAPI\bin\FireSys.DB.dll.config
 C:\DEV\FireSystem\FireSys.WebAPI\bin\Microsoft.AspNet.Identity.Core.xml
 C:\DEV\FireSystem\FireSys.WebAPI\obj\Debug\MVCBase.WebAPI.csprojResolveAssemblyReference.cache
+C:\DEV\FireSystem\FireSys.WebAPI\obj\Debug\MVCBase.WebAPI.csproj.CoreCompileInputs.cache
 C:\DEV\FireSystem\FireSys.WebAPI\obj\Debug\CaWe.WebAPI.dll
 C:\DEV\FireSystem\FireSys.WebAPI\obj\Debug\CaWe.WebAPI.pdb
-C:\DEV\FireSystem\FireSys.WebAPI\bin\FireSys.DB.dll.config
-C:\DEV\FireSystem\FireSys.WebAPI\obj\Debug\MVCBase.WebAPI.csproj.CoreCompileInputs.cache

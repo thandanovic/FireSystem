@@ -44,6 +44,8 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -52,10 +54,51 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AspNetRole.cs" />
+    <Compile Include="AspNetUser.cs" />
+    <Compile Include="AspNetUserClaim.cs" />
+    <Compile Include="AspNetUserLogin.cs" />
+    <Compile Include="AspNetUserRole.cs" />
     <Compile Include="BaseDB.cs" />
+    <Compile Include="C__MigrationHistory.cs" />
+    <Compile Include="C__RefactorLog.cs" />
+    <Compile Include="EvidencijskaKartica.cs" />
+    <Compile Include="EvidencijskaKarticaTip.cs" />
+    <Compile Include="FireSysModel.cs" />
+    <Compile Include="Hidrant.cs" />
+    <Compile Include="HidrantTip.cs" />
+    <Compile Include="Instalacija.cs" />
+    <Compile Include="Ispravnost.cs" />
+    <Compile Include="Klijent.cs" />
+    <Compile Include="Kompletnost.cs" />
+    <Compile Include="Korisnik.cs" />
+    <Compile Include="Lokacija.cs" />
+    <Compile Include="LokacijaVrsta.cs" />
+    <Compile Include="Migrations\201711180624425_InitialCreate.cs" />
+    <Compile Include="Migrations\201711180624425_InitialCreate.Designer.cs">
+      <DependentUpon>201711180624425_InitialCreate.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Mjesto.cs" />
+    <Compile Include="PromjerMlaznice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RadniNalog.cs" />
+    <Compile Include="RadniNalogAparat.cs" />
+    <Compile Include="RadniNalogHidrant.cs" />
+    <Compile Include="Regija.cs" />
     <Compile Include="Repository.cs" />
+    <Compile Include="SistemskiPodaci.cs" />
+    <Compile Include="VatrogasniAparat.cs" />
+    <Compile Include="VatrogasniAparatTip.cs" />
+    <Compile Include="VatrogasniAparatVrsta.cs" />
+    <Compile Include="viewGridLokacijeList.cs" />
+    <Compile Include="viewGridZapisniciList.cs" />
+    <Compile Include="viewUsersFull.cs" />
+    <Compile Include="viewZapisniciRadniNalozi.cs" />
+    <Compile Include="Zapisnik.cs" />
+    <Compile Include="ZapisnikAparat.cs" />
+    <Compile Include="ZapisnikHidrant.cs" />
+    <Compile Include="ZapisnikTip.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Interface\" />
@@ -69,6 +112,14 @@
       <Project>{40b688cd-c0df-45f9-9633-dceb5c4891d9}</Project>
       <Name>FireSys.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201711180624425_InitialCreate.resx">
+      <DependentUpon>201711180624425_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

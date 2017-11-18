@@ -21,7 +21,7 @@ namespace FireSys.UI.Manager
         public UserViewModel GetModel(string username)
         {
             UserViewModel model = new UserViewModel();
-            model.UserInfo = UserManager.Find(u => u.Email == username).FirstOrDefault();
+            model.UserInfo = UserManager.Find(u => u.UserName == username).FirstOrDefault();
             return model;
         }
     }

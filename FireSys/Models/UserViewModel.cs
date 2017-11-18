@@ -1,4 +1,5 @@
-﻿using FireSys.Entities;
+﻿
+using FireSys.Entities;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -9,6 +10,6 @@ namespace FireSys.Models
 {
     public class UserViewModel: BaseViewModel
     {
-        public User  UserInfo {get;set;} 
+        public AspNetUser  UserInfo {get;set;} 
     }
 }

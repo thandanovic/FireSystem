@@ -11,7 +11,7 @@ namespace FireSys.Controllers
 {
     public class DashboardController : BaseController
     {
-        private Repository db = new Repository();
+        private FireSysModel db = new FireSysModel();
         // GET: Dashboard
         /// <summary>
         /// Test only
@@ -21,9 +21,9 @@ namespace FireSys.Controllers
         public ActionResult Index()
         {
             DashboardViewModel model = new DashboardViewModel();
-            model.Locations = db.Locations.ToList();
-            model.Orders = db.Orders.Include("UserInfo").Include("Location").ToList();
-            model.Clients = db.UserInfos.Include("User").Where(x=>x.Email.StartsWith("user")).ToList();
+           // model.Locations = db.Locations.ToList();
+           // model.Orders = db.Orders.Include("UserInfo").Include("Location").ToList();
+           // model.Clients = db.UserInfos.Include("User").Where(x=>x.Email.StartsWith("user")).ToList();
 
             return View(model);
         }

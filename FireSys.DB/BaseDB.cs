@@ -10,11 +10,11 @@ namespace FireSys.DB
     public class BaseDB<TEntity> where TEntity : class
     {
         #region Fields
-        private Repository repository;
+        private FireSysModel repository;
 
-        public Repository Repository
+        public FireSysModel Repository
         {
-            get { return repository ?? (repository = new Repository()); }
+            get { return repository ?? (repository = new FireSysModel()); }
         }
         #endregion
 

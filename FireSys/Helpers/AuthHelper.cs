@@ -1,4 +1,5 @@
 ﻿using FireSys.Common;
+using FireSys.DB;
 using FireSys.Entities;
 using FireSys.Manager;
 using FireSys.Models;
@@ -43,12 +44,12 @@ namespace FireSys.Helpers
         public bool SignIn(LoginViewModel userModel)
         {
             // Get user
-            User user = this.TryToLogin(userModel);
+            FireSys.Entities.AspNetUser user = this.TryToLogin(userModel);
             if (user == null)
                 return false;
 
             List<Claim> userClaims = new List<Claim>();
-            userClaims.Add(new Claim(ClaimTypes.Name, user.Email));
+            userClaims.Add(new Claim(ClaimTypes.Name, user.UserName));
             //userClaims.Add(new Claim(ClaimTypes.NameIdentifier, user.UserId));
 
             //// Get roles
@@ -76,20 +77,20 @@ namespace FireSys.Helpers
             this.AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
         }
 
-        private User TryToLogin(LoginViewModel model)
+        private FireSys.Entities.AspNetUser TryToLogin(LoginViewModel model)
         {
 
             // Get all users from DB
-            IEnumerable<User> users = UserManager.Find(u => u.Email == model.Email);
+            IEnumerable<FireSys.Entities.AspNetUser> users = UserManager.Find(u => u.UserName == model.Username);
 
             if (users == null || users.Count() == 0)
             {
                 model.AlertMessage = "User not found! Try with different email and password!";
                 return null;
             }
-            
+
             // Get specific user
-            User user = users.FirstOrDefault(x => x.Email == model.Email); 
+            FireSys.Entities.AspNetUser user = users.FirstOrDefault(x => x.UserName == model.Username); 
             
 
             // If user don't exist return null
@@ -101,7 +102,7 @@ namespace FireSys.Helpers
               
 
             // Verify users password and return user if password matches, otherwise retun null
-            if (PasswordHasher.VerifyHashedPassword(user.Pass, model.Password) == PasswordVerificationResult.Success)
+            if (PasswordHasher.VerifyHashedPassword(user.PasswordHash, model.Password) == PasswordVerificationResult.Success)
             {
                 return user;
             }

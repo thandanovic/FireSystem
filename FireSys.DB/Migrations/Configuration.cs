@@ -5,17 +5,15 @@ namespace FireSys.DB.Migrations
     using System.Data.Entity.Migrations;
     using System.Linq;
     using Microsoft.AspNet.Identity;
-    using Entities;
 
-    internal sealed class Configuration : DbMigrationsConfiguration<FireSys.DB.Repository>
+    internal sealed class Configuration : DbMigrationsConfiguration<FireSys.DB.FireSysModel>
     {
         public Configuration()
         {
             AutomaticMigrationsEnabled = true;
-            AutomaticMigrationDataLossAllowed = true;
         }
 
-        protected override void Seed(FireSys.DB.Repository context)
+        protected override void Seed(FireSys.DB.FireSysModel context)
         {
             PasswordHasher hasher = new PasswordHasher();
             //  This method will be called after migrating to the latest version.
@@ -31,16 +29,15 @@ namespace FireSys.DB.Migrations
             //    );
             //
 
-            context.Users.AddOrUpdate(
-                new Entities.User() { Email = "admin@gmail.com", Pass = hasher.HashPassword("nimda"), CreatedOn = DateTime.Now, UpdatedOn = DateTime.Now }
-                );
-
-            context.Roles.AddOrUpdate(
-                 new Entities.Role() { Name = "admin", Description = "zestoki momak" }
-                );
-            context.UserRoles.AddOrUpdate(
-                new Entities.UserRole() { UserId = 1, RoleId = 1 });
-
+            context.AspNetUsers.AddOrUpdate(
+                new AspNetUser()
+                {
+                    Id = "testuser",
+                    UserName = "admin",
+                    PasswordHash = hasher.HashPassword("nimda"),
+                    Discriminator = "ApplicationUser",
+                    SecurityStamp = ""
+                });
         }
     }
 }

@@ -1,5 +1,0 @@
-C:\DEV\FireSystem\FireSys.Common\bin\Debug\FireSys.Common.dll
-C:\DEV\FireSystem\FireSys.Common\bin\Debug\FireSys.Common.pdb
-C:\DEV\FireSystem\FireSys.Common\obj\Debug\FireSys.Common.csproj.CoreCompileInputs.cache
-C:\DEV\FireSystem\FireSys.Common\obj\Debug\FireSys.Common.dll
-C:\DEV\FireSystem\FireSys.Common\obj\Debug\FireSys.Common.pdb

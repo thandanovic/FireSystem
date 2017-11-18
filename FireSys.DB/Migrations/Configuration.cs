@@ -30,7 +30,7 @@ namespace FireSys.DB.Migrations
             //
 
             context.AspNetUsers.AddOrUpdate(
-                new AspNetUser()
+                new FireSys.Entities.AspNetUser()
                 {
                     Id = "testuser",
                     UserName = "admin",

@@ -12,3 +12,4 @@ C:\DEV\FireSystem\FireSys.DB\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 C:\DEV\FireSystem\FireSys.DB\obj\Debug\FireSys.DB.csprojResolveAssemblyReference.cache
 C:\DEV\FireSystem\FireSys.DB\obj\Debug\FireSys.DB.dll
 C:\DEV\FireSystem\FireSys.DB\obj\Debug\FireSys.DB.pdb
+C:\DEV\FireSystem\FireSys.DB\obj\Debug\FireSys.DB.csproj.CoreCompileInputs.cache

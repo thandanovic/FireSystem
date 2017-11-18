@@ -118,3 +118,5 @@ C:\DEV\FireSystem\FireSys.WebAPI\bin\Microsoft.AspNet.Identity.Core.xml
 C:\DEV\FireSystem\FireSys.WebAPI\obj\Debug\MVCBase.WebAPI.csprojResolveAssemblyReference.cache
 C:\DEV\FireSystem\FireSys.WebAPI\obj\Debug\CaWe.WebAPI.dll
 C:\DEV\FireSystem\FireSys.WebAPI\obj\Debug\CaWe.WebAPI.pdb
+C:\DEV\FireSystem\FireSys.WebAPI\bin\FireSys.DB.dll.config
+C:\DEV\FireSystem\FireSys.WebAPI\obj\Debug\MVCBase.WebAPI.csproj.CoreCompileInputs.cache

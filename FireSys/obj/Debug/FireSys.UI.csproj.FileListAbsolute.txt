@@ -79,3 +79,5 @@ C:\DEV\FireSystem\FireSys\bin\Antlr3.Runtime.pdb
 C:\DEV\FireSystem\FireSys\obj\Debug\FireSys.UI.csprojResolveAssemblyReference.cache
 C:\DEV\FireSystem\FireSys\obj\Debug\FireSys.dll
 C:\DEV\FireSystem\FireSys\obj\Debug\FireSys.pdb
+C:\DEV\FireSystem\FireSys\bin\FireSys.DB.dll.config
+C:\DEV\FireSystem\FireSys\obj\Debug\FireSys.UI.csproj.CoreCompileInputs.cache

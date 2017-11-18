@@ -90,7 +90,7 @@ hr.style-one {
     border: 0;
     height: 1px;
     background: #333;
-    background-image: linear-gradient(to right, #f8f8f8, #1ab9a6, #f8f8f8);
+    background-image: linear-gradient(to right, #ffffff, #ed1d24, #e3e3e3);
     position:relative;
 }
 body, html {

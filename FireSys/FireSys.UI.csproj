@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -202,6 +203,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AuthHelper.cs" />
+    <Compile Include="HidrantsController.cs" />
     <Compile Include="Manager\AccountManager.cs" />
     <Compile Include="Models\DashboardViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -380,6 +382,11 @@
     <Content Include="Views\Locations\Edit.cshtml" />
     <Content Include="Views\Locations\Index.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
+    <Content Include="Views\Hidrants\Create.cshtml" />
+    <Content Include="Views\Hidrants\Delete.cshtml" />
+    <Content Include="Views\Hidrants\Details.cshtml" />
+    <Content Include="Views\Hidrants\Edit.cshtml" />
+    <Content Include="Views\Hidrants\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

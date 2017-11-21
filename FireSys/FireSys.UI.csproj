@@ -202,6 +202,7 @@
     <Compile Include="Controllers\LokacijaController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\RadniNalogController.cs" />
+    <Compile Include="Controllers\RekapitulacijaController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VatrogasniAparatController.cs" />
@@ -397,11 +398,11 @@
     <Content Include="Views\Klijenti\Details.cshtml" />
     <Content Include="Views\Klijenti\Edit.cshtml" />
     <Content Include="Views\Klijenti\Index.cshtml" />
-    <Content Include="Views\Lokacijas\Create.cshtml" />
-    <Content Include="Views\Lokacijas\Delete.cshtml" />
-    <Content Include="Views\Lokacijas\Details.cshtml" />
-    <Content Include="Views\Lokacijas\Edit.cshtml" />
-    <Content Include="Views\Lokacijas\Index.cshtml" />
+    <Content Include="Views\Lokacija\Create.cshtml" />
+    <Content Include="Views\Lokacija\Delete.cshtml" />
+    <Content Include="Views\Lokacija\Details.cshtml" />
+    <Content Include="Views\Lokacija\Edit.cshtml" />
+    <Content Include="Views\Lokacija\Index.cshtml" />
     <Content Include="Views\RadniNalog\Create.cshtml" />
     <Content Include="Views\RadniNalog\Delete.cshtml" />
     <Content Include="Views\RadniNalog\Details.cshtml" />
@@ -417,11 +418,12 @@
     <Content Include="Views\Zapisnik\Details.cshtml" />
     <Content Include="Views\Zapisnik\Edit.cshtml" />
     <Content Include="Views\Zapisnik\Index.cshtml" />
+    <Content Include="Views\Fakture\Index.cshtml" />
+    <Content Include="Views\Rekapitulacija\Rekapitulacija.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
-    <Folder Include="Views\Fakture\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

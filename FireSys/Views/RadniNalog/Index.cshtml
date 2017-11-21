@@ -1,0 +1,106 @@
+﻿@model IEnumerable<FireSys.Entities.RadniNalog>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Lokacija.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumNaloga)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KorisnikKreiraiId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrojNaloga)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrojNalogaMjesec)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrojNalogaGodina)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumKreiranja)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Aparati)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Hidranti)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Komentar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrojHidranata)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrojAparata)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Narucilac)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lokacija.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumNaloga)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KorisnikKreiraiId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrojNaloga)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrojNalogaMjesec)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrojNalogaGodina)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumKreiranja)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Aparati)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Hidranti)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Komentar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrojHidranata)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrojAparata)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Narucilac)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.RadniNalogId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.RadniNalogId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.RadniNalogId })
+        </td>
+    </tr>
+}
+
+</table>

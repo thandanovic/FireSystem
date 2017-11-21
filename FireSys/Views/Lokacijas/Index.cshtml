@@ -1,0 +1,100 @@
+﻿@model IEnumerable<FireSys.Entities.Lokacija>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Klijent.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LokacijaVrsta.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Mjesto.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Regija.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adresa)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Kontakt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Komentar)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumKreiranja)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KorisnikKreiraoId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumBrisanja)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Obrisano)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Klijent.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LokacijaVrsta.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Mjesto.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Regija.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adresa)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Kontakt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Komentar)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumKreiranja)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KorisnikKreiraoId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumBrisanja)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Obrisano)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LokacijaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LokacijaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LokacijaId })
+        </td>
+    </tr>
+}
+
+</table>

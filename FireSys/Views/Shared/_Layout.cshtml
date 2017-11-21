@@ -8,6 +8,8 @@
     @Styles.Render("~/css/shared")
     @Scripts.Render("~/modernizr")
     @Styles.Render("~/css/charts")
+    @Scripts.Render("~/jquery")
+    @Scripts.Render("~/js/bootstrap")
   
 </head>
 <body>    
@@ -81,8 +83,7 @@
         </div>
         <footer></footer>
     </div>
-    @Scripts.Render("~/jquery")
-    @Scripts.Render("~/js/bootstrap")
+  
     @Scripts.Render("~/js/shared")
     @Scripts.Render("~/js/charts")
     @RenderSection("scripts", required: false)

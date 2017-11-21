@@ -1,0 +1,100 @@
+﻿@model IEnumerable<FireSys.Entities.VatrogasniAparat>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EvidencijskaKartica.BrojEvidencijskeKartice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ispravnost.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Lokacija.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VatrogasniAparatTip.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.VatrogasniAparatVrsta.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrojaAparata)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.GodinaProizvodnje)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Napomena)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IspitivanjeVrijediDo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumKreiranja)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Obrisan)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KorisnikKreiraoId)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EvidencijskaKartica.BrojEvidencijskeKartice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ispravnost.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Lokacija.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VatrogasniAparatTip.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.VatrogasniAparatVrsta.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrojaAparata)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.GodinaProizvodnje)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Napomena)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IspitivanjeVrijediDo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumKreiranja)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Obrisan)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KorisnikKreiraoId)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.VatrogasniAparatId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.VatrogasniAparatId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.VatrogasniAparatId })
+        </td>
+    </tr>
+}
+
+</table>

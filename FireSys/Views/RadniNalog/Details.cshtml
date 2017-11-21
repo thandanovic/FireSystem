@@ -1,0 +1,123 @@
+﻿@model FireSys.Entities.RadniNalog
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>RadniNalog</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Lokacija.Naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lokacija.Naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumNaloga)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumNaloga)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KorisnikKreiraiId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KorisnikKreiraiId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrojNaloga)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrojNaloga)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrojNalogaMjesec)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrojNalogaMjesec)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrojNalogaGodina)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrojNalogaGodina)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumKreiranja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumKreiranja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Aparati)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Aparati)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Hidranti)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Hidranti)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Komentar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Komentar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrojHidranata)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrojHidranata)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrojAparata)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrojAparata)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Narucilac)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Narucilac)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.RadniNalogId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -45,6 +45,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.3500.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -106,9 +109,8 @@
       <HintPath>..\packages\Microsoft.Owin.Security.Cookies.3.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
       <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
@@ -192,18 +194,23 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\EvidencijskaKarticaController.cs" />
+    <Compile Include="Controllers\FaktureController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LocationsController.cs" />
+    <Compile Include="Controllers\KlijentiController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LokacijaController.cs" />
     <Compile Include="Controllers\OrdersController.cs" />
+    <Compile Include="Controllers\RadniNalogController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\UserInfoesController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VatrogasniAparatController.cs" />
+    <Compile Include="Controllers\ZapisnikController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\AuthHelper.cs" />
-    <Compile Include="HidrantsController.cs" />
+    <Compile Include="Controllers\HidrantsController.cs" />
     <Compile Include="Manager\AccountManager.cs" />
     <Compile Include="Models\DashboardViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
@@ -376,21 +383,45 @@
     <Content Include="Views\UserInfoes\Details.cshtml" />
     <Content Include="Views\UserInfoes\Edit.cshtml" />
     <Content Include="Views\UserInfoes\Index.cshtml" />
-    <Content Include="Views\Locations\Create.cshtml" />
-    <Content Include="Views\Locations\Delete.cshtml" />
-    <Content Include="Views\Locations\Details.cshtml" />
-    <Content Include="Views\Locations\Edit.cshtml" />
-    <Content Include="Views\Locations\Index.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
     <Content Include="Views\Hidrants\Create.cshtml" />
-    <Content Include="Views\Hidrants\Delete.cshtml" />
-    <Content Include="Views\Hidrants\Details.cshtml" />
     <Content Include="Views\Hidrants\Edit.cshtml" />
     <Content Include="Views\Hidrants\Index.cshtml" />
+    <Content Include="Views\EvidencijskaKartica\Create.cshtml" />
+    <Content Include="Views\EvidencijskaKartica\Delete.cshtml" />
+    <Content Include="Views\EvidencijskaKartica\Details.cshtml" />
+    <Content Include="Views\EvidencijskaKartica\Edit.cshtml" />
+    <Content Include="Views\EvidencijskaKartica\Index.cshtml" />
+    <Content Include="Views\Klijenti\Create.cshtml" />
+    <Content Include="Views\Klijenti\Delete.cshtml" />
+    <Content Include="Views\Klijenti\Details.cshtml" />
+    <Content Include="Views\Klijenti\Edit.cshtml" />
+    <Content Include="Views\Klijenti\Index.cshtml" />
+    <Content Include="Views\Lokacijas\Create.cshtml" />
+    <Content Include="Views\Lokacijas\Delete.cshtml" />
+    <Content Include="Views\Lokacijas\Details.cshtml" />
+    <Content Include="Views\Lokacijas\Edit.cshtml" />
+    <Content Include="Views\Lokacijas\Index.cshtml" />
+    <Content Include="Views\RadniNalog\Create.cshtml" />
+    <Content Include="Views\RadniNalog\Delete.cshtml" />
+    <Content Include="Views\RadniNalog\Details.cshtml" />
+    <Content Include="Views\RadniNalog\Edit.cshtml" />
+    <Content Include="Views\RadniNalog\Index.cshtml" />
+    <Content Include="Views\VatrogasniAparat\Create.cshtml" />
+    <Content Include="Views\VatrogasniAparat\Delete.cshtml" />
+    <Content Include="Views\VatrogasniAparat\Details.cshtml" />
+    <Content Include="Views\VatrogasniAparat\Edit.cshtml" />
+    <Content Include="Views\VatrogasniAparat\Index.cshtml" />
+    <Content Include="Views\Zapisnik\Create.cshtml" />
+    <Content Include="Views\Zapisnik\Delete.cshtml" />
+    <Content Include="Views\Zapisnik\Details.cshtml" />
+    <Content Include="Views\Zapisnik\Edit.cshtml" />
+    <Content Include="Views\Zapisnik\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Base\" />
+    <Folder Include="Views\Fakture\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
@@ -458,6 +489,9 @@
       <Project>{03eff68d-d249-4ffe-b8ee-85c71884929d}</Project>
       <Name>FireSys.Service</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

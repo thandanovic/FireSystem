@@ -1,0 +1,67 @@
+﻿@model FireSys.Entities.Klijent
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Klijent</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kontakt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kontakt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumKreiranja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumKreiranja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Obrisano)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Obrisano)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumBrisanja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumBrisanja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KorisnikKreiraoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KorisnikKreiraoId)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.KlijentId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

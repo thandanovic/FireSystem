@@ -1,100 +1,108 @@
 ﻿@model FireSys.Entities.Hidrant
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Novi Hidrant";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Hidrant</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Oznaka, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+ 
+    <div class="row">
+        <div class="form-group col-lg-6">
+            @Html.LabelFor(model => model.Oznaka, htmlAttributes: new { @class = "control-label " })
+            <div class="">
                 @Html.EditorFor(model => model.Oznaka, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Oznaka, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.InstalacijaId, "InstalacijaId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group col-lg-6">
+            @Html.LabelFor(model => model.InstalacijaId, "InstalacijaId", htmlAttributes: new { @class = "control-label " })
+            <div class="">
                 @Html.DropDownList("InstalacijaId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.InstalacijaId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HidrantTipId, "HidrantTipId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+    </div>
+
+    <div class="row">
+        <div class="form-group col-lg-6">
+            @Html.LabelFor(model => model.HidrantTipId, "HidrantTipId", htmlAttributes: new { @class = "control-label" })
+            <div class="">
                 @Html.DropDownList("HidrantTipId", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.HidrantTipId, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HidrostatickiPritisak, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group col-lg-6">
+            @Html.LabelFor(model => model.HidrostatickiPritisak, htmlAttributes: new { @class = "control-label" })
+            <div class="">
                 @Html.EditorFor(model => model.HidrostatickiPritisak, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.HidrostatickiPritisak, "", new { @class = "text-danger" })
             </div>
         </div>
+    </div>
+    <div class="row">
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.HidrodinamickiPritisak, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group col-lg-6">
+            @Html.LabelFor(model => model.HidrodinamickiPritisak, htmlAttributes: new { @class = "control-label " })
+            <div class="">
                 @Html.EditorFor(model => model.HidrodinamickiPritisak, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.HidrodinamickiPritisak, "", new { @class = "text-danger" })
             </div>
         </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Protok, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+        <div class="form-group col-lg-6">
+            @Html.LabelFor(model => model.Protok, htmlAttributes: new { @class = "control-label " })
+            <div class="">
                 @Html.EditorFor(model => model.Protok, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Protok, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.KompletnostId, "KompletnostId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("KompletnostId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.KompletnostId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LokacijaId, "LokacijaId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("LokacijaId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.LokacijaId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.PromjerMlazniceId, "PromjerMlazniceId", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("PromjerMlazniceId", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.PromjerMlazniceId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
-        </div>
     </div>
-}
+        <div class="row">
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.KompletnostId, "KompletnostId", htmlAttributes: new { @class = "control-label " })
+                <div class="">
+                    @Html.DropDownList("KompletnostId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.KompletnostId, "", new { @class = "text-danger" })
+                </div>
+            </div>
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.LokacijaId, "LokacijaId", htmlAttributes: new { @class = "control-label " })
+                <div class="">
+                    @Html.DropDownList("LokacijaId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.LokacijaId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group col-lg-4">
+                @Html.LabelFor(model => model.PromjerMlazniceId, "PromjerMlazniceId", htmlAttributes: new { @class = "control-label " })
+                <div class="">
+                    @Html.DropDownList("PromjerMlazniceId", null, htmlAttributes: new { @class = "form-control" })
+                    @Html.ValidationMessageFor(model => model.PromjerMlazniceId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="form-group col-lg-6">
+                
+            </div>
+            <div class="form-group col-lg-6">
+                <div class="">
+                    <input type="submit" value="Spasi" class="btn btn-success pull-right margin-bottom-10" />
+                </div>
+                <div class="">
+                    @Html.ActionLink("Otkaži", "Index", "", new { @class = "btn btn-default pull-right margin-right-10 margin-bottom-10" })
+                </div>
+            </div>            
+        </div>
+}

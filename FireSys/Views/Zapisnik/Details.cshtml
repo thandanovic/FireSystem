@@ -1,0 +1,187 @@
+﻿@model FireSys.Entities.Zapisnik
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Zapisnik</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Lokacija.Naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lokacija.Naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RadniNalog.Komentar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RadniNalog.Komentar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RadniNalog1.Komentar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RadniNalog1.Komentar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.RadniNalog2.Komentar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.RadniNalog2.Komentar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ZapisnikTip.Naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ZapisnikTip.Naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrojZapisnika)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrojZapisnika)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrojZapisnikaGodina)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrojZapisnikaGodina)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumKreiranja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumKreiranja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Validan)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Validan)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumBrisanja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumBrisanja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrojZapisnikaMjesec)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrojZapisnikaMjesec)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumZapisnika)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumZapisnika)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PregledIzvrsioId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PregledIzvrsioId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Napomena)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Napomena)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KorisnikKreiraoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KorisnikKreiraoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Fakturisano)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Fakturisano)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KorisnikKontrolisaoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KorisnikKontrolisaoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.BrojFakture)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.BrojFakture)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DokumentacijaPrisutna)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DokumentacijaPrisutna)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LokacijaHidranata)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LokacijaHidranata)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HidrantPrikljucenNa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HidrantPrikljucenNa)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ZapisnikId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

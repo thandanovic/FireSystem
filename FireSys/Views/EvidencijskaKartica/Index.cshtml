@@ -1,0 +1,64 @@
+﻿@model IEnumerable<FireSys.Entities.EvidencijskaKartica>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EvidencijskaKarticaTip.EvidencijskaKarticaTipNaziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrojEvidencijskeKartice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.UserId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Validna)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Obrisana)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DatumZaduzenja)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EvidencijskaKarticaTip.EvidencijskaKarticaTipNaziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrojEvidencijskeKartice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Validna)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Obrisana)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DatumZaduzenja)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.EvidencijskaKarticaId }) |
+            @Html.ActionLink("Details", "Details", new { id=item.EvidencijskaKarticaId }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.EvidencijskaKarticaId })
+        </td>
+    </tr>
+}
+
+</table>

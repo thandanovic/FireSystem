@@ -1,0 +1,121 @@
+﻿@model FireSys.Entities.Lokacija
+
+@{
+    ViewBag.Title = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>Lokacija</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Klijent.Naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Klijent.Naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LokacijaVrsta.Naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LokacijaVrsta.Naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Mjesto.Naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Mjesto.Naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Regija.Naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Regija.Naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Naziv)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Naziv)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Adresa)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Adresa)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Kontakt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Kontakt)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Komentar)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Komentar)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumKreiranja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumKreiranja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.KorisnikKreiraoId)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.KorisnikKreiraoId)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DatumBrisanja)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DatumBrisanja)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Obrisano)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Obrisano)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

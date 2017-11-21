@@ -17,7 +17,10 @@ namespace FireSys
                       "~/Content/theme/metisMenu/metisMenu.min.css",
                       "~/Content/theme/dist/css/sb-admin-2.css",
                       "~/Content/theme/font-awesome/css/font-awesome.min.css",
-                      "~/Styles/style.css"));
+                      "~/Styles/style.css",
+                       "~/Content/plugins/jsgrid-1.5.3/jsgrid-theme.css",
+                       "~/Content/plugins/jsgrid-1.5.3/jsgrid.css"
+                      ));
 
             bundles.Add(new StyleBundle("~/css/charts").Include(                      
                       "~/Content/theme/morrisjs/morris.css"));
@@ -46,7 +49,9 @@ namespace FireSys
                        "~/Content/theme/dist/js/sb-admin-2.js",
                        "~/Scripts/shared/global.js",
                        "~/Scripts/shared/util.js",
-                       "~/Content/plugins/notify/notify.js"));
+                       "~/Content/plugins/notify/notify.js",
+                       "~/Content/plugins/jsgrid-1.5.3/jsgrid.js"
+                       ));
 
             bundles.Add(new ScriptBundle("~/js/charts").Include(
                       "~/Content/theme/raphael/raphael.min.js",

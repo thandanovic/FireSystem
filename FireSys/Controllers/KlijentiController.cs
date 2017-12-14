@@ -8,13 +8,15 @@ using System.Web;
 using System.Web.Mvc;
 using FireSys.DB;
 using FireSys.Entities;
+using FireSys.Manager;
+using Microsoft.AspNet.Identity;
 
 namespace FireSys.Controllers
 {
     public class KlijentiController : Controller
     {
         private FireSysModel db = new FireSysModel();
-
+        private KlijentManager klijentManager = new KlijentManager();
         // GET: Klijenti
         public ActionResult Index()
         {
@@ -39,7 +41,9 @@ namespace FireSys.Controllers
         // GET: Klijenti/Create
         public ActionResult Create()
         {
-            return View();
+            Klijent k = new Klijent();
+            k.KorisnikKreiraoId = User.Identity.GetUserId();
+            return View(k);
         }
 
         // POST: Klijenti/Create
@@ -47,12 +51,11 @@ namespace FireSys.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "KlijentId,Naziv,Kontakt,DatumKreiranja,Obrisano,DatumBrisanja,KorisnikKreiraoId")] Klijent klijent)
+        public ActionResult Create([Bind(Include = "Naziv,Kontakt,KorisnikKreiraoId")] Klijent klijent)
         {
             if (ModelState.IsValid)
             {
-                db.Klijents.Add(klijent);
-                db.SaveChanges();
+                klijentManager.Add(klijent);
                 return RedirectToAction("Index");
             }
 

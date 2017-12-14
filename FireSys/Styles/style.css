@@ -8,22 +8,21 @@
 }
 
 .radio input[type="radio"], .radio-inline input[type="radio"], .checkbox input[type="checkbox"], .checkbox-inline input[type="checkbox"] {
-     margin-left: 0px;
-     left: 0px;
+    margin-left: 0px;
+    left: 0px;
 }
 
-.logo{
+.logo {
     background-image: url("../Content/img/logo.png");
     background-repeat: no-repeat;
     background-position: center;
     min-height: 160px;
-   
     margin-bottom: 0px
 }
 
-.field-validation-error{
-    color:red;
-    font-size:12px
+.field-validation-error {
+    color: red;
+    font-size: 12px
 }
 
 .input-validation-error {
@@ -33,53 +32,56 @@
     box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(212, 79, 79, .6);
 }
 
-.margin-right-10{
-    margin-right:10px;
-}
-.margin-left-10{
-    margin-left:10px;
-}
-.menu-container{
-  margin-top: 20px;
-
+.margin-right-10 {
+    margin-right: 10px;
 }
 
-.menu-container .navbar{   
-    background: white;
+.margin-left-10 {
+    margin-left: 10px;
 }
 
-.margin-top-8{
+.menu-container {
+    margin-top: 20px;
+}
+
+    .menu-container .navbar {
+        background: white;
+    }
+
+.margin-top-8 {
     margin-top: 8px;
 }
-.margin-top-10{
+
+.margin-top-10 {
     margin-top: 10px;
 }
-.margin-top-25{
+
+.margin-top-25 {
     margin-top: 25px;
 }
-.margin-top-35{
+
+.margin-top-35 {
     margin-top: 35px;
 }
 
 
-.logo-menu{
+.logo-menu {
     background-image: url("../Content/img/logo.png");
     background-repeat: no-repeat;
     background-position: center;
-    min-height: 85px;   
-    width:420px;
-    float:left;
+    min-height: 85px;
+    width: 420px;
+    float: left;
 }
 
-.menu-container .navbar-header{   
+.menu-container .navbar-header {
     margin-left: -15px;
-    
 }
 
 
 
 
-.menu-container  .navbar-nav > li > a {
+.menu-container .navbar-nav > li > a {
     line-height: 57px;
     font-weight: bold;
     color: #2abdab;
@@ -91,14 +93,15 @@ hr.style-one {
     height: 1px;
     background: #333;
     background-image: linear-gradient(to right, #ffffff, #ed1d24, #e3e3e3);
-    position:relative;
+    position: relative;
 }
+
 body, html {
     height: 100%;
 }
 
-.body-content{
-    height:100%;
+.body-content {
+    height: 100%;
 }
 
 .container-content {
@@ -106,45 +109,48 @@ body, html {
 }
 
 hr {
-    margin-top:20px;
+    margin-top: 20px;
 }
+
 .banner img {
     width: 100%;
 }
 
-.no-padding-rg{
+.no-padding-rg {
     padding-right: 0px !important;
 }
 
-li.active a{
+li.active a {
     color: #337ab7 !important;
 }
 
-.margin-bottom-10{
-     margin-bottom: 10px;
+.margin-bottom-10 {
+    margin-bottom: 10px;
 }
 
-a:hover{
+a:hover {
     text-decoration: none !important;
 }
 
-.font-size-18{
+.font-size-18 {
     font-size: 18px;
 }
-.font-size-30{
+
+.font-size-30 {
     font-size: 30px;
 }
-.line-height-1-5{
+
+.line-height-1-5 {
     line-height: 1.5;
 }
 
-.form-control{
-    font-size:16px;
-    height:38px;
+.form-control {
+    font-size: 16px;
+    height: 38px;
     border-radius: 1px;
 }
 
-.form-group label{
+.form-group label {
     text-transform: uppercase;
     font-weight: 300;
 }
@@ -152,14 +158,33 @@ a:hover{
 .nav > li > a {
     position: relative;
     display: block;
-    font-size:16px;
+    font-size: 16px;
 }
 
-.btn{
+.btn {
     border-radius: 1px;
     font-size: 16px;
 }
 
 .panel {
     border-radius: 1px;
+}
+
+.panel-primary {
+    border-color: #b73333;
+}
+
+    .panel-primary > .panel-heading {
+        color: #fff;
+        background-color: #b73333;
+        border-color: #b73333;
+    }
+
+
+.padding-top-10{
+    padding-top: 10px;
+}
+
+.min-height-300{
+    min-height: 300px;
 }

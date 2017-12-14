@@ -56,6 +56,9 @@
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.6.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.6\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -204,13 +207,12 @@
     <Compile Include="Controllers\RadniNalogController.cs" />
     <Compile Include="Controllers\RekapitulacijaController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
-    <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Controllers\VatrogasniAparatController.cs" />
     <Compile Include="Controllers\ZapisnikController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Helpers\AuthHelper.cs" />
+    <Compile Include="Manager\AuthHelper.cs" />
     <Compile Include="Controllers\HidrantsController.cs" />
     <Compile Include="Manager\AccountManager.cs" />
     <Compile Include="Models\DashboardViewModel.cs" />
@@ -220,6 +222,97 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="404.html" />
+    <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker.css" />
+    <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker.min.css" />
+    <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker.standalone.min.css" />
+    <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker3.css" />
+    <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker3.min.css" />
+    <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker3.standalone.css" />
+    <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker3.standalone.min.css" />
+    <Content Include="Content\bootstrap-datepicker\js\bootstrap-datepicker.js" />
+    <Content Include="Content\bootstrap-datepicker\js\bootstrap-datepicker.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker-en-CA.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.ar-tn.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.ar.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.az.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.bg.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.bn.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.br.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.bs.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.ca.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.cs.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.cy.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.da.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.de.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.el.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.en-AU.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.en-GB.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.en-IE.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.en-NZ.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.en-ZA.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.eo.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.es.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.et.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.eu.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.fa.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.fi.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.fo.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.fr-CH.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.fr.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.gl.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.he.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.hi.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.hr.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.hu.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.hy.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.id.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.is.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.it-CH.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.it.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.ja.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.ka.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.kh.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.kk.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.km.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.ko.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.kr.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.lt.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.lv.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.me.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.mk.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.mn.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.ms.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.nb.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.nl-BE.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.nl.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.no.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.oc.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.pl.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.pt-BR.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.pt.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.ro.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.rs-latin.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.rs.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.ru.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.si.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.sk.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.sl.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.sq.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.sr-latin.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.sr.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.sv.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.sw.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.ta.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.tg.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.th.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.tr.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.uk.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.uz-cyrl.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.uz-latn.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.vi.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.zh-CN.min.js" />
+    <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Content\bootstrap-social\bootstrap-social.css" />
     <Content Include="Content\bootstrap\css\bootstrap.css" />
     <Content Include="Content\bootstrap\css\bootstrap.min.css" />
@@ -332,6 +425,10 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.woff2" />
     <Content Include="Content\bootstrap-social\bootstrap-social.less" />
     <Content Include="Content\bootstrap-social\bootstrap-social.scss" />
+    <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker.css.map" />
+    <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker.standalone.css.map" />
+    <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker3.css.map" />
+    <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker3.standalone.css.map" />
     <None Include="Content\jquery\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\shared\global.js" />
     <Content Include="Content\jquery\jquery-1.10.2.js" />
@@ -369,16 +466,6 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\How.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Users\Create.cshtml" />
-    <Content Include="Views\Users\Delete.cshtml" />
-    <Content Include="Views\Users\Details.cshtml" />
-    <Content Include="Views\Users\Edit.cshtml" />
-    <Content Include="Views\Users\Index.cshtml" />
-    <Content Include="Views\Orders\Create.cshtml" />
-    <Content Include="Views\Orders\Delete.cshtml" />
-    <Content Include="Views\Orders\Details.cshtml" />
-    <Content Include="Views\Orders\Edit.cshtml" />
-    <Content Include="Views\Orders\Index.cshtml" />
     <Content Include="Views\UserInfoes\Create.cshtml" />
     <Content Include="Views\UserInfoes\Delete.cshtml" />
     <Content Include="Views\UserInfoes\Details.cshtml" />
@@ -389,28 +476,23 @@
     <Content Include="Views\Hidrants\Edit.cshtml" />
     <Content Include="Views\Hidrants\Index.cshtml" />
     <Content Include="Views\EvidencijskaKartica\Create.cshtml" />
-    <Content Include="Views\EvidencijskaKartica\Delete.cshtml" />
-    <Content Include="Views\EvidencijskaKartica\Details.cshtml" />
+    <Content Include="Views\EvidencijskaKartica\_Details.cshtml" />
     <Content Include="Views\EvidencijskaKartica\Edit.cshtml" />
     <Content Include="Views\EvidencijskaKartica\Index.cshtml" />
     <Content Include="Views\Klijenti\Create.cshtml" />
-    <Content Include="Views\Klijenti\Delete.cshtml" />
-    <Content Include="Views\Klijenti\Details.cshtml" />
+    <Content Include="Views\Klijenti\_Details.cshtml" />
     <Content Include="Views\Klijenti\Edit.cshtml" />
     <Content Include="Views\Klijenti\Index.cshtml" />
     <Content Include="Views\Lokacija\Create.cshtml" />
-    <Content Include="Views\Lokacija\Delete.cshtml" />
-    <Content Include="Views\Lokacija\Details.cshtml" />
+    <Content Include="Views\Lokacija\_Details.cshtml" />
     <Content Include="Views\Lokacija\Edit.cshtml" />
     <Content Include="Views\Lokacija\Index.cshtml" />
     <Content Include="Views\RadniNalog\Create.cshtml" />
-    <Content Include="Views\RadniNalog\Delete.cshtml" />
-    <Content Include="Views\RadniNalog\Details.cshtml" />
+    <Content Include="Views\RadniNalog\_Details.cshtml" />
     <Content Include="Views\RadniNalog\Edit.cshtml" />
     <Content Include="Views\RadniNalog\Index.cshtml" />
     <Content Include="Views\VatrogasniAparat\Create.cshtml" />
-    <Content Include="Views\VatrogasniAparat\Delete.cshtml" />
-    <Content Include="Views\VatrogasniAparat\Details.cshtml" />
+    <Content Include="Views\VatrogasniAparat\_Details.cshtml" />
     <Content Include="Views\VatrogasniAparat\Edit.cshtml" />
     <Content Include="Views\VatrogasniAparat\Index.cshtml" />
     <Content Include="Views\Zapisnik\Create.cshtml" />
@@ -420,6 +502,9 @@
     <Content Include="Views\Zapisnik\Index.cshtml" />
     <Content Include="Views\Fakture\Index.cshtml" />
     <Content Include="Views\Rekapitulacija\Rekapitulacija.cshtml" />
+    <Content Include="Views\Shared\_FormLayout.cshtml" />
+    <Content Include="Views\Shared\_EditLayout.cshtml" />
+    <Content Include="Views\Hidrants\_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -467,6 +552,9 @@
     <Content Include="Content\theme\font-awesome\scss\_spinning.scss" />
     <Content Include="Content\theme\font-awesome\scss\_stacked.scss" />
     <Content Include="Content\theme\font-awesome\scss\_variables.scss" />
+    <Content Include="log4net.config">
+      <SubType>Designer</SubType>
+    </Content>
     <None Include="Project_Readme.html" />
     <Content Include="Content\jquery\jquery-1.10.2.min.map" />
   </ItemGroup>

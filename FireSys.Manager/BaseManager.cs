@@ -3,6 +3,7 @@ using FireSys.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Web;
 
 namespace FireSys.Manager
 {
@@ -29,9 +30,9 @@ namespace FireSys.Manager
             return BaseDB.GetAll();
         }
 
-        public void Add(TEntity entity)
+        public virtual int Add(TEntity entity)
         {
-            BaseDB.Add(entity);
+           return BaseDB.Add(entity);
         }
 
         public void AddRange(IEnumerable<TEntity> entities)
@@ -75,5 +76,34 @@ namespace FireSys.Manager
     public partial class OrderManager : BaseManager<Order> { }
     public partial class LocationManager : BaseManager<Location> { }
     public partial class UserInfoManager : BaseManager<UserInfo> { }
+
+    public partial class KlijentManager : BaseManager<Klijent> {
+
+        public override int Add(Klijent k)
+        {
+            k.DatumKreiranja = DateTime.Now;
+            return base.Add(k);            
+        }
+
+
+    }
+
+    public partial class LokacijaManager : BaseManager<Lokacija>
+    {
+        public override int Add(Lokacija k)
+        {
+            k.DatumKreiranja = DateTime.Now;
+            return base.Add(k);
+        }
+    }
+
+    public partial class VatrogasniAparatManager : BaseManager<VatrogasniAparat>
+    {
+        public override int Add(VatrogasniAparat k)
+        {
+            k.DatumKreiranja = DateTime.Now;
+            return base.Add(k);
+        }
+    }
     #endregion
 }

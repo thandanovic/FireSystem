@@ -21,7 +21,8 @@ namespace FireSys
                 LoginPath = new PathString("/Login/Index")
             });
 
-            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.Name;
+            AntiForgeryConfig.UniqueClaimTypeIdentifier = ClaimTypes.NameIdentifier;
+            
         }
     }
 }

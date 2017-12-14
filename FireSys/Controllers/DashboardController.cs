@@ -21,7 +21,14 @@ namespace FireSys.Controllers
         public ActionResult Index()
         {
             DashboardViewModel model = new DashboardViewModel();
-            model.Hidranti = db.Hidrants.ToList();
+            model.HidrantiCount = db.Hidrants.Count();
+            model.RadniNaloziCount = db.RadniNalogs.Count();
+            model.FaktureCount = db.RadniNalogs.Count();
+            model.KlijentiCount = db.Klijents.Count();
+            model.VatrigasniAparatiCount = db.VatrogasniAparats.Count();
+            model.LokacijeCount = db.Lokacijas.Count();
+            model.ZapisniciCount = db.Zapisniks.Count();
+            model.EvidencijskeCount = db.EvidencijskaKarticas.Count();
            // model.Orders = db.Orders.Include("UserInfo").Include("Location").ToList();
            // model.Clients = db.UserInfos.Include("User").Where(x=>x.Email.StartsWith("user")).ToList();
 

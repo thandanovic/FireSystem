@@ -5,61 +5,103 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p>
-    @Html.ActionLink("Dodaj novi hidrant", "Create", "", new { @class = "btn btn-success pull-right margin-bottom-10" })
-</p>
-<div id="jsgrid_hidrants" class="js-grid ">
-
-</div>
 
 <script type="text/javascript">
-    $(document).ready($(function () {
+    function OnClick(s, e) {
+        var actionParams = $("form").attr("action").split("?OutputFormat=");
+        actionParams[1] = s.GetMainElement().getAttribute("OutputFormatAttribute");
+        $("form").attr("action", actionParams.join("?OutputFormat="));
+    }
 
-        $("#jsgrid_hidrants").jsGrid({
-            height: "auto",
-            width: "100%",
-            sorting: true,
-            paging: true,
-            autoload: true,
-            pageloading: true,
-            filtering: true,
-            pageSize: 15,
-            pageButtonCount: 5,
-            controller: {
-                loadData: function (filter) {
-                    var d = $.Deferred();
-
-                    $.ajax({
-                        url: "@Url.Action("GetCollection", "Hidrants")",
-                            data: filter,
-                            method: "POST",
-                            dataType: "json"
-                        }).done(function (value) {
-                            d.resolve(value.data);
-                        });
-
-                        return d.promise();
-                    }
-                },
-                fields: [
-                    { name: "ID", type: "text" },
-                    { name: "Oznaka", type: "text" },
-                    { name: "Lokacija", type: "text" },
-                    { name: "Instalacija", type: "text" },
-                    { name: "HSPritisak", type: "text" },
-                    { name: "HDPritisak", type: "text" },
-                    { name: "Tip", type: "text" },
-                    { name: "Protok", type: "text" },
-                    { name: "Kompletnost", type: "text" },
-                    {
-                        type: "control",
-                        itemTemplate: function (_, item) {
-                            return '<a class="fa fa-edit" href="/Hidrants/Edit/' + item.ID +'"> </a> | <a class="fa fa-search" href="/Hidrants/Details/' + item.ID +'"> </a> | <a class="fa fa-trash-o" href="/Hidrants/Delete/'+item.ID+'"> </a>';
-                        }
-                    }
-                ]
-            });
-        }));
-
-
+    function deleteRow() {
+        var txt;
+        var r = confirm("Da li zelite obrisati?");
+        if (r == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 </script>
+
+@using (Html.BeginForm("ExportTo", "Hidrants"))
+{
+
+    <table>
+        <tr>
+            <td>
+                @Html.DevExpress().Button(btn =>
+           {
+               btn.Name = "btnExportToPDF";
+               btn.Attributes["OutputFormatAttribute"] = "PDF";
+               btn.Text = "PDF";
+               btn.UseSubmitBehavior = true;
+               btn.ClientSideEvents.Click = "OnClick";
+           }).GetHtml()
+            </td>
+            <td>
+                @Html.DevExpress().Button(btn =>
+           {
+               btn.Name = "btnExportToXLSX";
+               btn.Attributes["OutputFormatAttribute"] = "XLSX";
+               btn.Text = "EXCEL";
+               btn.UseSubmitBehavior = true;
+               btn.ClientSideEvents.Click = "OnClick";
+           }).GetHtml()
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+
+    @Html.Partial("HidrantsGridView", Model)
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

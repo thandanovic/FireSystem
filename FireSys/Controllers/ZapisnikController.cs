@@ -19,7 +19,7 @@ namespace FireSys.Controllers
         public ActionResult Index()
         {
             var zapisniks = db.Zapisniks.Include(z => z.Lokacija).Include(z => z.RadniNalog).Include(z => z.RadniNalog1).Include(z => z.RadniNalog2).Include(z => z.ZapisnikTip);
-            return View(zapisniks.ToList());
+            return View(zapisniks.ToList().Take(10));
         }
 
         // GET: Zapisnik/Details/5

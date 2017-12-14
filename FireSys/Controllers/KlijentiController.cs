@@ -18,7 +18,7 @@ namespace FireSys.Controllers
         // GET: Klijenti
         public ActionResult Index()
         {
-            return View(db.Klijents.ToList());
+            return View(db.Klijents.ToList().Take(10));
         }
 
         // GET: Klijenti/Details/5

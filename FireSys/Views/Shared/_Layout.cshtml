@@ -4,12 +4,33 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CaWe - @ViewBag.Title</title>
+    @Scripts.Render("~/jquery")
+    @Scripts.Render("~/js/bootstrap")
     @Styles.Render("~/css/bootstrap")
     @Styles.Render("~/css/shared")
     @Scripts.Render("~/modernizr")
     @Styles.Render("~/css/charts")
-    @Scripts.Render("~/jquery")
-    @Scripts.Render("~/js/bootstrap")
+
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Report },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout }
+
+
+    )
+
+    @Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.GridView },
+        new Script { ExtensionSuite = ExtensionSuite.Report },
+        new Script { ExtensionSuite = ExtensionSuite.Editors },
+        new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout }
+
+
+    )
   
 </head>
 <body>    
@@ -23,7 +44,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="@Url.Action("Index", "Home")"><div class="logo-menu" role="img"></div></a>
-                <a class="margin-top-25 navbar-brand font-size-30" href="@Url.Action("Index", "Dashboard")"></a>
+                <a class="margin-top-25 navbar-brand font-size-30" href="@Url.Action("Index", "Dash")"></a>
                 
             </div>
             <!-- /.navbar-header -->
@@ -39,7 +60,7 @@
                     <ul class="nav" id="side-menu">
                         
                         <li>
-                            <a href="@Url.Action("Index", "Dashboard")"><i class="fa fa-dashboard fa-fw"></i> Početna</a>
+                            <a href="@Url.Action("Index", "Dash")"><i class="fa fa-dashboard fa-fw"></i> Početna</a>
                         </li>
                         <li>
                             <a href="@Url.Action("Index", "RadniNalog")"><i class="fa fa-th-list fa-fw"></i> Radni nalozi</a>

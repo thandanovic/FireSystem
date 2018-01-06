@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     @if (ViewBag.Title != null)
     {
         <title>Vatrosistemi - @ViewBag.Title</title>
@@ -11,12 +12,48 @@
     {
         <title>Vatrosistemi</title>
     }
+
+    @Html.DevExpress().GetStyleSheets(
+        new StyleSheet { ExtensionSuite = ExtensionSuite.GridView },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Report },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+        new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout }
+
+    )
+
+    @Html.DevExpress().GetScripts(
+        new Script { ExtensionSuite = ExtensionSuite.GridView },
+        new Script { ExtensionSuite = ExtensionSuite.Report },
+        new Script { ExtensionSuite = ExtensionSuite.Editors },
+        new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout }
+    )
+
+    @*@Scripts.Render("~/jquery")*@
+    @Scripts.Render("~/js/bootstrap")
+
     @Styles.Render("~/css/bootstrap")
     @Styles.Render("~/css/shared")
     @Scripts.Render("~/modernizr")
     @Styles.Render("~/css/charts")
-    @Scripts.Render("~/jquery")
-    @Scripts.Render("~/js/bootstrap")
+
+    @if (IsSectionDefined("Styles"))
+    {@RenderSection("Styles", required: false)}
+
+
+    <style>
+        .main-tab {
+            color: black;
+        }
+
+        .fa-tab-main {
+            color: red;
+        }
+
+        /*.main-tab:hover{
+            color: red;
+            font-size: 14pt;
+        }*/
+    </style>
 
 </head>
 <body>
@@ -30,60 +67,137 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a href="@Url.Action("Index", "Home")"><div class="logo-menu" role="img"></div></a>
-                <a class="margin-top-25 navbar-brand font-size-30" href="@Url.Action("Index", "Dashboard")"></a>
+                <a class="margin-top-25 navbar-brand font-size-30" href="@Url.Action("Index", "Dash")"></a>
 
             </div>
             <!-- /.navbar-header -->
-            <ul class="margin-top-25 nav navbar-top-links navbar-right">
-                <!-- /.dropdown -->
-                <li>
-                    <h4>Dobrodošli u Vatrosisteme</h4>
-                </li>
-            </ul>
+
+            <div class="container-fluid margin-top-15">
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <a class="main-tab" href="@Url.Action("Index", "Dash")"><i class="fa fa-dashboard fa-fw fa-tab-main"></i> Početna</a>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-bars fa-fw fa-tab-main"></i> Registri <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="main-tab" href="@Url.Action("Index", "Klijenti")"><i class="fa fa-users fa-fw fa-tab-main"></i> Klijenti</a></li>
+                                <li><a class="main-tab" href="@Url.Action("Create", "Klijenti")"><i class="fa fa-user-plus fa-fw fa-tab-main"></i> Novi klijent</a></li>
+                                <li role="separator" class="divider"></li>
+
+                                <li><a class="main-tab" href="@Url.Action("Index", "Lokacija")"><i class="fa fa-street-view fa-fw fa-tab-main"></i> Lokacije</a></li>
+                                <li><a class="main-tab" href="@Url.Action("Create", "Lokacija")"><i class="fa fa-map-marker fa-fw fa-tab-main"></i> Nova lokacija</a></li>
+                                <li role="separator" class="divider"></li>
+
+                                <li><a class="main-tab" href="@Url.Action("Index", "VatrogasniAparat")"><i class="fa fa-fire-extinguisher fa-fw fa-tab-main"></i> Aparati</a></li>
+                                <li><a class="main-tab" href="@Url.Action("Create", "VatrogasniAparat")"><i class="fa fa-plus fa-fw fa-tab-main"></i> Novi aparat</a></li>
+                                <li role="separator" class="divider"></li>
+
+                                <li><a class="main-tab" href="@Url.Action("Index", "Hidrants")"><i class="fa fa-header fa-fw fa-tab-main"></i> Hidranti</a></li>
+                                <li><a class="main-tab" href="@Url.Action("Create", "Hidrants")"><i class="fa fa-plus fa-fw fa-tab-main"></i> Novi hidrant</a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-barcode fa-tab-main"></i> Evidencijske kartice <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="main-tab" href="@Url.Action("Index", "EvidencijskaKartica")"><i class="fa fa-list-ul fa-fw fa-tab-main"></i> Lista evidencijskih kartica </a></li>
+                                <li><a class="main-tab" href="@Url.Action("Create", "EvidencijskaKartica")"><i class="fa fa-calendar-plus-o fa-fw fa-tab-main"></i> Zaduženje kartica </a></li>
+                                <li><a class="main-tab" href="@Url.Action("Edit", "EvidencijskaKartica")"><i class="fa fa-calendar-minus-o fa-fw fa-tab-main"></i> Poništavanje kartica </a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-file-text-o fa-fw fa-tab-main"></i> Nalozi <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="main-tab" href="@Url.Action("Index", "RadniNalog")"><i class="fa fa-files-o fa-fw fa-tab-main"></i> Lista naloga </a></li>
+                                <li><a class="main-tab" href="@Url.Action("Create", "RadniNalog")"><i class="fa fa-file fa-fw fa-tab-main"></i> Novi nalog </a></li>
+                                <li role="separator" class="divider"></li>
+
+                                <li><a class="main-tab" href="@Url.Action("Index", "RadniNalog")"><i class="fa fa-arrow-down fa-fw fa-tab-main"></i> Lista dolazećih naloga </a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-newspaper-o fa-fw fa-tab-main"></i> Zapisnik <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="main-tab" href="@Url.Action("Index", "Klijenti")"><i class="fa fa-table fa-fw fa-tab-main"></i> Lista zapisnika </a></li>
+                                <li><a class="main-tab" href="@Url.Action("Index", "Klijenti")"><i class="fa fa-file fa-fw fa-tab-main"></i> Novi zapisnik </a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-plug fa-fw fa-tab-main"></i> Povezivanje <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="main-tab" href="@Url.Action("Index", "Klijenti")"><i class="fa fa-exchange fa-fw fa-tab-main"></i> Povezivanje zapisnika i faktura </a></li>
+                                <li><a class="main-tab" href="@Url.Action("Index", "Klijenti")"><i class="fa fa-stack-exchange fa-fw fa-tab-main"></i> Povezivanje zapisnika i radnih naloga </a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-print fa-fw fa-tab-main"></i> Izvještaji <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="main-tab" href="@Url.Action("Index", "Klijenti")"><i class="fa fa-list-alt fa-fw fa-tab-main"></i> Rekapitulacija </a></li>
+                                <li><a class="main-tab" href="@Url.Action("Index", "Klijenti")"><i class="fa fa-barcode fa-fw fa-tab-main"></i> Kartice </a></li>
+                                <li><a class="main-tab" href="@Url.Action("Index", "Klijenti")"><i class="fa fa-header fa-fw fa-tab-main"></i> Ispravnost hidranata </a></li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-cogs fa-fw fa-tab-main"></i> Korisničke postavke <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a class="main-tab" href="@Url.Action("Index", "Klijenti")"><i class="fa fa-key fa-fw fa-tab-main"></i> Promjena lozinke </a></li>
+                                <li><a class="main-tab" href="@Url.Action("Index", "Klijenti")"><i class="fa fa-user-secret fa-fw fa-tab-main"></i> Korisnici </a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
             <!-- /.navbar-top-links -->
-            <div class="navbar-default sidebar" role="navigation">
+            <div class="navbar-default sidebar" role="navigation" style="display:none;">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
 
                         <li>
-                            <a href="@Url.Action("Index", "Dashboard")"><i class="fa fa-dashboard fa-fw"></i> Početna</a>
+                            <a class="main-tab" href="@Url.Action("Index", "Dash")"><i class="fa fa-dashboard fa-fw fa-tab-main"></i> Početna</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "RadniNalog")"><i class="fa fa-th-list fa-fw"></i> Radni nalozi</a>
+                            <a class="main-tab" href="@Url.Action("Index", "RadniNalog")"><i class="fa fa-th-list fa-fw fa-tab-main"></i> Radni nalozi</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "Zapisnik")"><i class="fa fa-file-text-o fa-fw"></i> Zapisnici</a>
+                            <a class="main-tab" href="@Url.Action("Index", "Zapisnik")"><i class="fa fa-file-text-o fa-fw fa-tab-main"></i> Zapisnici</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "EvidencijskaKartica")"><i class="fa fa-newspaper-o fa-fw"></i> Evidencijske Kartice</a>
+                            <a class="main-tab" href="@Url.Action("Index", "EvidencijskaKartica")"><i class="fa fa-newspaper-o fa-fw fa-tab-main"></i> Evidencijske kartice</a>
+                        </li>
+                        @*<li>
+                                <a href="@Url.Action("Index", "Rekapitulacija")"><i class="fa fa-book fa-fw"></i> Rekapitulacija</a>
+                            </li>*@
+                        @*<li>
+                                <a href="@Url.Action("Index", "Fakture")"><i class="fa fa-file-text-o fa-fw"></i> Fakture</a>
+                            </li>*@
+                        <li>
+                            <a class="main-tab" href="@Url.Action("Index", "Lokacija")"><i class="fa fa-home fa-fw fa-tab-main"></i> Lokacije</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "Rekapitulacija")"><i class="fa fa-book fa-fw"></i> Rekapitulacija</a>
+                            <a class="main-tab" href="@Url.Action("Index", "Klijenti")"><i class="fa fa-users fa-fw fa-tab-main"></i> Klijenti</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "Fakture")"><i class="fa fa-file-text-o fa-fw"></i> Fakture</a>
+                            <a class="main-tab" href="@Url.Action("Index", "Hidrants")"><i class="fa fa-header fa-fw fa-tab-main"></i> Hidranti</a>
                         </li>
                         <li>
-                            <a href="@Url.Action("Index", "Lokacija")"><i class="fa fa-home fa-fw"></i> Lokacije</a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Index", "Klijenti")"><i class="fa fa-users fa-fw"></i> Klijenti</a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Index", "Hidrants")"><i class="fa fa-header fa-fw"></i> Hidranti</a>
-                        </li>
-                        <li>
-                            <a href="@Url.Action("Index", "VatrogasniAparat")"><i class="fa fa-fire-extinguisher fa-fw"></i> Vatrogasni Aparati</a>
+                            <a class="main-tab" href="@Url.Action("Index", "VatrogasniAparat")"><i class="fa fa-fire-extinguisher fa-fw fa-tab-main"></i> Vatrogasni aparati</a>
                         </li>
                         @*<li>
                                 <a href="@Url.Action("Index", "Users")"><i class="fa fa-users fa-fw"></i> Korisnici</a>
                             </li>*@
                         <li>
-                            <a href="@Url.Action("Index", "Account")"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                            <a class="main-tab" href="@Url.Action("Index", "Account")"><i class="fa fa-user fa-fw fa-tab-main"></i> Postavke sistema</a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="@Url.Action("Logout", "Login")"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                            <a class="main-tab" href="@Url.Action("Logout", "Login")"><i class="fa fa-sign-out fa-fw fa-tab-main"></i> Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -111,8 +225,35 @@
                 @RenderBody()
             </div>
         </div>
+
+
+        <div id="modal_report" class="modal fade inmodal in" data-backdrop="static" role="dialog">
+            <div class="modal-dialog modal-lg">
+
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Report</h4>
+                    </div>
+                    <div id="modal_report_body" class="modal-body">
+                        Meraba
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+
         <footer></footer>
     </div>
+
+    @*<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>*@
 
     @Scripts.Render("~/js/shared")
     @Scripts.Render("~/js/charts")

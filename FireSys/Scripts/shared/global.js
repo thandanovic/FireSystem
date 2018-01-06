@@ -7,6 +7,24 @@ $(document).ready(function () {
         });
     }
 
+
+
+    $('.delete-row').on('click', function () {
+        var URL = $(this).attr('data-ref');
+
+        $.get(URL, function (data) {
+            Utility.showErrorMessage(data);
+        });
+
+        //$.ajax({
+        //    url: URL,
+        //    success: 
+        //});
+
+    });
+
+
+
     $('input[type=datetime]').datepicker({
         dateFormat: "dd/M/yy",
         changeMonth: true,

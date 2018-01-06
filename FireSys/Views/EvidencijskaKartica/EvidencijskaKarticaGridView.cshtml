@@ -1,0 +1,19 @@
+﻿@*@{
+    var grid = Html.DevExpress().GridView(ViewBag.GridSettings);
+}
+@grid.Bind(Model).GetHtml()*@
+
+
+@{
+    var grid = Html.DevExpress().GridView(Html.GetEvidencijskaKarticaView());
+
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()
+
+
+
+

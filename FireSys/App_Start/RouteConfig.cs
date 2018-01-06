@@ -11,7 +11,10 @@ namespace FireSys
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+
+            // Ignore route statements.
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("{resource}.ashx/{*pathInfo}");
 
             routes.MapRoute(
                 name: "Default",

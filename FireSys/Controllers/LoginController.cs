@@ -24,7 +24,7 @@ namespace FireSys.Controllers
                 return View("Index", model);
 
             if (base.AuthHelper.SignIn(model))
-                return RedirectToAction("Index", "Dashboard");
+                return RedirectToAction("Index", "Dash");
             else
             {
                 return View("Index", model);

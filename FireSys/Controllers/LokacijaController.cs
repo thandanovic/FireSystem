@@ -11,6 +11,9 @@ using FireSys.Entities;
 using Microsoft.AspNet.Identity;
 using FireSys.Manager;
 using Microsoft.Owin.Logging;
+using System.Collections;
+using DevExpress.Web.Mvc;
+using DevExpress.Web;
 
 namespace FireSys.Controllers
 {
@@ -18,13 +21,205 @@ namespace FireSys.Controllers
     {
         
         private FireSysModel db = new FireSysModel();
-        private LokacijaManager lokacijaManager = new LokacijaManager();
-        // GET: Lokacijas
+
         public ActionResult Index()
         {
-            var lokacijas = db.Lokacijas.Include(l => l.Klijent).Include(l => l.LokacijaVrsta).Include(l => l.Mjesto).Include(l => l.Regija);
-            return View(lokacijas.ToList());
-        }       
+            Session["LokacijaModel"] = GetLokacije();
+            return View(Session["LokacijaModel"]);
+        }
+
+        public ActionResult LokacijaGridView()
+        {
+            Session["LokacijaModel"] = GetLokacije();
+            return PartialView("LokacijaGridView", Session["LokacijaModel"]);
+        }
+
+        public IEnumerable GetLokacije()
+        {
+            FireSysModel DB = new FireSysModel();
+            return DB.Lokacijas.Include(l => l.Klijent).Include(l => l.LokacijaVrsta).Include(l => l.Mjesto).Include(l => l.Regija).ToList();
+        }
+
+        public ActionResult ExportTo(string OutputFormat)
+        {
+            var model = Session["LokacijaModel"];
+
+            switch (OutputFormat.ToUpper())
+            {
+                case "PDF":
+                    return GridViewExtension.ExportToPdf(GetGridSettings(), model);
+                case "XLS":
+                    return GridViewExtension.ExportToXls(GetGridSettings(), model);
+                case "XLSX":
+                    return GridViewExtension.ExportToXlsx(GetGridSettings(), model);
+                default:
+                    return RedirectToAction("Index");
+            }
+        }
+
+        public GridViewSettings GetGridSettings()
+        {
+            var settings = new GridViewSettings();
+
+            settings.Name = "lokacijaGrid";
+            settings.CallbackRouteValues = new { Controller = "Lokacija", Action = "LokacijaGridView" };
+            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+            settings.KeyFieldName = "LokacijaId";
+
+            settings.Settings.ShowFilterRow = true;
+
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowSelectCheckbox = true;
+
+            settings.SettingsExport.ExportSelectedRowsOnly = true;
+            settings.SettingsPager.Mode = GridViewPagerMode.ShowPager;
+            settings.SettingsPager.PageSize = 100;
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "LokacijaId";
+                column.Caption = "ID";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Naziv";
+                column.Caption = "Naziv";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Adresa";
+                column.Caption = "Adresa";
+            });
+
+            //MjestoId
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Mjesto.Naziv";
+                column.Caption = "Mjesto";
+
+                column.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+                comboBoxProperties.DataSource = FireSys.Helpers.DataProvider.GetMjesta();
+                comboBoxProperties.TextField = "Naziv";
+                comboBoxProperties.ValueField = "Naziv";
+                comboBoxProperties.ValueType = typeof(string);
+                comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
+            });
+
+            //RegijaId
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Regija.Naziv";
+                column.Caption = "Regija";
+
+                column.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+                comboBoxProperties.DataSource = FireSys.Helpers.DataProvider.GetRegions();
+                comboBoxProperties.TextField = "Naziv";
+                comboBoxProperties.ValueField = "Naziv";
+                comboBoxProperties.ValueType = typeof(string);
+                comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Kontakt";
+                column.Caption = "Kontakt";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Komentar";
+                column.Caption = "Komentar";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "DatumKreiranja";
+                column.Caption = "Datum kreiranja";
+                column.PropertiesEdit.DisplayFormatString = "dd.MM.yyyy";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "KorisnikKreiraoId";
+                column.Caption = "Kreirao";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "DatumBrisanja";
+                column.Caption = "Datum brisanja";
+                column.PropertiesEdit.DisplayFormatString = "dd.MM.yyyy";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Obrisano";
+                column.Caption = "Obrisano";
+                column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            });
+
+            //KlijentId
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Klijent.Naziv";
+                column.Caption = "Klijent";
+
+                column.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+                comboBoxProperties.DataSource = FireSys.Helpers.DataProvider.GetClients();
+                comboBoxProperties.TextField = "Naziv";
+                comboBoxProperties.ValueField = "Naziv";
+                comboBoxProperties.ValueType = typeof(string);
+                comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
+            });
+
+            //LokacijaVrstaId
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "LokacijaVrsta.Naziv";
+                column.Caption = "Lokacija";
+
+                column.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+                comboBoxProperties.DataSource = FireSys.Helpers.DataProvider.GetLokacijaVrsta();
+                comboBoxProperties.TextField = "Naziv";
+                comboBoxProperties.ValueField = "Naziv";
+                comboBoxProperties.ValueType = typeof(string);
+                comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
+            });
+
+
+            settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            settings.SettingsExport.Landscape = true;
+
+            settings.SettingsExport.PageHeader.Center = "Powered by dostah";
+            settings.SettingsExport.ReportHeader = "Vatrositemi";
+
+            settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.Page;
+
+            settings.Settings.ShowFilterRowMenu = true;
+            settings.CommandColumn.ShowClearFilterButton = true;
+            settings.SettingsPager.EnableAdaptivity = true;
+
+            settings.CommandColumn.ShowNewButton = false;
+            settings.CommandColumn.ShowDeleteButton = false;
+            settings.CommandColumn.ShowEditButton = false;
+
+            settings.Settings.ShowFilterRow = true;
+
+            return settings;
+        }
+
+
+
+
+
+        private LokacijaManager lokacijaManager = new LokacijaManager();      
 
         // GET: Lokacijas/Create
         public ActionResult Create()

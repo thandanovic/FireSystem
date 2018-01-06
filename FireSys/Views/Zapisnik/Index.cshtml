@@ -1,154 +1,64 @@
 ﻿@model IEnumerable<FireSys.Entities.Zapisnik>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Zapisnici";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Kreiraj novi zapisnik", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Lokacija.Naziv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RadniNalog.Komentar)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RadniNalog1.Komentar)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.RadniNalog2.Komentar)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ZapisnikTip.Naziv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BrojZapisnika)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BrojZapisnikaGodina)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumKreiranja)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Validan)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumBrisanja)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BrojZapisnikaMjesec)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumZapisnika)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PregledIzvrsioId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Napomena)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KorisnikKreiraoId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Fakturisano)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KorisnikKontrolisaoId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BrojFakture)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DokumentacijaPrisutna)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LokacijaHidranata)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HidrantPrikljucenNa)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lokacija.Naziv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RadniNalog.Komentar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RadniNalog1.Komentar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RadniNalog2.Komentar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ZapisnikTip.Naziv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BrojZapisnika)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BrojZapisnikaGodina)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatumKreiranja)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Validan)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatumBrisanja)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BrojZapisnikaMjesec)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatumZapisnika)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PregledIzvrsioId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Napomena)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KorisnikKreiraoId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Fakturisano)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KorisnikKontrolisaoId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BrojFakture)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DokumentacijaPrisutna)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LokacijaHidranata)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HidrantPrikljucenNa)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ZapisnikId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ZapisnikId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ZapisnikId })
-        </td>
-    </tr>
+
+<script type="text/javascript">
+    function OnClick(s, e) {
+        var actionParams = $("form").attr("action").split("?OutputFormat=");
+        actionParams[1] = s.GetMainElement().getAttribute("OutputFormatAttribute");
+        $("form").attr("action", actionParams.join("?OutputFormat="));
+    }
+
+    function deleteRow() {
+        var txt;
+        var r = confirm("Da li zelite obrisati?");
+        if (r == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+
+@using (Html.BeginForm("ExportTo", "Zapisnik"))
+{
+
+    <table>
+        <tr>
+            <td>
+                @Html.DevExpress().Button(btn =>
+           {
+               btn.Name = "btnExportToPDF";
+               btn.Attributes["OutputFormatAttribute"] = "PDF";
+               btn.Text = "PDF";
+               btn.UseSubmitBehavior = true;
+               btn.ClientSideEvents.Click = "OnClick";
+           }).GetHtml()
+            </td>
+            <td>
+                @Html.DevExpress().Button(btn =>
+           {
+               btn.Name = "btnExportToXLSX";
+               btn.Attributes["OutputFormatAttribute"] = "XLSX";
+               btn.Text = "EXCEL";
+               btn.UseSubmitBehavior = true;
+               btn.ClientSideEvents.Click = "OnClick";
+           }).GetHtml()
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+    
+    @Html.Partial("ZapisnikGridView", Model)
+    
 }
-
-</table>

@@ -1,0 +1,13 @@
+﻿@{
+    var grid = Html.DevExpress().GridView(Html.GetLokacijeView());
+
+    if (ViewData["EditError"] != null)
+    {
+        grid.SetEditErrorText((string)ViewData["EditError"]);
+    }
+}
+@grid.Bind(Model).GetHtml()
+
+
+
+

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace FireSys.Controllers
 {
-    public class DashboardController : BaseController
+    public class DashController : BaseController
     {
         private FireSysModel db = new FireSysModel();
         // GET: Dashboard

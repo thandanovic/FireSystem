@@ -56,6 +56,10 @@
     margin-top: 10px;
 }
 
+.margin-top-15 {
+    margin-top: 15px;
+}
+
 .margin-top-25 {
     margin-top: 25px;
 }
@@ -187,4 +191,18 @@ a:hover {
 
 .min-height-300{
     min-height: 300px;
+}
+
+.export-button{
+    margin-left: 5px;
+    background-color: gray !important;
+}
+
+.margin-bottom-20{
+    margin-bottom: 20px;
+}
+
+.edit-icon, .delete-icon{
+    color: black;
+    font-size: 20px;
 }

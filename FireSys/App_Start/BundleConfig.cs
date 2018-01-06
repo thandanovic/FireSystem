@@ -47,7 +47,7 @@ namespace FireSys
 
             bundles.Add(new ScriptBundle("~/js/shared").Include(
                        "~/Content/theme/metisMenu/metisMenu.min.js",                       
-                       "~/Content/theme/dist/js/sb-admin-2.js",
+                       //"~/Content/theme/dist/js/sb-admin-2.js",
                        "~/Scripts/shared/global.js",
                        "~/Scripts/shared/util.js",
                        "~/Content/plugins/notify/notify.js",

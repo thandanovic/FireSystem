@@ -20,12 +20,16 @@ namespace FireSys.Entities
 
         public int RadniNalogId { get; set; }
 
+
+        [Display(Name = "Lokacija")]
         public int LokacijaId { get; set; }
 
+        [Display(Name = "Datum naloga")]
         public DateTime DatumNaloga { get; set; }
 
         public Guid KorisnikKreiraiId { get; set; }
 
+        [Display(Name = "Broj naloga")]
         public int BrojNaloga { get; set; }
 
         public int BrojNalogaMjesec { get; set; }
@@ -41,11 +45,14 @@ namespace FireSys.Entities
         [StringLength(4000)]
         public string Komentar { get; set; }
 
+        [Display(Name = "Broj hidranata")]
         public int? BrojHidranata { get; set; }
 
+        [Display(Name = "Broj aparata")]
         public int? BrojAparata { get; set; }
 
         [StringLength(250)]
+        [Display(Name = "Naruèilac")]
         public string Narucilac { get; set; }
 
         public virtual Lokacija Lokacija { get; set; }

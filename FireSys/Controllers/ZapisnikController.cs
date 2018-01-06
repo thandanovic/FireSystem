@@ -8,6 +8,10 @@ using System.Web;
 using System.Web.Mvc;
 using FireSys.DB;
 using FireSys.Entities;
+using DevExpress.Web.Mvc;
+using FireSys.Helpers;
+using System.Collections;
+using DevExpress.Web;
 
 namespace FireSys.Controllers
 {
@@ -15,12 +19,183 @@ namespace FireSys.Controllers
     {
         private FireSysModel db = new FireSysModel();
 
-        // GET: Zapisnik
         public ActionResult Index()
         {
-            var zapisniks = db.Zapisniks.Include(z => z.Lokacija).Include(z => z.RadniNalog).Include(z => z.RadniNalog1).Include(z => z.RadniNalog2).Include(z => z.ZapisnikTip);
-            return View(zapisniks.ToList().Take(10));
+            Session["ZapisnikModel"] = GetZapisniks();
+            return View(Session["ZapisnikModel"]);
         }
+
+        public ActionResult ZapisnikGridView()
+        {
+            Session["ZapisnikModel"] = GetZapisniks();
+            return PartialView("ZapisnikGridView", Session["ZapisnikModel"]);
+        }
+
+        public IEnumerable GetZapisniks()
+        {
+            FireSysModel DB = new FireSysModel();
+            return DB.Zapisniks.Include(z => z.Lokacija).Include(z => z.RadniNalog).Include(z => z.RadniNalog1).Include(z => z.RadniNalog2).Include(z => z.ZapisnikTip).ToList();
+        }
+
+        public ActionResult ExportTo(string OutputFormat)
+        {
+            var model = Session["ZapisnikModel"];
+
+            switch (OutputFormat.ToUpper())
+            {           
+                case "PDF":
+                    return GridViewExtension.ExportToPdf(GetGridSettings(), model);             
+                case "XLS":
+                    return GridViewExtension.ExportToXls(GetGridSettings(), model);
+                case "XLSX":
+                    return GridViewExtension.ExportToXlsx(GetGridSettings(), model);
+                default:
+                    return RedirectToAction("Index");
+            }
+        }
+
+        public GridViewSettings GetGridSettings()
+        {
+            var settings = new GridViewSettings();
+
+            settings.Name = "zapisnikGrid";
+            settings.CallbackRouteValues = new { Controller = "Zapisnik", Action = "ZapisnikGridView" };
+            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+            settings.KeyFieldName = "ZapisnikId";
+
+            settings.Settings.ShowFilterRow = true;
+
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowSelectCheckbox = true;
+
+            settings.SettingsExport.ExportSelectedRowsOnly = true;
+            settings.SettingsPager.Mode = GridViewPagerMode.ShowPager;
+            settings.SettingsPager.PageSize = 100;
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "ZapisnikId";
+                column.Caption = "ID";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "BrojZapisnika";
+                column.Caption = "Broj zapisnika";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "BrojZapisnikaMjesec";
+                column.Caption = "Broj zapisnika mjesec";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "BrojZapisnikaGodina";
+                column.Caption = "Broj zapisnika godina";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "DatumKreiranja";
+                column.Caption = "Datum kreiranja";
+                column.PropertiesEdit.DisplayFormatString = "dd.MM.yyyy";
+
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "DatumBrisanja";
+                column.Caption = "Datum brisanja";
+                column.PropertiesEdit.DisplayFormatString = "dd.MM.yyyy";
+
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "DatumZapisnika";
+                column.Caption = "Datum zapisnika";
+                column.PropertiesEdit.DisplayFormatString = "dd.MM.yyyy";
+
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Validan";
+                column.Caption = "Validan";
+                column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Napomena";
+                column.Caption = "Napomena";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Fakturisano";
+                column.Caption = "Fakturisano";
+                column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "BrojFakture";
+                column.Caption = "Broj fakture";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "DokumentacijaPrisutna";
+                column.Caption = "Dokumentacija";
+                column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "LokacijaHidranata";
+                column.Caption = "Lokacija hidranata";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "HidrantPrikljucenNa";
+                column.Caption = "Hidrant priključen na";
+            });
+
+
+
+            settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            settings.SettingsExport.Landscape = true;
+
+            settings.SettingsExport.PageHeader.Center = "Powered by dostah";
+            settings.SettingsExport.ReportHeader = "Vatrositemi";
+
+            settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.Page;
+
+            settings.Settings.ShowFilterRowMenu = true;
+            settings.CommandColumn.ShowClearFilterButton = true;
+            settings.SettingsPager.EnableAdaptivity = true;
+
+            settings.CommandColumn.ShowNewButton = false;
+            settings.CommandColumn.ShowDeleteButton = false;
+            settings.CommandColumn.ShowEditButton = false;
+
+            settings.Settings.ShowFilterRow = true;
+
+            return settings;
+        }
+
+
+        //// GET: Zapisnik
+        //public ActionResult Index()
+        //{
+        //    var zapisniks = db.Zapisniks.Include(z => z.Lokacija).Include(z => z.RadniNalog).Include(z => z.RadniNalog1).Include(z => z.RadniNalog2).Include(z => z.ZapisnikTip);
+        //    return View(zapisniks.ToList().Take(10));
+        //}
 
         // GET: Zapisnik/Details/5
         public ActionResult Details(int? id)

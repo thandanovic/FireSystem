@@ -1,0 +1,80 @@
+﻿@model FireSys.Entities.VatrogasniAparat
+
+
+
+
+<div class="row">
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group col-lg-6">
+        @Html.LabelFor(model => model.LokacijaId, "Lokacija", htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.DropDownList("LokacijaId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.LokacijaId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6">
+        @Html.LabelFor(model => model.VatrogasniAparatTipId, "Tip", htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.DropDownList("VatrogasniAparatTipId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.VatrogasniAparatTipId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+</div>
+<div class="row">
+    <div class="form-group col-lg-6">
+        @Html.LabelFor(model => model.VatrogasniAparatVrstaId, "Vrsta", htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.DropDownList("VatrogasniAparatVrstaId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.VatrogasniAparatVrstaId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6">
+        @Html.LabelFor(model => model.BrojaAparata, htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.EditorFor(model => model.BrojaAparata, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BrojaAparata, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-lg-6">
+        @Html.LabelFor(model => model.GodinaProizvodnje, htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.EditorFor(model => model.GodinaProizvodnje, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.GodinaProizvodnje, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6">
+        @Html.LabelFor(model => model.IspitivanjeVrijediDo, htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.EditorFor(model => model.IspitivanjeVrijediDo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.IspitivanjeVrijediDo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-lg-6">
+        @Html.LabelFor(model => model.EvidencijskaKarticaId, "Broj kartice", htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.DropDownList("EvidencijskaKarticaId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.EvidencijskaKarticaId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6">
+        @Html.LabelFor(model => model.IspravnostId, "IspravnostId", htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.DropDownList("IspravnostId", null, htmlAttributes: new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.IspravnostId, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-lg-12">
+        @Html.LabelFor(model => model.Napomena, htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.TextAreaFor(k => k.Napomena, new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Napomena, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>

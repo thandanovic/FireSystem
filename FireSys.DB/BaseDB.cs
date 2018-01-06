@@ -30,10 +30,10 @@ namespace FireSys.DB
             return Repository.Set<TEntity>().ToList();
         }
 
-        public void Add(TEntity entity)
+        public int Add(TEntity entity)
         {
             Repository.Set<TEntity>().Add(entity);
-            Repository.SaveChanges();
+            return Repository.SaveChanges();
         }
 
         public void AddRange(IEnumerable<TEntity> entities)

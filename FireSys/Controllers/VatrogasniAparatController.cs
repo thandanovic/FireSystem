@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using FireSys.DB;
 using FireSys.Entities;
+using System.Collections;
+using DevExpress.Web.Mvc;
+using DevExpress.Web;
 
 namespace FireSys.Controllers
 {
@@ -15,11 +18,203 @@ namespace FireSys.Controllers
     {
         private FireSysModel db = new FireSysModel();
 
-        // GET: VatrogasniAparat
         public ActionResult Index()
         {
-            var vatrogasniAparats = db.VatrogasniAparats.Include(v => v.EvidencijskaKartica).Include(v => v.Ispravnost).Include(v => v.Lokacija).Include(v => v.VatrogasniAparatTip).Include(v => v.VatrogasniAparatVrsta);
-            return View(vatrogasniAparats.ToList());
+            Session["AparatModel"] = GetAparate();
+            return View(Session["AparatModel"]);
+        }
+
+        public ActionResult AparatGridView()
+        {
+            Session["AparatModel"] = GetAparate();
+            return PartialView("AparatGridView", Session["AparatModel"]);
+        }
+
+        public IEnumerable GetAparate()
+        {
+            FireSysModel DB = new FireSysModel();
+            return DB.VatrogasniAparats.Include(v => v.EvidencijskaKartica).Include(v => v.Ispravnost).Include(v => v.Lokacija).Include(v => v.VatrogasniAparatTip).Include(v => v.VatrogasniAparatVrsta).ToList();
+        }
+
+        public ActionResult ExportTo(string OutputFormat)
+        {
+            var model = Session["AparatModel"];
+
+            switch (OutputFormat.ToUpper())
+            {
+                case "PDF":
+                    return GridViewExtension.ExportToPdf(GetGridSettings(), model);
+                case "XLS":
+                    return GridViewExtension.ExportToXls(GetGridSettings(), model);
+                case "XLSX":
+                    return GridViewExtension.ExportToXlsx(GetGridSettings(), model);
+                default:
+                    return RedirectToAction("Index");
+            }
+        }
+
+        public GridViewSettings GetGridSettings()
+        {
+            var settings = new GridViewSettings();
+
+            settings.Name = "zapisnikGrid";
+            settings.CallbackRouteValues = new { Controller = "VatrogasniAparat", Action = "AparatGridView" };
+            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+            settings.KeyFieldName = "VatrogasniAparatId";
+
+            settings.Settings.ShowFilterRow = true;
+
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowSelectCheckbox = true;
+
+            settings.SettingsExport.ExportSelectedRowsOnly = true;
+            settings.SettingsPager.Mode = GridViewPagerMode.ShowPager;
+            settings.SettingsPager.PageSize = 100;
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "VatrogasniAparatId";
+                column.Caption = "ID";
+            });
+
+            //VatrogasniAparatTipId
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "VatrogasniAparatTip.Naziv";
+                column.Caption = "Tip";
+
+                column.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+                comboBoxProperties.DataSource = FireSys.Helpers.DataProvider.GetTipAparata();
+                comboBoxProperties.TextField = "Naziv";
+                comboBoxProperties.ValueField = "Naziv";
+                comboBoxProperties.ValueType = typeof(string);
+                comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "BrojaAparata";
+                column.Caption = "Broj aparata";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "GodinaProizvodnje";
+                column.Caption = "Godina proizvodnje";
+            });
+
+            //EvidencijskaKarticaId
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "EvidencijskaKartica.Broj";
+                column.Caption = "EK broj";
+
+                column.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+                comboBoxProperties.DataSource = FireSys.Helpers.DataProvider.GetEvidencijskeKartice();
+                comboBoxProperties.TextField = "Broj";
+                comboBoxProperties.ValueField = "Broj";
+                comboBoxProperties.ValueType = typeof(string);
+                comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Napomena";
+                column.Caption = "Napomena";
+            });
+
+            //LokacijaId
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Lokacija.Naziv";
+                column.Caption = "Lokacija";
+
+                column.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+                comboBoxProperties.DataSource = FireSys.Helpers.DataProvider.GetLocations();
+                comboBoxProperties.TextField = "Naziv";
+                comboBoxProperties.ValueField = "Naziv";
+                comboBoxProperties.ValueType = typeof(string);
+                comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
+            });
+
+            //IspravnostId
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Ispravnost.Naziv";
+                column.Caption = "Ispravnost";
+
+                column.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+                comboBoxProperties.DataSource = FireSys.Helpers.DataProvider.GetIspravnost();
+                comboBoxProperties.TextField = "Naziv";
+                comboBoxProperties.ValueField = "Naziv";
+                comboBoxProperties.ValueType = typeof(string);
+                comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "IspitivanjeVrijediDo";
+                column.Caption = "Ispitivanje vrijedi do";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "DatumKreiranja";
+                column.Caption = "Datum kreiranja";
+                column.PropertiesEdit.DisplayFormatString = "dd.MM.yyyy";
+
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Obrisan";
+                column.Caption = "Obrisan";
+                column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            });
+
+            //*Kreirao KorisnikKreiraoId
+
+            //VatrogasniAparatVrstaId
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "VatrogasniAparatVrsta.Naziv";
+                column.Caption = "Vrsta aparata";
+
+                column.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+                comboBoxProperties.DataSource = FireSys.Helpers.DataProvider.GetVrstaAparata();
+                comboBoxProperties.TextField = "Naziv";
+                comboBoxProperties.ValueField = "Naziv";
+                comboBoxProperties.ValueType = typeof(string);
+                comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
+            });
+
+
+
+            settings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            settings.SettingsExport.Landscape = true;
+
+            settings.SettingsExport.PageHeader.Center = "Powered by dostah";
+            settings.SettingsExport.ReportHeader = "Vatrositemi";
+
+            settings.CommandColumn.SelectAllCheckboxMode = GridViewSelectAllCheckBoxMode.Page;
+
+            settings.Settings.ShowFilterRowMenu = true;
+            settings.CommandColumn.ShowClearFilterButton = true;
+            settings.SettingsPager.EnableAdaptivity = true;
+
+            settings.CommandColumn.ShowNewButton = false;
+            settings.CommandColumn.ShowDeleteButton = false;
+            settings.CommandColumn.ShowEditButton = false;
+
+            settings.Settings.ShowFilterRow = true;
+
+            return settings;
         }
 
         // GET: VatrogasniAparat/Details/5

@@ -1,64 +1,77 @@
 ﻿@model IEnumerable<FireSys.Entities.Klijent>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Klijenti";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Naziv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Kontakt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumKreiranja)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Obrisano)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumBrisanja)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KorisnikKreiraoId)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Naziv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Kontakt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatumKreiranja)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Obrisano)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatumBrisanja)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KorisnikKreiraoId)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.KlijentId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.KlijentId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.KlijentId })
-        </td>
-    </tr>
+<script type="text/javascript">
+    function OnClick(s, e) {
+        var actionParams = $("form").attr("action").split("?OutputFormat=");
+        actionParams[1] = s.GetMainElement().getAttribute("OutputFormatAttribute");
+        $("form").attr("action", actionParams.join("?OutputFormat="));
+    }
+
+    function deleteRow() {
+        var txt;
+        var r = confirm("Da li zelite obrisati?");
+        if (r == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+
+
+
+@using (Html.BeginForm("ExportTo", "Klijenti"))
+{
+    <div class="action-container margin-bottom-20 pull-right">
+        <table>
+            <tr>
+                <td>
+                    @*@Html.ActionLink("Kreiraj novog klijenta", "Create", null, new { @class = "btn btn-primary" })*@
+                    @Html.DevExpress().Button(btn =>
+               {
+                   btn.Name = "btnNewClient";
+                   btn.Attributes["OutputFormatAttribute"] = "PDF";
+                   btn.Text = "Kreiraj novog klijenta";
+                   btn.RouteValues = new { Controller = "Klijenti", Action = "Create", ParamValue = "" };
+                   btn.ControlStyle.CssClass = "create-button";
+               }).GetHtml()
+                </td>
+                <td>
+                    @Html.DevExpress().Button(btn =>
+           {
+               btn.Name = "btnExportToPDF";
+               btn.Attributes["OutputFormatAttribute"] = "PDF";
+               btn.Text = "PDF";
+               btn.UseSubmitBehavior = true;
+               btn.ClientSideEvents.Click = "OnClick";
+               btn.ControlStyle.CssClass = "export-button";
+           }).GetHtml()
+                </td>
+                <td>
+                    @Html.DevExpress().Button(btn =>
+           {
+               btn.Name = "btnExportToXLSX";
+               btn.Attributes["OutputFormatAttribute"] = "XLSX";
+               btn.Text = "EXCEL";
+               btn.UseSubmitBehavior = true;
+               btn.ClientSideEvents.Click = "OnClick";
+               btn.ControlStyle.CssClass = "export-button";
+           }).GetHtml()
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <br />
+
+
+    @Html.Partial("ClientGridView", Model)
+
 }
-
-</table>

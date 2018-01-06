@@ -1,106 +1,119 @@
 ﻿@model IEnumerable<FireSys.Entities.RadniNalog>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Radni nalozi";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<script type="text/javascript">
+    function OnClick(s, e) {
+        var actionParams = $("form").attr("action").split("?OutputFormat=");
+        actionParams[1] = s.GetMainElement().getAttribute("OutputFormatAttribute");
+        $("form").attr("action", actionParams.join("?OutputFormat="));
+    }
+    var globalSender = null;
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Lokacija.Naziv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumNaloga)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KorisnikKreiraiId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BrojNaloga)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BrojNalogaMjesec)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BrojNalogaGodina)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumKreiranja)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Aparati)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Hidranti)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Komentar)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BrojHidranata)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.BrojAparata)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Narucilac)
-        </th>
-        <th></th>
-    </tr>
+    function documentViewer_Init(sender, e) {
+        //var scaleFactorEditor = sender.GetToolbar().GetItemTemplateControl("ScaleFactor");
+        //scaleFactorEditor.SetValue("100");
+        //sender.Refresh();
+        //sender.previewModel.reportPreview.zoom(1);
+        //sender.previewModel.reportPreview.previewVisible();
+        //globalSender = sender;
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Lokacija.Naziv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatumNaloga)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KorisnikKreiraiId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BrojNaloga)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BrojNalogaMjesec)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BrojNalogaGodina)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatumKreiranja)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Aparati)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Hidranti)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Komentar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BrojHidranata)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BrojAparata)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Narucilac)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.RadniNalogId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.RadniNalogId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.RadniNalogId })
-        </td>
-    </tr>
+        $('.dxrd-image-search').trigger('click')
+
+
+        $('.dxrd-right-panel-collapse-image').trigger('click')
+    }
+
+    function documentViewer_ToolbarItemValueChanged(sender, e) {
+        document.getElementById('Scale').value = e.editor.GetValue();
+        sender.Refresh();
+    }
+
+    function deleteRow() {
+        var txt;
+        var r = confirm("Da li zelite obrisati?");
+        if (r == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    $(function () {
+        $('.print-report').on('click', function () {
+            var dataUrl = $(this).attr('data-url');
+            var dataID = $(this).attr('data-id');
+
+            $.ajax({
+                url: dataUrl,
+                data: { id: dataID },
+                dataType: 'json',
+                type: "POST",
+                beforeSend: function () {
+
+                },
+                complete: function () {
+
+                },
+                success: function (data) {
+                    $('#modal_report_body').html(data.content);
+                    $('#modal_report').modal('show');
+                }
+            });
+
+
+
+        });
+    });
+</script>
+
+@using (Html.BeginForm("ExportTo", "RadniNalog"))
+{
+    <div class="action-container margin-bottom-20 pull-right">
+        <table>
+            <tr>
+                <td>
+                    @*@Html.ActionLink("Kreiraj novog klijenta", "Create", null, new { @class = "btn btn-primary" })*@
+                    @Html.DevExpress().Button(btn =>
+               {
+                   btn.Name = "btnNewRadniNalog";
+                   btn.Text = "Kreiraj novi radni nalog";
+                   btn.RouteValues = new { Controller = "RadniNalog", Action = "Create", ParamValue = "" };
+                   btn.ControlStyle.CssClass = "create-button";
+               }).GetHtml()
+                </td>
+                <td>
+                <td>
+                    @Html.DevExpress().Button(btn =>
+           {
+               btn.Name = "btnExportToPDF";
+               btn.Attributes["OutputFormatAttribute"] = "PDF";
+               btn.Text = "PDF";
+               btn.UseSubmitBehavior = true;
+               btn.ClientSideEvents.Click = "OnClick";
+               btn.ControlStyle.CssClass = "export-button";
+           }).GetHtml()
+                </td>
+                <td>
+                    @Html.DevExpress().Button(btn =>
+           {
+               btn.Name = "btnExportToXLSX";
+               btn.Attributes["OutputFormatAttribute"] = "XLSX";
+               btn.Text = "EXCEL";
+               btn.UseSubmitBehavior = true;
+               btn.ClientSideEvents.Click = "OnClick";
+               btn.ControlStyle.CssClass = "export-button";
+           }).GetHtml()
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <br />
+
+
+        @Html.Partial("RadniNalogGridView", Model)
 }
-
-</table>

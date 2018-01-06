@@ -1,100 +1,63 @@
 ﻿@model IEnumerable<FireSys.Entities.Lokacija>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Lokacije";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
-
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Kreiraj novu lokaciju", "Create")
 </p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Klijent.Naziv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LokacijaVrsta.Naziv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Mjesto.Naziv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Regija.Naziv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Naziv)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Adresa)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Kontakt)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Komentar)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumKreiranja)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.KorisnikKreiraoId)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DatumBrisanja)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Obrisano)
-        </th>
-        <th></th>
-    </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Klijent.Naziv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LokacijaVrsta.Naziv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Mjesto.Naziv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Regija.Naziv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Naziv)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Adresa)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Kontakt)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Komentar)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatumKreiranja)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.KorisnikKreiraoId)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DatumBrisanja)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Obrisano)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.LokacijaId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.LokacijaId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.LokacijaId })
-        </td>
-    </tr>
+<script type="text/javascript">
+    function OnClick(s, e) {
+        var actionParams = $("form").attr("action").split("?OutputFormat=");
+        actionParams[1] = s.GetMainElement().getAttribute("OutputFormatAttribute");
+        $("form").attr("action", actionParams.join("?OutputFormat="));
+    }
+
+    function deleteRow() {
+        var txt;
+        var r = confirm("Da li zelite obrisati?");
+        if (r == true) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+</script>
+
+@using (Html.BeginForm("ExportTo", "Lokacija"))
+{
+
+    <table>
+        <tr>
+            <td>
+                @Html.DevExpress().Button(btn =>
+           {
+               btn.Name = "btnExportToPDF";
+               btn.Attributes["OutputFormatAttribute"] = "PDF";
+               btn.Text = "PDF";
+               btn.UseSubmitBehavior = true;
+               btn.ClientSideEvents.Click = "OnClick";
+           }).GetHtml()
+            </td>
+            <td>
+                @Html.DevExpress().Button(btn =>
+           {
+               btn.Name = "btnExportToXLSX";
+               btn.Attributes["OutputFormatAttribute"] = "XLSX";
+               btn.Text = "EXCEL";
+               btn.UseSubmitBehavior = true;
+               btn.ClientSideEvents.Click = "OnClick";
+           }).GetHtml()
+            </td>
+        </tr>
+    </table>
+
+    <br />
+
+
+    @Html.Partial("LokacijaGridView", Model)
+
 }
-
-</table>

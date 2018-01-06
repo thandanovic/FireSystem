@@ -32,9 +32,9 @@ namespace FireSys.DB.Migrations
             context.AspNetUsers.AddOrUpdate(
                 new FireSys.Entities.AspNetUser()
                 {
-                    Id = "testuser",
-                    UserName = "admin",
-                    PasswordHash = hasher.HashPassword("nimda"),
+                    Id = Guid.NewGuid().ToString(),
+                    UserName = "admin1",
+                    PasswordHash = hasher.HashPassword("nimda1"),
                     Discriminator = "ApplicationUser",
                     SecurityStamp = ""
                 });

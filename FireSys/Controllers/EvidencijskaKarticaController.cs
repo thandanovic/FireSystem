@@ -8,6 +8,9 @@ using System.Web;
 using System.Web.Mvc;
 using FireSys.DB;
 using FireSys.Entities;
+using System.Collections;
+using DevExpress.Web.Mvc;
+using DevExpress.Web;
 
 namespace FireSys.Controllers
 {
@@ -15,12 +18,121 @@ namespace FireSys.Controllers
     {
         private FireSysModel db = new FireSysModel();
 
-        // GET: EvidencijskaKartica
         public ActionResult Index()
         {
-            var evidencijskaKarticas = db.EvidencijskaKarticas.Include(e => e.EvidencijskaKarticaTip);
-            return View(evidencijskaKarticas.ToList());
+            Session["KarticeModel"] = GetKartice();
+            return View(Session["KarticeModel"]);
         }
+
+        public ActionResult EvidencijskaKarticaGridView()
+        {
+            Session["KarticeModel"] = GetKartice();
+            return PartialView("EvidencijskaKarticaGridView", Session["KarticeModel"]);
+        }
+
+        public IEnumerable GetKartice()
+        {
+            FireSysModel DB = new FireSysModel();
+            return DB.EvidencijskaKarticas.Include(z => z.EvidencijskaKarticaTip).ToList();
+        }
+
+        public ActionResult ExportTo(string OutputFormat)
+        {
+            var model = Session["KarticeModel"];
+
+            switch (OutputFormat.ToUpper())
+            {
+                case "PDF":
+                    return GridViewExtension.ExportToPdf(GetGridSettings(), model);
+                case "XLS":
+                    return GridViewExtension.ExportToXls(GetGridSettings(), model);
+                case "XLSX":
+                    return GridViewExtension.ExportToXlsx(GetGridSettings(), model);
+                default:
+                    return RedirectToAction("Index");
+            }
+        }
+
+        public GridViewSettings GetGridSettings()
+        {
+            var settings = new GridViewSettings();
+
+            settings.Name = "evidencijskaKarticaGrid";
+            settings.CallbackRouteValues = new { Controller = "EvidencijskaKartica", Action = "EvidencijskaKarticaGridView" };
+            settings.Width = System.Web.UI.WebControls.Unit.Percentage(100);
+
+            settings.KeyFieldName = "EvidencijskaKarticaId";
+
+            settings.Settings.ShowFilterRow = true;
+
+            settings.CommandColumn.Visible = true;
+            settings.CommandColumn.ShowSelectCheckbox = true;
+
+            settings.SettingsExport.ExportSelectedRowsOnly = true;
+            settings.SettingsPager.Mode = GridViewPagerMode.ShowPager;
+            settings.SettingsPager.PageSize = 100;
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "EvidencijskaKarticaId";
+                column.Caption = "ID";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "BrojEvidencijskeKartice";
+                column.Caption = "Broj kartice";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "EvidencijskaKarticaTip.EvidencijskaKarticaTipNaziv";
+                column.Caption = "Tip";
+
+                column.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+                comboBoxProperties.DataSource = FireSys.Helpers.DataProvider.GetEvidencijskeKarticeTip();
+                comboBoxProperties.TextField = "Naziv";
+                comboBoxProperties.ValueField = "Naziv";
+                comboBoxProperties.ValueType = typeof(string);
+                comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Validna";
+                column.Caption = "Validna";
+                column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Obrisana";
+                column.Caption = "Obrisana";
+                column.ColumnType = MVCxGridViewColumnType.CheckBox;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "DatumZaduzenja";
+                column.Caption = "Datum zaduzenja";
+                column.PropertiesEdit.DisplayFormatString = "dd.MM.yyyy";
+
+            });
+
+            return settings;
+        }
+
+
+
+
+
+        //// GET: EvidencijskaKartica
+        //public ActionResult Index()
+        //{
+        //    var evidencijskaKarticas = db.EvidencijskaKarticas.Include(e => e.EvidencijskaKarticaTip);
+        //    return View(evidencijskaKarticas.ToList());
+        //}
 
         // GET: EvidencijskaKartica/Details/5
         public ActionResult Details(int? id)

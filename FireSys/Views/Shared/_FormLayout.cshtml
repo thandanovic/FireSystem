@@ -1,0 +1,21 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+        @RenderBody();
+
+        <div class="row">
+            <div class="form-group col-lg-offset-3 col-lg-6">
+                <div class="">
+                    <input type="submit" value="Spasi" class="btn btn-danger pull-right margin-bottom-10" />
+                </div>
+                <div class="">
+                    @Html.ActionLink("Otkaži", "Index", "", new { @class = "btn btn-default pull-right margin-right-10 margin-bottom-10" })
+                </div>
+            </div>
+        </div>
+}

@@ -1,7 +1,7 @@
 ﻿using FireSys.Attributes;
-using FireSys.Helpers;
 using FireSys.Service;
 using FireSys.UI.Manager;
+using Microsoft.Owin.Logging;
 using Microsoft.Owin.Security;
 using System;
 using System.Collections.Generic;
@@ -14,6 +14,11 @@ namespace FireSys.Controllers
     [PreventCaching]
     public class BaseController : Controller
     {
+
+        public static readonly log4net.ILog log = log4net.LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
+
+
         protected override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             base.OnActionExecuting(filterContext);
@@ -27,7 +32,7 @@ namespace FireSys.Controllers
         }
 
 
-        private AuthHelper authHelper;
+        private AuthManager authHelper;
 
         private AccountManager accountManager;
 
@@ -41,9 +46,9 @@ namespace FireSys.Controllers
             set { }
         }
 
-        protected AuthHelper AuthHelper
+        protected AuthManager AuthHelper
         {
-            get { return authHelper ?? (authHelper = new AuthHelper()); }
+            get { return authHelper ?? (authHelper = new AuthManager()); }
         }
 
     }

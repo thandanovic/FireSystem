@@ -330,6 +330,12 @@ namespace FireSys.Controllers
             return RedirectToAction("Index");
         }
 
+        public JsonResult GetLokacijeByKlijent(int klijentId)
+        {
+            SelectList lokacije1 = new SelectList(lokacijaManager.Find(x => x.KlijentId == klijentId).ToList(), "LokacijaId", "Naziv");
+            return new JsonResult() { Data = lokacije1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

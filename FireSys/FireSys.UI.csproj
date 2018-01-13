@@ -248,6 +248,7 @@
     <Compile Include="Helpers\GridViewHelper.cs" />
     <Compile Include="Manager\AccountManager.cs" />
     <Compile Include="Models\DashboardViewModel.cs" />
+    <Compile Include="Models\RadniNalogViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

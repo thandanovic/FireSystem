@@ -14,6 +14,7 @@ using DevExpress.Web;
 using FireSys.Helpers;
 using FireSys.Manager;
 using FireSys.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FireSys.Controllers
 {
@@ -50,9 +51,9 @@ namespace FireSys.Controllers
             var model = Session["WorkingSheetModel"];
 
             switch (OutputFormat.ToUpper())
-            {             
+            {
                 case "PDF":
-                    return GridViewExtension.ExportToPdf(GetGridSettings(), model);              
+                    return GridViewExtension.ExportToPdf(GetGridSettings(), model);
                 case "XLS":
                     return GridViewExtension.ExportToXls(GetGridSettings(), model);
                 case "XLSX":
@@ -188,10 +189,11 @@ namespace FireSys.Controllers
 
         // GET: RadniNalog/Create
         public ActionResult Create()
-        {            
+        {
             RadniNalogViewModel model = new RadniNalogViewModel();
             ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv");
             model.Klijenti = new SelectList(db.Klijents, "KlijentId", "Naziv");
+            model.DatumNaloga = DateTime.Now;
             return View(model);
         }
 
@@ -205,22 +207,8 @@ namespace FireSys.Controllers
             try
             {
                 if (ModelState.IsValid)
-                {
-                    RadniNalog radni= new RadniNalog();
-                    radni.LokacijaId = radniNalog.LokacijaId;
-                    radni.DatumNaloga = radniNalog.DatumNaloga;
-                    radni.KorisnikKreiraiId = radniNalog.KorisnikKreiraiId;
-                    radni.BrojNaloga = radniNalog.BrojNaloga;
-                    radni.BrojNalogaMjesec = radniNalog.BrojNalogaMjesec;
-                    radni.BrojNalogaGodina = radniNalog.BrojNalogaGodina;
-                    radni.DatumKreiranja = radniNalog.DatumKreiranja;
-                    radni.BrojAparata = radniNalog.BrojAparata;
-                    radni.BrojHidranata = radniNalog.BrojHidranata;
-                    radni.Aparati = radniNalog.Aparati;
-                   radni.Hidranti = radniNalog.Hidranti;
-                   radni.Komentar = radniNalog.Komentar;
-                   radni.Narucilac = radniNalog.Narucilac; 
-                    radniNalogManager.Add(radni);
+                {                  
+                    radniNalogManager.Add(radniNalog.GetRadniNalog());
                     return RedirectToAction("Index");
                 }
             }
@@ -245,12 +233,15 @@ namespace FireSys.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             RadniNalog radniNalog = db.RadniNalogs.Find(id);
+            RadniNalogViewModel radniNalogView = new RadniNalogViewModel(radniNalog);
             if (radniNalog == null)
             {
                 return HttpNotFound();
             }
             ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv", radniNalog.LokacijaId);
-            return View(radniNalog);
+            radniNalogView.Klijenti = new SelectList(db.Klijents, "KlijentId", "Naziv");
+            radniNalogView.SelectedKlijentId = radniNalog.Lokacija.KlijentId;
+            return View(radniNalogView);
         }
 
         // POST: RadniNalog/Edit/5
@@ -258,15 +249,16 @@ namespace FireSys.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RadniNalogId,LokacijaId,DatumNaloga,KorisnikKreiraiId,BrojNaloga,BrojNalogaMjesec,BrojNalogaGodina,DatumKreiranja,Aparati,Hidranti,Komentar,BrojHidranata,BrojAparata,Narucilac")] RadniNalog radniNalog)
+        public ActionResult Edit([Bind(Include = "RadniNalogId,LokacijaId,DatumNaloga,KorisnikKreiraiId,BrojNaloga,BrojNalogaMjesec,BrojNalogaGodina,DatumKreiranja,Aparati,Hidranti,Komentar,BrojHidranata,BrojAparata,Narucilac")] RadniNalogViewModel radniNalog)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(radniNalog).State = EntityState.Modified;
+                db.Entry(radniNalog.GetRadniNalog()).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv", radniNalog.LokacijaId);
+            radniNalog.Klijenti = new SelectList(db.Klijents, "KlijentId", "Naziv");
             return View(radniNalog);
         }
 

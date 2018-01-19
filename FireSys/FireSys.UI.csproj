@@ -366,6 +366,10 @@
     <Compile Include="Models\BaseViewModel.cs" />
     <Content Include="Scripts\app\account\account.js" />
     <Content Include="Scripts\app\dashboard\dashboard.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\shared\util.js" />
     <Content Include="Styles\style.css" />
     <Content Include="Content\theme\datatables-plugins\dataTables.bootstrap.css" />

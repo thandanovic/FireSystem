@@ -1,0 +1,56 @@
+<GridSettings>
+<Name>zapisnikGrid</Name>
+<Controller>Zapisnik</Controller>
+<Action>ZapisnikGridView</Action>
+<WidthPercentage>100</WidthPercentage>
+<KeyFieldName>ZapisnikId</KeyFieldName>
+<ShowFilterRow>True</ShowFilterRow>
+<CommandColumnVisible>True</CommandColumnVisible>
+<ShowSelectCheckBox>True</ShowSelectCheckBox>
+<ExportSelectedRowsOnly>True</ExportSelectedRowsOnly>
+<ExportPageHeaderCenter>DOSTAH</ExportPageHeaderCenter>
+<ExportReportHeader>Vatrosistemi</ExportReportHeader>
+<ExportLandscape>True</ExportLandscape>
+<SelectAllCheckboxMode>Page</SelectAllCheckboxMode>
+<ShowFilterRowMenu>True</ShowFilterRowMenu>
+<ShowClearFilterButton>True</ShowClearFilterButton>
+<EnableAdaptivity>True</EnableAdaptivity>
+<ShowNewButton>False</ShowNewButton>
+<ShowDeleteButton>False</ShowDeleteButton>
+<ShowEditButton>False</ShowEditButton>
+<Columns>
+	<Column>
+		<FieldName>HidrantId</FieldName>
+		<Caption>ID</Caption>
+		<Visible>True</Visible>
+	</Column>
+	<Column>
+		<FieldName>Oznaka</FieldName>
+		<Caption>Oznaka</Caption>
+		<Visible>True</Visible>
+	</Column>
+	<Column>
+		<IsReferential>True</IsReferential>
+		<FieldName>HidrantTip.Naziv</FieldName>
+		<Caption>Tip</Caption>
+		<Visible>True</Visible>
+		<ColumnType>ComboBox</ColumnType>
+		<DataSource>GetHidrantTypes</DataSource>
+		<TextField>Naziv</TextField>
+		<ValueField>Naziv</ValueField>
+		<ValueType>string</ValueType>
+		<DropDownStyle>DropDown</DropDownStyle>
+		<Width></Width>
+		<AllowAutoFilter>True</AllowAutoFilter>
+	</Column>
+</Columns>
+<ActionFieldName>edit</ActionFieldName>
+<ActionCaption>Akcije</ActionCaption>
+<ActionWidth>70</ActionWidth>
+<ActionShowEdit>True</ActionShowEdit>
+<ActionEdit>Edit</ActionEdit>
+<ActionShowDelete>True</ActionShowDelete>
+<ActionDelete>Delete</ActionDelete>
+<ActionShowPrint>False</ActionShowPrint>
+<ActionPrint></ActionPrint>
+</GridSettings>

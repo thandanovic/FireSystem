@@ -23,14 +23,32 @@ $(document).ready(function () {
 
     });
 
+    if (jQuery.validator != null) {
+        jQuery.validator.addMethod("date", function (value, element) {
+            if (value != null && value != "") {
+                if (!moment(value, "DD.MM.YYYY", true).isValid() && !moment(value, "D.M.YY", true).isValid()) {
+                    return false;
+                }
+            }
+            return true;
+        }, "Date is not valid.");
+    }
 
 
-    $('input[type=datetime]').datepicker({
-        dateFormat: "dd/M/yy",
-        changeMonth: true,
-        changeYear: true,
-        yearRange: "-60:+0"
-    });
+
+    //$('input[type=datetime]').datepicker({
+    //    dateFormat: "dd.mm.yy",
+    //    changeMonth: true,
+    //    changeYear: true,
+    //    yearRange: "-60:+0"
+    //});
+
+    //$('.datepicker').datepicker({
+    //    dateFormat: "dd.mm.yy",
+    //    changeMonth: true,
+    //    changeYear: true,
+    //    yearRange: "-60:+0"
+    //});
 });
 
 /* Global ajax handlers */

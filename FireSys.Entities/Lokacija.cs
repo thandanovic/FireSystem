@@ -1,5 +1,6 @@
 namespace FireSys.Entities
 {
+    using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
@@ -50,23 +51,31 @@ namespace FireSys.Entities
 
         public int? LokacijaVrstaId { get; set; }
 
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Hidrant> Hidrants { get; set; }
 
+        [JsonIgnore]
         public virtual Klijent Klijent { get; set; }
 
+        [JsonIgnore]
         public virtual LokacijaVrsta LokacijaVrsta { get; set; }
 
+        [JsonIgnore]
         public virtual Mjesto Mjesto { get; set; }
 
+        [JsonIgnore]
         public virtual Regija Regija { get; set; }
 
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RadniNalog> RadniNalogs { get; set; }
 
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<VatrogasniAparat> VatrogasniAparats { get; set; }
 
+        [JsonIgnore]
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Zapisnik> Zapisniks { get; set; }
     }

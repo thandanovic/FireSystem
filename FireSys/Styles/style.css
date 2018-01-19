@@ -157,6 +157,7 @@ a:hover {
 .form-group label {
     text-transform: uppercase;
     font-weight: 300;
+    font-weight: bold;
 }
 
 .nav > li > a {

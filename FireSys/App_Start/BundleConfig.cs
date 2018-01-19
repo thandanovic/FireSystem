@@ -11,7 +11,9 @@ namespace FireSys
             #region styles
 
             bundles.Add(new StyleBundle("~/css/bootstrap").Include(
-                      "~/Content/bootstrap/css/bootstrap.css"));
+                      "~/Content/bootstrap/css/bootstrap.css",
+                      "~/Content/bootstrap/css/bootstrap-datepicker.css"
+                      ));
 
             bundles.Add(new StyleBundle("~/css/shared").Include(
                       "~/Content/theme/metisMenu/metisMenu.min.css",
@@ -43,7 +45,9 @@ namespace FireSys
                         "~/Content/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/js/bootstrap").Include( 
-                "~/Content/bootstrap/js/bootstrap.js"));
+                "~/Content/bootstrap/js/bootstrap.js",
+                "~/Content/bootstrap/js/bootstrap-datepicker.js"
+                ));
 
             bundles.Add(new ScriptBundle("~/js/shared").Include(
                        "~/Content/theme/metisMenu/metisMenu.min.js",                       

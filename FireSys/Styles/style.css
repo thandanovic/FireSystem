@@ -207,3 +207,31 @@ a:hover {
     color: black;
     font-size: 20px;
 }
+
+.margin-top-5{
+    margin-top: 5px;
+}
+
+.no-padding {
+    padding-bottom : 0px;
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+}
+
+.width-10 {
+    width: 10px;
+}
+
+.field-separator {
+    width: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+    padding-left: 0px;
+    padding-right: 0px;
+    float:left;
+    margin-top: 10px;
+}
+.no-padding-rg{
+    padding-right: 0px;
+}

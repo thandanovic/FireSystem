@@ -70,3 +70,226 @@
         </div>
     </div>
 </div>
+<div class="row">
+    <div class="col-lg-6 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-fire-extinguisher fa-2x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge"></div>
+                        <div>Vatrogasni aparati na lokaciji</div>
+                    </div>
+                </div>
+            </div>
+            <a href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Dodaj novi</span>
+                    <span class="pull-right"><i class="fa fa-plus-square-o"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+            @if (Model.VatrogasniAparats.Count > 0)
+            {
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped vatrogasni-aparati-table">
+                            <tr>
+                                <th>
+                                    Tip aparata
+                                </th>
+                                <th>
+                                    Broj aparata
+                                </th>
+                                <th>
+                                    Godina proizvodnje
+                                </th>
+                                <th>
+                                    Vrijedi do
+                                </th>
+                                <th>
+                                    Broj kartice
+                                </th>
+                                <th>
+                                    Napomena
+                                </th>
+                                <th>
+                                    Ispravnost
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                            @foreach (var item in Model.VatrogasniAparats.ToList())
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.VatrogasniAparatTip.Naziv)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.BrojaAparata)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.GodinaProizvodnje)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.IspitivanjeVrijediDo)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.EvidencijskaKartica.BrojEvidencijskeKartice)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Napomena)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Ispravnost)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(" ", "Edit", new { id = item.VatrogasniAparatId }, new { @class = "fa fa-edit" }) |
+                                        @Html.ActionLink(" ", "Delete", new { id = item.VatrogasniAparatId }, new { @class = "fa fa-trash-o" })
+                                    </td>
+                                </tr>
+                            }
+
+
+                        </table>
+                    </div>
+
+                </div>
+            }            
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-header fa-2x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge"></div>
+                        <div>Hidranti na lokaciji</div>
+                    </div>
+                </div>
+            </div>
+            <a data-toggle="modal" data-target="#exampleModal" href="#">
+                <div class="panel-footer">
+                    <span class="pull-left">Dodaj novi</span>
+                    <span class="pull-right"><i class="fa fa-plus-square-o"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+
+            @if (Model.Hidrants.Count > 0)
+            {
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped hidranti-table">
+                            <tr>
+                                <th>
+                                    Oznaka
+                                </th>
+                                <th>
+                                    Instalacija
+                                </th>
+                                <th>
+                                    Hidrost. pritisak
+                                </th>
+                                <th>
+                                    Hidrodin. pritisak
+                                </th>
+                                <th>
+                                    Protok
+                                </th>
+                                <th>
+                                    Kompletnost opreme
+                                </th>
+                                <th>
+                                    Vrsta hidranta
+                                </th>
+                                <th>
+
+                                </th>
+                            </tr>
+                            @foreach (var item in Model.Hidrants.ToList())
+                            {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Oznaka)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Instalacija.Naziv)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HidrostatickiPritisak)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HidrodinamickiPritisak)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Protok)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Kompletnost.Naziv)
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.HidrantTip.Naziv)
+                                    </td>
+                                    <td>
+                                        @Html.ActionLink(" ", "Edit", new { id = item.HidrantId }, new { @class = "fa fa-edit" }) |
+                                        @Html.ActionLink(" ", "Delete", new { id = item.HidrantId }, new { @class = "fa fa-trash-o" })
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+<div id="hidrantiModal" data-getlink="" data-savelink="" data-targettable="" data-gridload="" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Hidranti na lokacijij</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="vatrogasniAparatiModal" data-getlink="" data-savelink="" data-targettable="" data-gridload="" class="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Vatrogasni aparati na lokaciji</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -105,5 +105,14 @@ namespace FireSys.Manager
             return base.Add(k);
         }
     }
+
+    public partial class RadniNalogManager : BaseManager<RadniNalog>
+    {
+        public override int Add(RadniNalog k)
+        {
+            k.DatumKreiranja = DateTime.Now;
+            return base.Add(k);
+        }
+    }
     #endregion
 }

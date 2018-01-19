@@ -12,12 +12,17 @@ using System.Collections;
 using DevExpress.Web.Mvc;
 using DevExpress.Web;
 using FireSys.Helpers;
+using FireSys.Manager;
+using FireSys.Models;
+using Microsoft.AspNet.Identity;
 
 namespace FireSys.Controllers
 {
-    public class RadniNalogController : Controller
+    public class RadniNalogController : BaseController
     {
         private FireSysModel db = new FireSysModel();
+
+        private RadniNalogManager radniNalogManager = new RadniNalogManager();
 
         // GET: RadniNalog
         public ActionResult Index()
@@ -48,9 +53,9 @@ namespace FireSys.Controllers
             var model = Session["WorkingSheetModel"];
 
             switch (OutputFormat.ToUpper())
-            {             
+            {
                 case "PDF":
-                    return GridViewExtension.ExportToPdf(GetGridSettings(), model);              
+                    return GridViewExtension.ExportToPdf(GetGridSettings(), model);
                 case "XLS":
                     return GridViewExtension.ExportToXls(GetGridSettings(), model);
                 case "XLSX":
@@ -187,8 +192,11 @@ namespace FireSys.Controllers
         // GET: RadniNalog/Create
         public ActionResult Create()
         {
+            RadniNalogViewModel model = new RadniNalogViewModel();
             ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv");
-            return View();
+            model.Klijenti = new SelectList(db.Klijents, "KlijentId", "Naziv");
+            model.DatumNaloga = DateTime.Now;
+            return View(model);
         }
 
         // POST: RadniNalog/Create
@@ -196,17 +204,25 @@ namespace FireSys.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RadniNalogId,LokacijaId,DatumNaloga,KorisnikKreiraiId,BrojNaloga,BrojNalogaMjesec,BrojNalogaGodina,DatumKreiranja,Aparati,Hidranti,Komentar,BrojHidranata,BrojAparata,Narucilac")] RadniNalog radniNalog)
+        public ActionResult Create([Bind(Include = "RadniNalogId,LokacijaId,DatumNaloga,KorisnikKreiraiId,BrojNaloga,SelectedKlijentId, BrojNalogaMjesec,BrojNalogaGodina,DatumKreiranja,Aparati,Hidranti,Komentar,BrojHidranata,BrojAparata,Narucilac")] RadniNalogViewModel radniNalog)
         {
-            if (ModelState.IsValid)
+            try
             {
-                radniNalog.DatumKreiranja = DateTime.Now;
-                db.RadniNalogs.Add(radniNalog);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {                  
+                    radniNalogManager.Add(radniNalog.GetRadniNalog());
+                    return RedirectToAction("Index");
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = Common.Constants.GenericErrorMessage;
+                //log error to some logger
+                log.Error(Common.Constants.GenericErrorMessage, ex);
             }
 
             ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv", radniNalog.LokacijaId);
+            radniNalog.Klijenti = new SelectList(db.Klijents, "KlijentId", "Naziv");
             //ViewBag.KlijentId = new SelectList(db.Klijents, "KlijentId", "Naziv", radniNalog.Klije)
             return View(radniNalog);
         }
@@ -219,12 +235,15 @@ namespace FireSys.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             RadniNalog radniNalog = db.RadniNalogs.Find(id);
+            RadniNalogViewModel radniNalogView = new RadniNalogViewModel(radniNalog);
             if (radniNalog == null)
             {
                 return HttpNotFound();
             }
             ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv", radniNalog.LokacijaId);
-            return View(radniNalog);
+            radniNalogView.Klijenti = new SelectList(db.Klijents, "KlijentId", "Naziv");
+            radniNalogView.SelectedKlijentId = radniNalog.Lokacija.KlijentId;
+            return View(radniNalogView);
         }
 
         // POST: RadniNalog/Edit/5
@@ -232,15 +251,16 @@ namespace FireSys.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "RadniNalogId,LokacijaId,DatumNaloga,KorisnikKreiraiId,BrojNaloga,BrojNalogaMjesec,BrojNalogaGodina,DatumKreiranja,Aparati,Hidranti,Komentar,BrojHidranata,BrojAparata,Narucilac")] RadniNalog radniNalog)
+        public ActionResult Edit([Bind(Include = "RadniNalogId,LokacijaId,DatumNaloga,KorisnikKreiraiId,BrojNaloga,BrojNalogaMjesec,BrojNalogaGodina,DatumKreiranja,Aparati,Hidranti,Komentar,BrojHidranata,BrojAparata,Narucilac")] RadniNalogViewModel radniNalog)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(radniNalog).State = EntityState.Modified;
+                db.Entry(radniNalog.GetRadniNalog()).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
             ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv", radniNalog.LokacijaId);
+            radniNalog.Klijenti = new SelectList(db.Klijents, "KlijentId", "Naziv");
             return View(radniNalog);
         }
 

@@ -374,6 +374,7 @@ namespace FireSys.Controllers
         {
             if (ModelState.IsValid)
             {
+                zapisnik.DatumKreiranja = DateTime.Now;
                 db.Zapisniks.Add(zapisnik);
                 db.SaveChanges();
                 //return RedirectToAction("Index");

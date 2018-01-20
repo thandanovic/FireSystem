@@ -12,7 +12,7 @@ namespace FireSys.Helpers
     public static class DataProvider
     {
         const string DataContextKey = "FireSysModel";
-        public static FireSysModel  DB
+        public static FireSysModel DB
         {
             get
             {
@@ -57,12 +57,12 @@ namespace FireSys.Helpers
 
         public static IEnumerable GetLocations()
         {
-            var query = from lok in DB.Lokacijas
-                        select new
-                        {
-                            LokacijaID = lok.LokacijaId,
-                            Naziv = lok.Naziv
-                        };
+            var query = (from lok in DB.Lokacijas
+                         select new
+                         {
+                             LokacijaID = lok.LokacijaId,
+                             Naziv = lok.Naziv
+                         }).OrderBy(x => x.Naziv);
             return query.ToList();
         }
 
@@ -90,18 +90,19 @@ namespace FireSys.Helpers
 
         public static IEnumerable GetRegions()
         {
-            var query = from komp in DB.Regijas
-                        select new
-                        {
-                            RegijaId = komp.RegijaId,
-                            Naziv = komp.Naziv
-                        };
+            var query = (from komp in DB.Regijas
+                         select new
+                         {
+                             RegijaId = komp.RegijaId,
+                             Naziv = komp.Naziv
+                         }).OrderBy(x => x.Naziv);
             return query.ToList();
         }
 
         public static IEnumerable GetClients()
         {
             var query = from komp in DB.Klijents
+                        orderby komp.Naziv
                         select new
                         {
                             KlijentId = komp.KlijentId,
@@ -179,6 +180,7 @@ namespace FireSys.Helpers
         public static IEnumerable GetKlijenti()
         {
             var query = from komp in DB.Klijents
+                        orderby komp.Naziv
                         select new
                         {
                             KlijentId = komp.KlijentId,
@@ -218,7 +220,7 @@ namespace FireSys.Helpers
         }
     }
 
-    
+
 
     public class ContextElement
     {
@@ -228,11 +230,12 @@ namespace FireSys.Helpers
 
         public Dictionary<string, Korisnik> Korisnici;
 
-        private ContextElement() {
+        private ContextElement()
+        {
 
             Dictionary<string, Korisnik> korisnici = new Dictionary<string, Korisnik>();
-            
-            foreach(var element in model.Korisniks)
+
+            foreach (var element in model.Korisniks)
             {
                 if (!korisnici.ContainsKey(element.KorisnikId.ToString()))
                 {
@@ -256,8 +259,8 @@ namespace FireSys.Helpers
             }
         }
 
-        
 
-     
+
+
     }
 }

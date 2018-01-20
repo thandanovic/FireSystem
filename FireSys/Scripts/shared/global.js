@@ -34,25 +34,35 @@ $(document).ready(function () {
         }, "Date is not valid.");
     }
 
-
-    if ($(".dropdown-klijenti").length > 0) {
-        $(".dropdown-klijenti").change(function () {
+    if ($(".dropdown-regije, .dropdown-klijenti").length > 0) {
+        $(".dropdown-regije, .dropdown-klijenti").change(function () {
+            var regijaId = $(".dropdown-regije").val();
             var klijentId = $(".dropdown-klijenti").val();
-            $.getJSON("../Lokacija/GetLokacijeByKlijent",
-                { klijentId: klijentId },
-                function (Data) {
-                    $(".dropdown-lokacije").empty();
-                    $(".dropdown-lokacije").append("<option value='0'>--Odaberi lokaciju--</option>");
-                    if (Data != null) {
-                        $.each(Data, function (index, fooListItem) {
-                            $(".dropdown-lokacije").append("<option value='" + fooListItem.Value + "'>" + fooListItem.Text + "</option>");
-                        });
-                    }
-                    else
-                        alert("Odabrani klijent nema lokacija. Unesite lokaciju.");
-                });
+            if (!klijentId) {
+                klijentId = "0";
+            }
+            if (!regijaId) {
+                regijaId = "0";
+            }
+            $.getJSON("../Lokacija/GetLokacijeByKlijentRegija",
+            { regijaId: regijaId, klijentId: klijentId },
+            function (Data) {
+                $(".dropdown-lokacije").empty();
+                $(".dropdown-lokacije").append("<option value='0'>Odaberi lokaciju</option>");
+                if (Data != null) {
+                    $.each(Data, function (index, fooListItem) {
+                        $(".dropdown-lokacije").append("<option value='" + fooListItem.Value + "'>" + fooListItem.Text + "</option>");
+                    });
+                }
+                else
+                    alert("Odabrani klijent nema lokacija. Unesite lokaciju.");
+            });
+
         });
     }
+
+
+
 });
 
 /* Global ajax handlers */

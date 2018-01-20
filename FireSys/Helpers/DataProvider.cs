@@ -1,5 +1,6 @@
 ﻿using FireSys.DB;
 using FireSys.Entities;
+using FireSys.Models;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace FireSys.Helpers
     public static class DataProvider
     {
         const string DataContextKey = "FireSysModel";
-        public static FireSysModel  DB
+        public static FireSysModel DB
         {
             get
             {
@@ -56,12 +57,12 @@ namespace FireSys.Helpers
 
         public static IEnumerable GetLocations()
         {
-            var query = from lok in DB.Lokacijas
-                        select new
-                        {
-                            LokacijaID = lok.LokacijaId,
-                            Naziv = lok.Naziv
-                        };
+            var query = (from lok in DB.Lokacijas
+                         select new
+                         {
+                             LokacijaID = lok.LokacijaId,
+                             Naziv = lok.Naziv
+                         }).OrderBy(x => x.Naziv);
             return query.ToList();
         }
 
@@ -89,18 +90,19 @@ namespace FireSys.Helpers
 
         public static IEnumerable GetRegions()
         {
-            var query = from komp in DB.Regijas
-                        select new
-                        {
-                            RegijaId = komp.RegijaId,
-                            Naziv = komp.Naziv
-                        };
+            var query = (from komp in DB.Regijas
+                         select new
+                         {
+                             RegijaId = komp.RegijaId,
+                             Naziv = komp.Naziv
+                         }).OrderBy(x => x.Naziv);
             return query.ToList();
         }
 
         public static IEnumerable GetClients()
         {
             var query = from komp in DB.Klijents
+                        orderby komp.Naziv
                         select new
                         {
                             KlijentId = komp.KlijentId,
@@ -163,9 +165,62 @@ namespace FireSys.Helpers
                         };
             return query.ToList();
         }
+
+        public static IEnumerable GetZapisnikTip()
+        {
+            var query = from komp in DB.ZapisnikTips
+                        select new
+                        {
+                            ZapisnikTipId = komp.ZapisnikTipId,
+                            Naziv = komp.Naziv
+                        };
+            return query.ToList();
+        }
+
+        public static IEnumerable GetKlijenti()
+        {
+            var query = from komp in DB.Klijents
+                        orderby komp.Naziv
+                        select new
+                        {
+                            KlijentId = komp.KlijentId,
+                            Naziv = komp.Naziv
+                        };
+            return query.ToList();
+        }
+
+        public static IEnumerable GetZaposlenici()
+        {
+            var query = from komp in DB.Korisniks
+                        select new
+                        {
+                            KorisnikId = komp.KorisnikId,
+                            Naziv = komp.Prezime + " " + komp.Ime
+                        };
+            return query.ToList();
+        }
     }
 
-    
+
+    public static class Helper
+    {
+        public static ZapisnikAparatParticle RenderZapisnikAparat(ZapisnikAparat aparat)
+        {
+            ZapisnikAparatParticle ap = new ZapisnikAparatParticle();
+            ap.ZapisnikAparatId = aparat.ZapisnikAparatId;
+            ap.TipId = aparat.VatrogasniAparat.VatrogasniAparatTipId;
+            ap.GodinaProizvodnje = aparat.VatrogasniAparat.GodinaProizvodnje.HasValue ? aparat.VatrogasniAparat.GodinaProizvodnje.Value : 0;
+            ap.IspravnostId = aparat.IspravnostId;
+            ap.Napomena = aparat.VatrogasniAparat.Napomena;
+            ap.VrijediDo = aparat.VatrogasniAparat.IspitivanjeVrijediDo.HasValue ? aparat.VatrogasniAparat.IspitivanjeVrijediDo.Value : 0;
+            ap.BrojAparata = aparat.VatrogasniAparat.BrojaAparata;
+            ap.VrstaId = aparat.VatrogasniAparat.VatrogasniAparatVrstaId;
+            ap.BrojKartice = aparat.VatrogasniAparat.EvidencijskaKartica != null ? aparat.VatrogasniAparat.EvidencijskaKartica.BrojEvidencijskeKartice : string.Empty;
+            return ap;
+        }
+    }
+
+
 
     public class ContextElement
     {
@@ -175,11 +230,12 @@ namespace FireSys.Helpers
 
         public Dictionary<string, Korisnik> Korisnici;
 
-        private ContextElement() {
+        private ContextElement()
+        {
 
             Dictionary<string, Korisnik> korisnici = new Dictionary<string, Korisnik>();
-            
-            foreach(var element in model.Korisniks)
+
+            foreach (var element in model.Korisniks)
             {
                 if (!korisnici.ContainsKey(element.KorisnikId.ToString()))
                 {
@@ -203,8 +259,8 @@ namespace FireSys.Helpers
             }
         }
 
-        
 
-     
+
+
     }
 }

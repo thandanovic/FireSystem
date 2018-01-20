@@ -240,7 +240,6 @@ public class RadniNalogReport : DevExpress.XtraReports.UI.XtraReport
             this.xrLabel3,
             this.xrLabel2,
             this.xrLabel1});
-            this.Detail.Expanded = false;
             this.Detail.HeightF = 585.4584F;
             this.Detail.Name = "Detail";
             this.Detail.Padding = new DevExpress.XtraPrinting.PaddingInfo(0, 0, 0, 0, 100F);
@@ -339,7 +338,8 @@ public class RadniNalogReport : DevExpress.XtraReports.UI.XtraReport
             this.xrLabel2.SizeF = new System.Drawing.SizeF(650F, 48F);
             this.xrLabel2.StylePriority.UseFont = false;
             this.xrLabel2.StylePriority.UseTextAlignment = false;
-            this.xrLabel2.Text = "Datum naloga: [RadniNalog.DatumNaloga!dd/MM/yyyy]";
+            this.xrLabel2.Text = "o izvršenom periodičnom pregledu aparata za početno gašenje požara u objektu/vozi" +
+    "lu:";
             this.xrLabel2.TextAlignment = DevExpress.XtraPrinting.TextAlignment.MiddleCenter;
             // 
             // xrLabel1
@@ -387,7 +387,6 @@ public class RadniNalogReport : DevExpress.XtraReports.UI.XtraReport
             // 
             this.ReportHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.xrPictureBox1});
-            this.ReportHeader.Expanded = false;
             this.ReportHeader.HeightF = 116.6667F;
             this.ReportHeader.Name = "ReportHeader";
             // 
@@ -754,7 +753,6 @@ public class RadniNalogReport : DevExpress.XtraReports.UI.XtraReport
             this.GroupHeader1});
             this.AparatiBand.DataMember = "VatrogasniAparat";
             this.AparatiBand.DataSource = this.sqlDataSource1;
-            this.AparatiBand.Expanded = false;
             this.AparatiBand.Level = 1;
             this.AparatiBand.Name = "AparatiBand";
             // 

@@ -5,16 +5,15 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<p>
-    @Html.ActionLink("Kreiraj novi zapisnik", "Create")
-</p>
-
-
 <script type="text/javascript">
     function OnClick(s, e) {
         var actionParams = $("form").attr("action").split("?OutputFormat=");
         actionParams[1] = s.GetMainElement().getAttribute("OutputFormatAttribute");
         $("form").attr("action", actionParams.join("?OutputFormat="));
+    }
+
+    function OnCreateClick(s, e) {
+        $("#zapisnikModal").modal('show');
     }
 
     function deleteRow() {
@@ -26,35 +25,79 @@
             return false;
         }
     }
+
+    $(function () {
+        $('.print-report').on('click', function () {
+            var dataUrl = $(this).attr('data-url');
+            var dataID = $(this).attr('data-id');
+
+            $.ajax({
+                url: dataUrl,
+                data: { id: dataID },
+                dataType: 'json',
+                type: "POST",
+                beforeSend: function () {
+
+                },
+                complete: function () {
+
+                },
+                success: function (data) {
+                    $('#modal_report_body').html(data.content);
+                    $('#modal_report').modal('show');
+                }
+            });
+
+
+
+        });
+    });
+
 </script>
 
 @using (Html.BeginForm("ExportTo", "Zapisnik"))
 {
 
-    <table>
-        <tr>
-            <td>
-                @Html.DevExpress().Button(btn =>
+    <div class="action-container margin-bottom-20 pull-right">
+        <table>
+            <tr>
+                <td>
+                    @*@Html.ActionLink("Kreiraj novog klijenta", "Create", null, new { @class = "btn btn-primary" })*@
+                    @Html.DevExpress().Button(btn =>
+               {
+                   btn.Name = "btnNewZapisnik";
+                   btn.Text = "Kreiraj novi zapisnik";
+                   //btn.RouteValues = new { Controller = "Zapisnik", Action = "Create", ParamValue = "" };
+                   btn.ControlStyle.CssClass = "create-button";
+                   btn.ClientSideEvents.Click = "OnCreateClick";
+               }).GetHtml()
+                </td>
+                <td>
+                <td>
+                    @Html.DevExpress().Button(btn =>
            {
                btn.Name = "btnExportToPDF";
                btn.Attributes["OutputFormatAttribute"] = "PDF";
                btn.Text = "PDF";
                btn.UseSubmitBehavior = true;
                btn.ClientSideEvents.Click = "OnClick";
+               btn.ControlStyle.CssClass = "export-button";
            }).GetHtml()
-            </td>
-            <td>
-                @Html.DevExpress().Button(btn =>
+                </td>
+                <td>
+                    @Html.DevExpress().Button(btn =>
            {
                btn.Name = "btnExportToXLSX";
                btn.Attributes["OutputFormatAttribute"] = "XLSX";
                btn.Text = "EXCEL";
                btn.UseSubmitBehavior = true;
                btn.ClientSideEvents.Click = "OnClick";
+               btn.ControlStyle.CssClass = "export-button";
            }).GetHtml()
-            </td>
-        </tr>
-    </table>
+                </td>
+            </tr>
+        </table>
+    </div>
 
     <br />
 

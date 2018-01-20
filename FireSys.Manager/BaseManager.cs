@@ -84,13 +84,20 @@ namespace FireSys.Manager
             k.DatumKreiranja = DateTime.Now;
             return base.Add(k);            
         }
-
-
     }
 
     public partial class LokacijaManager : BaseManager<Lokacija>
     {
         public override int Add(Lokacija k)
+        {
+            k.DatumKreiranja = DateTime.Now;
+            return base.Add(k);
+        }
+    }
+
+    public partial class RegionManager : BaseManager<Regija>
+    {
+        public override int Add(Regija k)
         {
             k.DatumKreiranja = DateTime.Now;
             return base.Add(k);

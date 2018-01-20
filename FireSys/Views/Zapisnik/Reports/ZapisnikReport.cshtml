@@ -1,0 +1,10 @@
+﻿@model ZapisnikReport
+
+@Html.DevExpress().WebDocumentViewer(settings =>
+{
+    settings.Name = "ZapisnikViewer";
+    settings.Width = new System.Web.UI.WebControls.Unit(100, System.Web.UI.WebControls.UnitType.Percentage);
+    //settings.Height = new System.Web.UI.WebControls.Unit(100, System.Web.UI.WebControls.UnitType.Percentage);
+    //settings.ClientSideEvents.Init = "documentViewer_Init";
+
+}).Bind(Model).GetHtml()

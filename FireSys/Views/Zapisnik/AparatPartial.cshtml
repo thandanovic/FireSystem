@@ -1,0 +1,80 @@
+﻿@model FireSys.Models.ZapisnikAparatViewModel
+
+<script type="text/javascript">
+    $(function () {
+        $(function () {
+            $('.textBoxNaziv').focus();
+
+            $('html, body').animate({
+                scrollTop: $(".textBoxNaziv").offset().top
+            }, 1000);
+
+            HideShowKomentar();
+
+            $(".dropdownListIspravnost").change(function () {
+                HideShowKomentar();
+            });
+        });
+    });
+
+    function HideShowKomentar() {
+        var ispravnost = $(".dropdownListIspravnost option:selected").text();
+        if (ispravnost == "Neispravan") {
+            $(".KomentarNeispravno").show();
+        }
+        else {
+            $(".KomentarNeispravno").hide();
+        }
+    }
+</script>
+
+@*@if (Model != null)
+{
+    @Html.HiddenFor(x => x.Aparat.VatrogasniAparat.KorisnikPregledaoAparatId, new { @Value = Model.KorisnikPregledaoAparatId })
+    @Html.HiddenFor(x => x.SelectedLokacija, new { @Value = Model.SelectedLokacija })
+    @Html.HiddenFor(x => x.TipoviAparata, new { @Value = Model.TipoviAparata })
+    @Html.HiddenFor(x => x.Ispravnost, new { @Value = Model.Ispravnost })
+    @Html.HiddenFor(x => x.VatrogasniAparatVrste, new { @Value = Model.VatrogasniAparatVrste })
+    if (Model.VatrogasniAparat != null)
+    {
+        @Html.HiddenFor(x => x.VatrogasniAparat.ZapisnikId, new { @Value = Model.VatrogasniAparat.ZapisnikId })
+        @Html.HiddenFor(x => x.VatrogasniAparat.VatrogasniAparatId, new { @Value = Model.VatrogasniAparat.VatrogasniAparatId })
+    }
+}*@
+
+@*@if (Model.Succeeded == false)
+{
+    <div style="float:left; width:100%; color:red;">
+        @Html.DisplayTextFor(x => x.Error)
+    </div>
+}*@
+
+
+<div style="float:left; width:7%;">
+    @Html.DropDownListFor(x => x.Aparat.VatrogasniAparat.VatrogasniAparatTipId, Model.TipoviAparata, new { @class = "textBoxNaziv", style = "width:50px; height:25px;" })
+</div>
+<div style="float:left; width:10%;">
+    @Html.TextBoxFor(x => x.Aparat.VatrogasniAparat.BrojaAparata, new { style = "width:80px;" })
+</div>
+<div style="float:left; width:8%;">
+    @Html.TextBoxFor(x => x.Aparat.VatrogasniAparat.GodinaProizvodnje, new { style = "width:80px;" })
+</div>
+<div style="float:left; width:8%;">
+    @Html.TextBoxFor(x => x.Aparat.VatrogasniAparat.IspitivanjeVrijediDo, new { style = "width:80px;" })
+</div>
+<div style="float:left; width:13%;">
+    @Html.TextBoxFor(x => x.Aparat.VatrogasniAparat.EvidencijskaKartica.BrojEvidencijskeKartice, new { style = "width:80px;" })
+</div>
+<div style="float:left; width:13%;">
+    @Html.TextBoxFor(x => x.Aparat.VatrogasniAparat.Napomena, new { style = "width:80px;" })
+</div>
+<div style="float:left; width:8%;">
+    @Html.DropDownListFor(x => x.Aparat.IspravnostId, Model.Ispravnost, new { @class = "dropdownListIspravnost", style = "width:80px; height:25px;" })
+</div>
+<div style="float:left; width:8%;">
+    @Html.DropDownListFor(x => x.Aparat.VatrogasniAparat.VatrogasniAparatVrstaId, Model.VrstaAparata, new { style = "width:80px; height:25px;" })
+</div>
+<div style="float:left; width:100%; margin-top: 10px; margin-bottom:10px;" class="KomentarNeispravno">
+    @Html.TextAreaFor(x => x.Aparat.VatrogasniAparat.Napomena, new { style = "width:500px; max-width: 500px;" })
+</div>
+

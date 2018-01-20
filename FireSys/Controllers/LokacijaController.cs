@@ -19,7 +19,7 @@ namespace FireSys.Controllers
 {
     public class LokacijaController : BaseController
     {
-        
+
         private FireSysModel db = new FireSysModel();
 
         public ActionResult Index()
@@ -215,11 +215,7 @@ namespace FireSys.Controllers
             return settings;
         }
 
-
-
-
-
-        private LokacijaManager lokacijaManager = new LokacijaManager();      
+        private LokacijaManager lokacijaManager = new LokacijaManager();
 
         // GET: Lokacijas/Create
         public ActionResult Create()
@@ -248,13 +244,13 @@ namespace FireSys.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 ViewBag.ErrorMessage = Common.Constants.GenericErrorMessage;
                 //log error to some logger
                 log.Error(Common.Constants.GenericErrorMessage, ex);
             }
-           
+
             ViewBag.KlijentId = new SelectList(db.Klijents, "KlijentId", "Naziv", lokacija.KlijentId);
             ViewBag.LokacijaVrstaId = new SelectList(db.LokacijaVrstas, "LokacijaVrstaId", "Naziv", lokacija.LokacijaVrstaId);
             ViewBag.MjestoId = new SelectList(db.Mjestoes, "MjestoId", "Naziv", lokacija.MjestoId);
@@ -309,7 +305,7 @@ namespace FireSys.Controllers
             ViewBag.RegijaId = new SelectList(db.Regijas, "RegijaId", "Naziv", lokacija.RegijaId);
             return View(lokacija);
         }
-        
+
         // POST: Lokacijas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -330,11 +326,25 @@ namespace FireSys.Controllers
             return RedirectToAction("Index");
         }
 
-        public JsonResult GetLokacijeByKlijent(int klijentId)
+        public JsonResult GetLokacijeByKlijentRegija(int klijentId, int regijaId)
         {
-            SelectList lokacije1 = new SelectList(lokacijaManager.Find(x => x.KlijentId == klijentId).ToList(), "LokacijaId", "Naziv");
-            return new JsonResult() { Data = lokacije1, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
+            SelectList lokacije = null;
+
+            if (klijentId > 0 && regijaId > 0)
+            {
+                lokacije = new SelectList(lokacijaManager.Find(x => (x.RegijaId == regijaId && x.KlijentId == klijentId)).OrderBy(x => x.Naziv).ToList(), "LokacijaId", "Naziv");
+            }
+            else if(klijentId == 0)
+            {
+                lokacije = new SelectList(lokacijaManager.Find(x => x.RegijaId == regijaId).OrderBy(x => x.Naziv).ToList(), "LokacijaId", "Naziv");
+            }
+            else
+            {
+                lokacije = new SelectList(lokacijaManager.Find(x => x.KlijentId == klijentId).OrderBy(x => x.Naziv).ToList(), "LokacijaId", "Naziv");
+            }
+
+            return new JsonResult() { Data = lokacije, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+        }   
 
         protected override void Dispose(bool disposing)
         {

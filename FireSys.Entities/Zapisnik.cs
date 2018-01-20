@@ -13,6 +13,9 @@ namespace FireSys.Entities
         {
             ZapisnikAparats = new HashSet<ZapisnikAparat>();
             ZapisnikHidrants = new HashSet<ZapisnikHidrant>();
+            DatumZapisnika = DateTime.Now;
+            BrojZapisnikaGodina = DateTime.Now.Year;
+            BrojZapisnikaMjesec = DateTime.Now.Month;
         }
 
         public int ZapisnikId { get; set; }
@@ -63,6 +66,12 @@ namespace FireSys.Entities
 
         public int? KreiraniRadniNalogId { get; set; }
 
+        [NotMapped]
+        public string FullBrojZapisnika
+        {
+            get { return string.Format("{0}-{1}/{2}", BrojZapisnika, BrojZapisnikaMjesec, BrojZapisnikaGodina); }
+        }
+
         public virtual Lokacija Lokacija { get; set; }
 
         public virtual RadniNalog RadniNalog { get; set; }
@@ -78,5 +87,8 @@ namespace FireSys.Entities
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ZapisnikHidrant> ZapisnikHidrants { get; set; }
+
+
+       
     }
 }

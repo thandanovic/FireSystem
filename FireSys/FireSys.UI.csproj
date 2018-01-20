@@ -251,8 +251,13 @@
     <Compile Include="Models\RadniNalogViewModel.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\ZapisnikAparatViewModel.cs" />
+    <Compile Include="Models\ZapisnikViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reports\RadniNalogReport.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reports\ZapisnikReport.cs">
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>
@@ -362,6 +367,10 @@
     <Compile Include="Models\BaseViewModel.cs" />
     <Content Include="Scripts\app\account\account.js" />
     <Content Include="Scripts\app\dashboard\dashboard.js" />
+    <Content Include="Scripts\moment-with-locales.js" />
+    <Content Include="Scripts\moment-with-locales.min.js" />
+    <Content Include="Scripts\moment.js" />
+    <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\shared\util.js" />
     <Content Include="Styles\style.css" />
     <Content Include="Content\theme\datatables-plugins\dataTables.bootstrap.css" />
@@ -536,7 +545,7 @@
     <Content Include="Views\VatrogasniAparat\Edit.cshtml" />
     <Content Include="Views\VatrogasniAparat\Index.cshtml" />
     <Content Include="Views\Zapisnik\Create.cshtml" />
-    <Content Include="Views\Zapisnik\Delete.cshtml" />
+    <Content Include="Views\Zapisnik\Deleter.cshtml" />
     <Content Include="Views\Zapisnik\Details.cshtml" />
     <Content Include="Views\Zapisnik\Edit.cshtml" />
     <Content Include="Views\Zapisnik\Index.cshtml" />
@@ -554,6 +563,8 @@
     <Content Include="Views\VatrogasniAparat\AparatGridView.cshtml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Views\RadniNalog\Report.cshtml" />
+    <Content Include="Views\Zapisnik\Reports\ZapisnikReport.cshtml" />
+    <Content Include="Views\Zapisnik\AparatPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -632,6 +643,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Reports\RadniNalogReport.resx">
       <DependentUpon>RadniNalogReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\ZapisnikReport.resx">
+      <DependentUpon>ZapisnikReport.cs</DependentUpon>
     </EmbeddedResource>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
     <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />

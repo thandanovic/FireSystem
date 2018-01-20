@@ -12,6 +12,10 @@ using DevExpress.Web.Mvc;
 using FireSys.Helpers;
 using System.Collections;
 using DevExpress.Web;
+using FireSys.Models;
+using System.Web.Script.Serialization;
+using Newtonsoft.Json;
+using FireSys.Common;
 
 namespace FireSys.Controllers
 {
@@ -34,7 +38,8 @@ namespace FireSys.Controllers
         public IEnumerable GetZapisniks()
         {
             FireSysModel DB = new FireSysModel();
-            return DB.Zapisniks.Include(z => z.Lokacija).Include(z => z.RadniNalog).Include(z => z.RadniNalog1).Include(z => z.RadniNalog2).Include(z => z.ZapisnikTip).ToList();
+            //return DB.Zapisniks.Include(z => z.Lokacija).Include(z => z.RadniNalog).Include(z => z.RadniNalog1).Include(z => z.RadniNalog2).Include(z => z.ZapisnikTip).ToList();
+            return DB.Zapisniks.Include(z => z.Lokacija).ToList();
         }
 
         public ActionResult ExportTo(string OutputFormat)
@@ -42,9 +47,9 @@ namespace FireSys.Controllers
             var model = Session["ZapisnikModel"];
 
             switch (OutputFormat.ToUpper())
-            {           
+            {
                 case "PDF":
-                    return GridViewExtension.ExportToPdf(GetGridSettings(), model);             
+                    return GridViewExtension.ExportToPdf(GetGridSettings(), model);
                 case "XLS":
                     return GridViewExtension.ExportToXls(GetGridSettings(), model);
                 case "XLSX":
@@ -189,52 +194,191 @@ namespace FireSys.Controllers
             return settings;
         }
 
-
-        //// GET: Zapisnik
-        //public ActionResult Index()
-        //{
-        //    var zapisniks = db.Zapisniks.Include(z => z.Lokacija).Include(z => z.RadniNalog).Include(z => z.RadniNalog1).Include(z => z.RadniNalog2).Include(z => z.ZapisnikTip);
-        //    return View(zapisniks.ToList().Take(10));
-        //}
-
-        // GET: Zapisnik/Details/5
-        public ActionResult Details(int? id)
+        [HttpGet]
+        public JsonResult Create()
         {
-            if (id == null)
+            ZapisnikViewModel model = new ZapisnikViewModel();
+            model.Zapisnik = new Zapisnik();
+            
+            return Json(new
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Zapisnik zapisnik = db.Zapisniks.Find(id);
-            if (zapisnik == null)
-            {
-                return HttpNotFound();
-            }
-            return View(zapisnik);
+                content = GridViewHelper.RenderRazorViewToString(this, "~/Views/Zapisnik/Create.cshtml", model)
+            });
         }
 
-        // GET: Zapisnik/Create
-        public ActionResult Create()
+        [HttpGet]
+        public JsonResult GetZapisnikAparati(int zapisnikId)
         {
-            ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv");
-            ViewBag.IzRadnogNalogaId = new SelectList(db.RadniNalogs, "RadniNalogId", "Komentar");
-            ViewBag.KreiraniRadniNalogId = new SelectList(db.RadniNalogs, "RadniNalogId", "Komentar");
-            ViewBag.RadniNalogId = new SelectList(db.RadniNalogs, "RadniNalogId", "Komentar");
-            ViewBag.ZapisnikTipId = new SelectList(db.ZapisnikTips, "ZapisnikTipId", "Naziv");
-            return View();
+            Zapisnik zapisnik = db.Zapisniks.Find(zapisnikId);
+
+            List<ZapisnikAparatParticle> aparati = new List<ZapisnikAparatParticle>();
+            ZapisnikAparatParticle ap = null;
+
+            foreach (var aparat in zapisnik.ZapisnikAparats)
+            {
+                aparati.Add(Helper.RenderZapisnikAparat(aparat));
+            }
+
+            var jsonAparati = JsonConvert.SerializeObject(aparati);
+
+            return Json(new
+            {
+                streamAparati = jsonAparati
+            }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult InsertZapisnikAparat(ZapisnikAparatParticle aparat)
+        {
+            if (!aparat.Validate())
+            {
+                throw new ClientException(aparat.ErrorMessage);
+            }
+
+            ZapisnikAparat zapisnikAparat = new ZapisnikAparat();
+
+            if (!string.IsNullOrEmpty(aparat.BrojKartice))
+            {
+                var kartice = from s in db.EvidencijskaKarticas select s;
+                EvidencijskaKartica kartica = kartice.Where(x => x.BrojEvidencijskeKartice == aparat.BrojKartice).FirstOrDefault();
+
+                if (kartica == null)
+                {
+                    throw new ClientException("Kartica nije zaduzena");
+                }
+
+                zapisnikAparat.EvidencijskaKarticaId = kartica.EvidencijskaKarticaId;
+            }
+
+            Ispravnost ispravnost = db.Ispravnosts.Find(aparat.IspravnostId);
+
+            if (ispravnost != null)
+            {
+                zapisnikAparat.IspravnostId = ispravnost.IspravnostId;
+            }
+            else
+            {
+                throw new ClientException("Ispravnost nije definisana u bazi, morate je definisati.");
+            }
+
+
+            VatrogasniAparat vatroAparat = new VatrogasniAparat();
+
+            vatroAparat.VatrogasniAparatTipId = aparat.TipId;
+            vatroAparat.GodinaProizvodnje = aparat.GodinaProizvodnje;
+            vatroAparat.Napomena = aparat.Napomena;
+            vatroAparat.IspitivanjeVrijediDo = aparat.VrijediDo;
+            vatroAparat.BrojaAparata = aparat.BrojAparata;
+            vatroAparat.VatrogasniAparatVrstaId = aparat.VrstaId;
+            vatroAparat.DatumKreiranja = DateTime.Now;
+            vatroAparat.LokacijaId = aparat.LokacijaId;
+            vatroAparat.IspravnostId = ispravnost.IspravnostId;
+
+
+            db.Entry(vatroAparat).State = EntityState.Added;
+            db.SaveChanges();
+
+            zapisnikAparat.VatrogasniAparatId = vatroAparat.VatrogasniAparatId;
+            zapisnikAparat.VatrogasniAparat = vatroAparat;
+            zapisnikAparat.ZapisnikId = aparat.ZapisnikId;
+            zapisnikAparat.Valid = true;
+            zapisnikAparat.DatumKreiranja = DateTime.Now;
+
+            db.Entry(zapisnikAparat).State = EntityState.Added;
+            db.SaveChanges();
+
+            aparat = Helper.RenderZapisnikAparat(zapisnikAparat);
+
+            return Json(new
+            {
+                item = JsonConvert.SerializeObject(aparat)
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
+        public JsonResult UpdateZapisnikAparat(ZapisnikAparatParticle aparat)
+        {
+            ZapisnikAparat zapisnikAparat = db.ZapisnikAparats.Find(aparat.ZapisnikAparatId);
+
+            if (zapisnikAparat != null)
+            {
+                if (zapisnikAparat.IspravnostId != aparat.IspravnostId)
+                {
+                    zapisnikAparat.IspravnostId = aparat.IspravnostId;
+                    db.Entry(zapisnikAparat).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                EvidencijskaKartica kartica = db.EvidencijskaKarticas.Find(zapisnikAparat.VatrogasniAparat.EvidencijskaKarticaId);
+                if (kartica != null && kartica.BrojEvidencijskeKartice != aparat.BrojKartice)
+                {
+                    kartica.BrojEvidencijskeKartice = aparat.BrojKartice;
+                    db.Entry(kartica).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                VatrogasniAparat vatroAparat = db.VatrogasniAparats.Find(zapisnikAparat.VatrogasniAparatId);
+
+                if (vatroAparat != null)
+                {
+                    vatroAparat.VatrogasniAparatTipId = aparat.TipId;
+                    vatroAparat.GodinaProizvodnje = aparat.GodinaProizvodnje;
+                    vatroAparat.Napomena = aparat.Napomena;
+                    vatroAparat.IspitivanjeVrijediDo = aparat.VrijediDo;
+                    vatroAparat.BrojaAparata = aparat.BrojAparata;
+                    vatroAparat.VatrogasniAparatVrstaId = aparat.VrstaId;
+
+                    db.Entry(vatroAparat).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                aparat = Helper.RenderZapisnikAparat(zapisnikAparat);
+            }
+
+            return Json(new
+            {
+                item = JsonConvert.SerializeObject(aparat)
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpPost]
+        public JsonResult DeleteZapisnikAparat(ZapisnikAparatParticle aparat)
+        {
+            ZapisnikAparat zapisnikAparat = db.ZapisnikAparats.Find(aparat.ZapisnikAparatId);
+            var message = string.Empty;
+
+            if (zapisnikAparat != null)
+            {
+                //VatrogasniAparat vatroAparat = db.VatrogasniAparats.Find(zapisnikAparat.VatrogasniAparatId);
+                db.Entry(zapisnikAparat.VatrogasniAparat).State = EntityState.Deleted;
+
+                db.ZapisnikAparats.Remove(zapisnikAparat);
+                db.Entry(zapisnikAparat).State = EntityState.Deleted;
+                db.SaveChanges();
+            }
+
+            return Json(new
+            {
+                item = message
+            });
+        }
+
+
 
         // POST: Zapisnik/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ZapisnikId,BrojZapisnika,BrojZapisnikaGodina,DatumKreiranja,RadniNalogId,Validan,DatumBrisanja,BrojZapisnikaMjesec,DatumZapisnika,ZapisnikTipId,LokacijaId,PregledIzvrsioId,Napomena,KorisnikKreiraoId,Fakturisano,KorisnikKontrolisaoId,BrojFakture,DokumentacijaPrisutna,LokacijaHidranata,HidrantPrikljucenNa,IzRadnogNalogaId,KreiraniRadniNalogId")] Zapisnik zapisnik)
         {
             if (ModelState.IsValid)
             {
+                zapisnik.DatumKreiranja = DateTime.Now;
                 db.Zapisniks.Add(zapisnik);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                //return RedirectToAction("Index");
+                return RedirectToAction("Edit", new { id = zapisnik.ZapisnikId });
             }
 
             ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv", zapisnik.LokacijaId);
@@ -252,22 +396,29 @@ namespace FireSys.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Zapisnik zapisnik = db.Zapisniks.Find(id);
             if (zapisnik == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv", zapisnik.LokacijaId);
-            ViewBag.IzRadnogNalogaId = new SelectList(db.RadniNalogs, "RadniNalogId", "Komentar", zapisnik.IzRadnogNalogaId);
-            ViewBag.KreiraniRadniNalogId = new SelectList(db.RadniNalogs, "RadniNalogId", "Komentar", zapisnik.KreiraniRadniNalogId);
-            ViewBag.RadniNalogId = new SelectList(db.RadniNalogs, "RadniNalogId", "Komentar", zapisnik.RadniNalogId);
-            ViewBag.ZapisnikTipId = new SelectList(db.ZapisnikTips, "ZapisnikTipId", "Naziv", zapisnik.ZapisnikTipId);
-            return View(zapisnik);
+
+            var jsonLokacije = JsonConvert.SerializeObject(db.Lokacijas.Where(x => x.KlijentId == zapisnik.Lokacija.KlijentId).ToList());
+            var jsonTip = JsonConvert.SerializeObject(DataProvider.GetTipAparata());
+            var jsonIspravnost = JsonConvert.SerializeObject(DataProvider.GetIspravnost());
+            var jsonVrsta = JsonConvert.SerializeObject(DataProvider.GetVrstaAparata());
+
+            ViewBag.Lokacije = jsonLokacije;
+            ViewBag.Tipovi = jsonTip;
+            ViewBag.Ispravnosti = jsonIspravnost;
+            ViewBag.Vrste = jsonVrsta;
+
+            ZapisnikViewModel model = new ZapisnikViewModel();
+            model.Zapisnik = zapisnik;
+            return View(model);
         }
 
         // POST: Zapisnik/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ZapisnikId,BrojZapisnika,BrojZapisnikaGodina,DatumKreiranja,RadniNalogId,Validan,DatumBrisanja,BrojZapisnikaMjesec,DatumZapisnika,ZapisnikTipId,LokacijaId,PregledIzvrsioId,Napomena,KorisnikKreiraoId,Fakturisano,KorisnikKontrolisaoId,BrojFakture,DokumentacijaPrisutna,LokacijaHidranata,HidrantPrikljucenNa,IzRadnogNalogaId,KreiraniRadniNalogId")] Zapisnik zapisnik)
@@ -310,6 +461,29 @@ namespace FireSys.Controllers
             db.Zapisniks.Remove(zapisnik);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public JsonResult Report(int id)
+        {
+            ZapisnikReport report = new ZapisnikReport();
+
+            report.Parameters["BrojZapisnika"].Value = "test";
+            report.Parameters["Narucilac"].Value = "test";
+            report.Parameters["Lokacija"].Value = "test";
+            report.Parameters["Adresa"].Value = "test";
+            report.Parameters["Mjesto"].Value = "test";
+            report.Parameters["Grad"].Value = "test";
+
+
+            report.RequestParameters = false;
+            report.CreateDocument();
+            //report.PrintingSystem.Document.AutoFitToPagesWidth = 1;
+
+            return Json(new
+            {
+                content = GridViewHelper.RenderRazorViewToString(this, "~/Views/Zapisnik/Reports/ZapisnikReport.cshtml", report)
+            });
         }
 
         protected override void Dispose(bool disposing)

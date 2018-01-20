@@ -30,6 +30,8 @@ namespace FireSys.Controllers
             //var radniNalogs = db.RadniNalogs.Include(r => r.Lokacija);
             //return View(radniNalogs.ToList());
 
+            //GridViewHelper.GetConfiguration(string.Empty);
+
             Session["WorkingSheetModel"] = GetSheets();
             return View(Session["WorkingSheetModel"]);
         }

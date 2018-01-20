@@ -1,8 +1,16 @@
-﻿<!DOCTYPE html>
+﻿@using FireSys.Models;
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    @{
+        ZapisnikViewModel zapisnikModel = new ZapisnikViewModel();
+        zapisnikModel.Zapisnik = new FireSys.Entities.Zapisnik();
+    }
+
 
     @if (ViewBag.Title != null)
     {
@@ -53,6 +61,17 @@
             color: red;
             font-size: 14pt;
         }*/
+
+        .like-anchor {
+            background: none !important;
+            color: inherit;
+            border: none;
+            padding: 0 !important;
+            font: inherit;
+            /*border is optional*/
+            border-bottom: 1px solid #444;
+            cursor: pointer;
+        }
     </style>
 
 </head>
@@ -122,8 +141,8 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-newspaper-o fa-fw fa-tab-main"></i> Zapisnik <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a class="main-tab" href="@Url.Action("Index", "Klijenti")"><i class="fa fa-table fa-fw fa-tab-main"></i> Lista zapisnika </a></li>
-                                <li><a class="main-tab" href="@Url.Action("Index", "Klijenti")"><i class="fa fa-file fa-fw fa-tab-main"></i> Novi zapisnik </a></li>
+                                <li><a class="main-tab" href="@Url.Action("Index", "Zapisnik")"><i class="fa fa-table fa-fw fa-tab-main"></i> Lista zapisnika </a></li>
+                                <li><a class="main-tab"  href="#" data-toggle="modal" data-target="#zapisnikModal" data-backdrop="static" data-keyboard="false"><i class="fa fa-file fa-fw fa-tab-main"></i> Novi zapisnik </a></li>
                             </ul>
                         </li>
 
@@ -252,11 +271,17 @@
         <footer></footer>
     </div>
 
+
+    @Html.Partial("~/Views/Zapisnik/Create.cshtml", zapisnikModel)
+
     @*<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>*@
 
     @Scripts.Render("~/js/shared")
     @Scripts.Render("~/js/charts")
+
+    <script src="~/Scripts/moment.min.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

@@ -12,6 +12,10 @@
         $("form").attr("action", actionParams.join("?OutputFormat="));
     }
 
+    function OnCreateClick(s, e) {
+        $("#zapisnikModal").modal('show');
+    }
+
     function deleteRow() {
         var txt;
         var r = confirm("Da li zelite obrisati?");
@@ -63,8 +67,9 @@
                {
                    btn.Name = "btnNewZapisnik";
                    btn.Text = "Kreiraj novi zapisnik";
-                   btn.RouteValues = new { Controller = "Zapisnik", Action = "Create", ParamValue = "" };
+                   //btn.RouteValues = new { Controller = "Zapisnik", Action = "Create", ParamValue = "" };
                    btn.ControlStyle.CssClass = "create-button";
+                   btn.ClientSideEvents.Click = "OnCreateClick";
                }).GetHtml()
                 </td>
                 <td>

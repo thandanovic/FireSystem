@@ -20,16 +20,11 @@
 <ShowEditButton>False</ShowEditButton>
 <Columns>
 	<Column>
-		<FieldName>HidrantId</FieldName>
+		<FieldName>ZapisnikId</FieldName>
 		<Caption>ID</Caption>
 		<Visible>True</Visible>
 	</Column>
-	<Column>
-		<FieldName>Oznaka</FieldName>
-		<Caption>Oznaka</Caption>
-		<Visible>True</Visible>
-	</Column>
-	<Column>
+	<!-- <Column>
 		<IsReferential>True</IsReferential>
 		<FieldName>HidrantTip.Naziv</FieldName>
 		<Caption>Tip</Caption>
@@ -42,7 +37,7 @@
 		<DropDownStyle>DropDown</DropDownStyle>
 		<Width></Width>
 		<AllowAutoFilter>True</AllowAutoFilter>
-	</Column>
+	</Column> -->
 </Columns>
 <ActionFieldName>edit</ActionFieldName>
 <ActionCaption>Akcije</ActionCaption>

@@ -14,7 +14,10 @@
 
 <script>
     $(function () {
-        $('.date').datepicker({ format: 'dd.mm.yyyy' }).datepicker("setDate", new Date());
+        //$('.date').datepicker({ format: 'dd.mm.yyyy' }).datepicker("setDate", new Date());
+
+        $('.date').datepicker({ format: 'dd.mm.yyyy' });
+
 
 
         $('#Zapisnik_ZapisnikTipId').change(function () {
@@ -48,7 +51,7 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Zapisnik.Datum zapisnika">Datum zapisnika</label>
-                                @Html.EditorFor(model => model.Zapisnik.DatumZapisnika, new { htmlAttributes = new { @class = "form-control date", placeholder = "Datum zapisnika" } })
+                                @Html.EditorFor(model => model.Zapisnik.DatumZapisnika, new { htmlAttributes = new { @Value=Model.Zapisnik.DatumZapisnika.ToShortDateString(), @class = "form-control date", placeholder = "Datum zapisnika" } })
                             </div>
                         </div>
                         <div class="col-lg-6">
@@ -93,7 +96,7 @@
                         <div class="col-lg-12">
                             <div class="form-group">
                                 <label for="Zapisnik.ZapisnikTipId">Tip zapisnika</label>
-                                @Html.DropDownListFor(x => x.Zapisnik.ZapisnikTipId, Model.TipoviZapisnika, new { @class = "form-control" })
+                                @Html.DropDownListFor(x => x.Zapisnik.ZapisnikTipId, Model.TipoviZapisnika, new { @class = "form-control exclude-reset" })
                             </div>
                         </div>
                     </div>
@@ -102,13 +105,13 @@
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Zapisnik.PregledIzvrsioId">Pregled izvršio</label>
-                                @Html.DropDownListFor(x => x.Zapisnik.PregledIzvrsioId, Model.Zaposlenici, new { @class = "form-control" })
+                                @Html.DropDownListFor(x => x.Zapisnik.PregledIzvrsioId, Model.Zaposlenici, "Pregled izvršio", new { @class = "form-control" })
                             </div>
                         </div>
                         <div class="col-lg-6">
                             <div class="form-group">
                                 <label for="Zapisnik.KorisnikKontrolisaoId">Kontrolisao</label>
-                                @Html.DropDownListFor(x => x.Zapisnik.KorisnikKontrolisaoId, Model.Zaposlenici, new { @class = "form-control" })
+                                @Html.DropDownListFor(x => x.Zapisnik.KorisnikKontrolisaoId, Model.Zaposlenici, "Kontrolisao", new { @class = "form-control" })
                             </div>
                         </div>
                     </div>

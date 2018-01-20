@@ -48,7 +48,7 @@ $(document).ready(function () {
             { regijaId: regijaId, klijentId: klijentId },
             function (Data) {
                 $(".dropdown-lokacije").empty();
-                $(".dropdown-lokacije").append("<option value='0'>Odaberi lokaciju</option>");
+                $(".dropdown-lokacije").append("<option value=''>Odaberi lokaciju</option>");
                 if (Data != null) {
                     $.each(Data, function (index, fooListItem) {
                         $(".dropdown-lokacije").append("<option value='" + fooListItem.Value + "'>" + fooListItem.Text + "</option>");
@@ -61,8 +61,25 @@ $(document).ready(function () {
         });
     }
 
+    $('#zapisnikModal').on('shown.bs.modal', function () {
+
+        var validator = $('#zapisnikForm').validate();
+        validator.resetForm();
+    })
+
+    $('#zapisnikModal').on('hidden.bs.modal', function () {
+
+        var validator = $('#zapisnikForm').validate();
+        validator.resetForm();
+
+        //$('.field-validation-error').remove();
+
+        $('#zapisnikForm').find('input:text, input:password, select, textarea').not('.exclude-reset').val('');
+        $('#zapisnikForm').find('input[name="Zapisnik.BrojZapisnika"]').val('0');
+        $('#zapisnikForm').find('input:radio, input:checkbox').prop('checked', false);
 
 
+    })
 });
 
 /* Global ajax handlers */

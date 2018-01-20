@@ -26,7 +26,7 @@ $(document).ready(function () {
 
 
     $('input[type=datetime]').datepicker({
-        dateFormat: "dd/M/yy",
+        format: "dd.mm.yyyy",
         changeMonth: true,
         changeYear: true,
         yearRange: "-60:+0"

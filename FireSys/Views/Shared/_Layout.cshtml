@@ -85,7 +85,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="@Url.Action("Index", "Home")"><div class="logo-menu" role="img"></div></a>
+                <a href="@Url.Action("Index", "Dash")"><div class="logo-menu" role="img"></div></a>
                 <a class="margin-top-25 navbar-brand font-size-30" href="@Url.Action("Index", "Dash")"></a>
 
             </div>
@@ -131,7 +131,7 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-file-text-o fa-fw fa-tab-main"></i> Nalozi <span class="caret"></span></a>
                             <ul class="dropdown-menu">
                                 <li><a class="main-tab" href="@Url.Action("Index", "RadniNalog")"><i class="fa fa-files-o fa-fw fa-tab-main"></i> Lista naloga </a></li>
-                                <li><a class="main-tab" href="@Url.Action("Create", "RadniNalog")"><i class="fa fa-file fa-fw fa-tab-main"></i> Novi nalog </a></li>
+                                <li><a class="main-tab" href="@Url.Action("Index", "RadniNalog", new { create=1 })"><i class="fa fa-file fa-fw fa-tab-main"></i> Novi nalog </a></li>
                                 <li role="separator" class="divider"></li>
 
                                 <li><a class="main-tab" href="@Url.Action("Index", "RadniNalog")"><i class="fa fa-arrow-down fa-fw fa-tab-main"></i> Lista dolazećih naloga </a></li>

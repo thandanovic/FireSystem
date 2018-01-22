@@ -483,6 +483,8 @@ namespace FireSys.Helpers
 
             settings.Settings.ShowFilterRow = true;
 
+            settings.SettingsPager.Mode = GridViewPagerMode.ShowPager;
+            settings.SettingsPager.PageSize = 100;
             settings.CommandColumn.Visible = true;
             settings.CommandColumn.ShowSelectCheckbox = true;
 

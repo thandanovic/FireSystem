@@ -33,33 +33,14 @@ $(document).ready(function () {
             return true;
         }, "Date is not valid.");
     }
+    $('.date').datepicker({
+        format: "dd.mm.yyyy",
+        changeMonth: true,
+        changeYear: true,
+        yearRange: "-60:+0"
+    });
 
-    if ($(".dropdown-regije, .dropdown-klijenti").length > 0) {
-        $(".dropdown-regije, .dropdown-klijenti").change(function () {
-            var regijaId = $(".dropdown-regije").val();
-            var klijentId = $(".dropdown-klijenti").val();
-            if (!klijentId) {
-                klijentId = "0";
-            }
-            if (!regijaId) {
-                regijaId = "0";
-            }
-            $.getJSON("../Lokacija/GetLokacijeByKlijentRegija",
-            { regijaId: regijaId, klijentId: klijentId },
-            function (Data) {
-                $(".dropdown-lokacije").empty();
-                $(".dropdown-lokacije").append("<option value=''>Odaberi lokaciju</option>");
-                if (Data != null) {
-                    $.each(Data, function (index, fooListItem) {
-                        $(".dropdown-lokacije").append("<option value='" + fooListItem.Value + "'>" + fooListItem.Text + "</option>");
-                    });
-                }
-                else
-                    alert("Odabrani klijent nema lokacija. Unesite lokaciju.");
-            });
-
-        });
-    }
+    Utility.initLocationChangeEvent();
 
     function clearValidation(formElement) {
         var validator = $(formElement).validate();

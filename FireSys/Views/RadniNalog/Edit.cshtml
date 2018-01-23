@@ -4,6 +4,9 @@
     ViewBag.Title = "Izmjena radnog naloga";
     Layout = "~/Views/Shared/_FormLayout.cshtml";
 }
-@{ Html.RenderPartial("_Details", Model);  }
-@Html.HiddenFor(model => model.RadniNalogId)
-@Html.HiddenFor(model => model.DatumKreiranja)
+<div class="col-lg-6 col-lg-offset-3">
+    @{ Html.RenderPartial("_Details", Model);  }
+
+    @Html.HiddenFor(model => model.RadniNalogId)
+    @Html.HiddenFor(model => model.DatumKreiranja)
+</div>

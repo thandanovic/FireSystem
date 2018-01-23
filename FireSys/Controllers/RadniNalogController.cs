@@ -193,9 +193,7 @@ namespace FireSys.Controllers
         public ActionResult Create()
         {
             RadniNalogViewModel model = new RadniNalogViewModel();
-            ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv");
-            model.Klijenti = new SelectList(db.Klijents, "KlijentId", "Naziv");
-            model.DatumNaloga = DateTime.Now;
+            ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv");            
             return View(model);
         }
 
@@ -240,9 +238,6 @@ namespace FireSys.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv", radniNalog.LokacijaId);
-            radniNalogView.Klijenti = new SelectList(db.Klijents, "KlijentId", "Naziv");
-            radniNalogView.SelectedKlijentId = radniNalog.Lokacija.KlijentId;
             return View(radniNalogView);
         }
 
@@ -259,8 +254,6 @@ namespace FireSys.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv", radniNalog.LokacijaId);
-            radniNalog.Klijenti = new SelectList(db.Klijents, "KlijentId", "Naziv");
             return View(radniNalog);
         }
 
@@ -330,6 +323,17 @@ namespace FireSys.Controllers
             {
                 content = GridViewHelper.RenderRazorViewToString(this, "~/Views/RadniNalog/Report.cshtml", report)
             });
+        }
+
+        public ActionResult GetDetailsPartial(int? id)
+        {
+            RadniNalogViewModel model = new RadniNalogViewModel();
+            if (id != null)
+            {
+                RadniNalog radniNalog = db.RadniNalogs.Find(id);
+                model.FillViewModel(radniNalog);
+            }          
+            return PartialView("_Details", model);
         }
 
         protected override void Dispose(bool disposing)

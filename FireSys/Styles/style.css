@@ -123,6 +123,9 @@ hr {
 .no-padding-rg {
     padding-right: 0px !important;
 }
+.no-padding-lf {
+    padding-left: 0px !important;
+}
 
 li.active a {
     color: #337ab7 !important;

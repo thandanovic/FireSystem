@@ -1,8 +1,10 @@
 ﻿@model IEnumerable<FireSys.Entities.RadniNalog>
-
+@using FireSys.Models;
 @{
     ViewBag.Title = "Radni nalozi";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    RadniNalogViewModel radniNalogModel = new RadniNalogViewModel();
 }
 
 <script type="text/javascript">
@@ -68,6 +70,27 @@
 
         });
     });
+
+    
+     
+
+    $(document).ready(function () {        
+        if (window.location.search.substring(1) == "create=1") {
+            $("#radni_nalog_modal").modal('show');
+        }
+
+        $('#radni_nalog_modal').on('shown.bs.modal', function (e) {
+            
+        })
+        $('#radni_nalog_modal').on('hidden.bs.modal', function () {
+            
+        })
+    });
+
+    function OnCreateClick(s, e) {
+        $("#radni_nalog_modal").modal('show');
+    }
+
 </script>
 
 @using (Html.BeginForm("ExportTo", "RadniNalog"))
@@ -81,8 +104,9 @@
                {
                    btn.Name = "btnNewRadniNalog";
                    btn.Text = "Kreiraj novi radni nalog";
-                   btn.RouteValues = new { Controller = "RadniNalog", Action = "Create", ParamValue = "" };
+                 //  btn.RouteValues = new { Controller = "RadniNalog", Action = "Create", ParamValue = "" };
                    btn.ControlStyle.CssClass = "create-button";
+                   btn.ClientSideEvents.Click = "OnCreateClick";
                }).GetHtml()
                 </td>
                 <td>
@@ -115,5 +139,33 @@
     <br />
 
 
-        @Html.Partial("RadniNalogGridView", Model)
+    @Html.Partial("RadniNalogGridView", Model)
+
+
+   
+
 }
+<div id="radni_nalog_modal" class="modal fade min-height-300" role="dialog">
+    <form id="radni_nalog_form" data-selected-id="" action="/RadniNalog/Create" method="post">
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Novi radni nalog</h4>
+                </div>
+                <div class="modal-body">
+                    @Html.Partial("_Details", radniNalogModel)
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+                    <button type="submit" class="btn btn-danger">Kreiraj</button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>

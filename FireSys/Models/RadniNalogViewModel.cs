@@ -1,4 +1,5 @@
 ﻿using FireSys.Entities;
+using FireSys.Helpers;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -10,9 +11,19 @@ namespace FireSys.Models
 {
     public class RadniNalogViewModel
     {
-        public RadniNalogViewModel() { }
+        public RadniNalogViewModel()
+        {
+            this.BrojAparata = 0;
+            this.BrojHidranata = 0;            
+            this.DatumNaloga = DateTime.Now;
+        }
 
         public RadniNalogViewModel(RadniNalog radniNalog)
+        {
+            FillViewModel(radniNalog);
+        }
+
+        public void FillViewModel(RadniNalog radniNalog)
         {
             this.RadniNalogId = radniNalog.RadniNalogId;
             this.DatumKreiranja = radniNalog.DatumKreiranja;
@@ -28,6 +39,7 @@ namespace FireSys.Models
             this.Hidranti = radniNalog.Hidranti;
             this.Komentar = radniNalog.Komentar;
             this.Narucilac = radniNalog.Narucilac;
+            this.SelectedKlijentId = radniNalog.Lokacija.KlijentId;
         }
 
         public int RadniNalogId { get; set; }
@@ -66,9 +78,22 @@ namespace FireSys.Models
 
         public DateTime DatumKreiranja { get; set; }
 
-        public bool Aparati { get; set; }
+        public bool Aparati
+        {
+            get
+            {
+                return BrojAparata>0;
+            }
+            set { }
+        }
 
-        public bool Hidranti { get; set; }
+        public bool Hidranti {
+            get
+            {
+                return BrojHidranata > 0;
+            }
+            set { }
+        }
 
         [StringLength(4000)]
         public string Komentar { get; set; }
@@ -86,7 +111,28 @@ namespace FireSys.Models
         [Display(Name = "Lokacija")]
         public int SelectedKlijentId { get; set; }
 
-        public SelectList Klijenti { get; set; }
+        [Display(Name = "Regija")]
+        public int RegijaId { get; set; }
+
+        private SelectList _klijenti;
+        private SelectList _regije;
+
+
+        public SelectList Klijenti
+        {
+            get
+            {
+                return _klijenti ?? new SelectList(DataProvider.DB.Klijents, "KlijentId", "Naziv");
+            }
+            set { }
+        }
+        public SelectList Regije {
+            get
+            {
+                return _regije ?? new SelectList(DataProvider.DB.Regijas, "RegijaId", "Naziv");
+            }
+            set { }
+        }
 
         public RadniNalog GetRadniNalog()
         {
@@ -106,6 +152,7 @@ namespace FireSys.Models
             radni.RadniNalogId = this.RadniNalogId;
             return radni;
         }
+
 
     }
 }

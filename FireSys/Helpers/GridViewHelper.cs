@@ -18,6 +18,7 @@ namespace FireSys.Helpers
     public class ColumnSettings
     {
         public bool IsReferential { get; set; }
+        public bool IsDate { get; set; }
         public string FieldName { get; set; }
         public string Caption { get; set; }
 
@@ -61,6 +62,8 @@ namespace FireSys.Helpers
         public bool ShowDeleteButton { get; set; }
         public bool ShowEditButton { get; set; }
 
+        public string PagerMode { get; set; }
+        public int PageSize { get; set; }
 
         public string ActionFieldName { get; set; }
         public string ActionCaption { get; set; }
@@ -207,7 +210,13 @@ namespace FireSys.Helpers
             gridSettings.CommandColumn.ShowDeleteButton = settings.ShowDeleteButton;
             gridSettings.CommandColumn.ShowEditButton = settings.ShowEditButton;
 
-            gridSettings.Settings.ShowFilterRow = settings.ShowFilterRow;
+            gridSettings.ClientSideEvents.EndCallback = "GridEndCallback";
+
+            if (!string.IsNullOrEmpty(settings.PagerMode))
+                gridSettings.SettingsPager.Mode = (GridViewPagerMode)System.Enum.Parse(typeof(GridViewPagerMode), settings.PagerMode);
+
+            if (gridSettings.SettingsPager.Mode.ToString() == settings.PagerMode)
+                gridSettings.SettingsPager.PageSize = settings.PageSize;
 
             foreach (ColumnSettings column in settings.Columns)
             {
@@ -231,7 +240,7 @@ namespace FireSys.Helpers
                         }
                         else if (column.ColumnType == "TextBox")
                         {
-                            
+
                         }
 
                         if (column.Width > 0)
@@ -247,6 +256,11 @@ namespace FireSys.Helpers
                         c.FieldName = column.FieldName;
                         c.Caption = column.Caption;
                         c.Visible = column.Visible;
+
+                        if (column.IsDate)
+                        {
+                            c.PropertiesEdit.DisplayFormatString = "dd.MM.yyyy";
+                        }
                     });
                 }
             }
@@ -612,13 +626,13 @@ namespace FireSys.Helpers
             return settings;
         }
 
-        public static GridViewSettings GetZapisnikView2(this HtmlHelper htmlHelper)
+        public static GridViewSettings GetZapisnikView(this HtmlHelper htmlHelper)
         {
             GridViewSettings settings = GetGridSettings("Zapisnici", htmlHelper);
             return settings;
         }
 
-        public static GridViewSettings GetZapisnikView(this HtmlHelper htmlHelper)
+        public static GridViewSettings GetZapisnikView1(this HtmlHelper htmlHelper)
         {
             GridViewSettings settings = new GridViewSettings();
             settings.Name = "zapisnikGrid";
@@ -725,7 +739,7 @@ namespace FireSys.Helpers
             //    column.Caption = "Broj zapisnika";
             //});
 
-            
+
 
             settings.Columns.Add(column =>
             {

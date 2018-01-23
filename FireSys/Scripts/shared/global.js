@@ -61,24 +61,25 @@ $(document).ready(function () {
         });
     }
 
-    $('#zapisnikModal').on('shown.bs.modal', function () {
-
-        var validator = $('#zapisnikForm').validate();
+    function clearValidation(formElement) {
+        var validator = $(formElement).validate();
+        $('[name]', formElement).each(function () {
+            validator.successList.push(this);
+            validator.showErrors();
+        });
         validator.resetForm();
+        validator.reset();
+    }
+
+    $('#zapisnikModal').on('hide.bs.modal', function () {
+        clearValidation($('#zapisnikForm'));
     })
-
+  
     $('#zapisnikModal').on('hidden.bs.modal', function () {
-
-        var validator = $('#zapisnikForm').validate();
-        validator.resetForm();
-
-        //$('.field-validation-error').remove();
-
         $('#zapisnikForm').find('input:text, input:password, select, textarea').not('.exclude-reset').val('');
         $('#zapisnikForm').find('input[name="Zapisnik.BrojZapisnika"]').val('0');
         $('#zapisnikForm').find('input:radio, input:checkbox').prop('checked', false);
-
-
+        clearValidation($('#zapisnikForm'));
     })
 });
 

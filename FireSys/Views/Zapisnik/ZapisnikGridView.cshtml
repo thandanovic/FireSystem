@@ -1,10 +1,4 @@
-﻿@*@{
-    var grid = Html.DevExpress().GridView(ViewBag.GridSettings);
-}
-@grid.Bind(Model).GetHtml()*@
-
-
-@{
+﻿@{
     var grid = Html.DevExpress().GridView(Html.GetZapisnikView());
 
     if (ViewData["EditError"] != null)

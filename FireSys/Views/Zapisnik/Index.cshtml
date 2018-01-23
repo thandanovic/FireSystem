@@ -16,18 +16,24 @@
         $("#zapisnikModal").modal('show');
     }
 
-    function deleteRow() {
-        var txt;
-        var r = confirm("Da li zelite obrisati?");
-        if (r == true) {
-            return true;
-        } else {
-            return false;
-        }
+    function GridEndCallback(s, e) {
+        console.log('end');
     }
 
     $(function () {
-        $('.print-report').on('click', function () {
+
+        function deleteRow() {
+            var txt;
+            var r = confirm("Da li zelite obrisati?");
+            if (r == true) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        $('.print-report').on('click', function (e) {
+            e.preventDefault();
             var dataUrl = $(this).attr('data-url');
             var dataID = $(this).attr('data-id');
 
@@ -44,13 +50,47 @@
                 },
                 success: function (data) {
                     $('#modal_report_body').html(data.content);
-                    $('#modal_report').modal('show');
+                    //$('#modal_report').modal('show');
                 }
             });
-
-
-
         });
+        $(document).ajaxComplete(function (event, request, settings) {
+            if (settings.data.includes('zapisnikGrid')) {
+                function deleteRow() {
+                    var txt;
+                    var r = confirm("Da li zelite obrisati?");
+                    if (r == true) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                $('.print-report').on('click', function (e) {
+                    //e.preventDefault();
+                    var dataUrl = $(this).attr('data-url');
+                    var dataID = $(this).attr('data-id');
+
+                    $.ajax({
+                        url: dataUrl,
+                        data: { id: dataID },
+                        dataType: 'json',
+                        type: "POST",
+                        beforeSend: function () {
+
+                        },
+                        complete: function () {
+
+                        },
+                        success: function (data) {
+                            //$('#modal_report_body').html(data.content);
+                            //$('#modal_report').modal('show');
+                        }
+                    });
+                });
+            }
+        });
+
     });
 
 </script>
@@ -101,7 +141,7 @@
 
     <br />
 
-    
+
     @Html.Partial("ZapisnikGridView", Model)
-    
+
 }

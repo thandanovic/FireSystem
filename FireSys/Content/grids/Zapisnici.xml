@@ -18,11 +18,72 @@
 <ShowNewButton>False</ShowNewButton>
 <ShowDeleteButton>False</ShowDeleteButton>
 <ShowEditButton>False</ShowEditButton>
+<PagerMode>ShowPager</PagerMode>
+<PageSize>100</PageSize>
 <Columns>
 	<Column>
 		<FieldName>ZapisnikId</FieldName>
 		<Caption>ID</Caption>
+		<Visible>False</Visible>
+	</Column>
+	 <Column>
+		<IsReferential>True</IsReferential>
+		<FieldName>Lokacija.Klijent.Naziv</FieldName>
+		<Caption>Klijent</Caption>
 		<Visible>True</Visible>
+		<ColumnType>TextBox</ColumnType>
+		<DataSource>GetClients</DataSource>
+		<TextField>Naziv</TextField>
+		<ValueField>Naziv</ValueField>
+		<ValueType>string</ValueType>
+		<DropDownStyle>DropDown</DropDownStyle>
+		<Width></Width>
+		<AllowAutoFilter>True</AllowAutoFilter>
+	</Column>
+	<Column>
+		<IsReferential>True</IsReferential>
+		<FieldName>Lokacija.Regija.Naziv</FieldName>
+		<Caption>Regija</Caption>
+		<Visible>True</Visible>
+		<ColumnType>ComboBox</ColumnType>
+		<DataSource>GetRegions</DataSource>
+		<TextField>Naziv</TextField>
+		<ValueField>Naziv</ValueField>
+		<ValueType>string</ValueType>
+		<DropDownStyle>DropDown</DropDownStyle>
+		<Width></Width>
+		<AllowAutoFilter>True</AllowAutoFilter>
+	</Column>
+	<Column>
+		<FieldName>FullBrojZapisnika</FieldName>
+		<Caption>Broj</Caption>
+		<Visible>True</Visible>		
+	</Column>
+	<Column>
+		<IsDate>True</IsDate>
+		<FieldName>DatumZapisnika</FieldName>
+		<Caption>Datum</Caption>
+		<Visible>True</Visible>		
+	</Column>
+	<Column>
+		<IsReferential>True</IsReferential>
+		<FieldName>ZapisnikTip.Naziv</FieldName>
+		<Caption>Tip</Caption>
+		<Visible>True</Visible>
+		<ColumnType>ComboBox</ColumnType>
+		<DataSource>GetZapisnikTip</DataSource>
+		<TextField>Naziv</TextField>
+		<ValueField>Naziv</ValueField>
+		<ValueType>string</ValueType>
+		<DropDownStyle>DropDown</DropDownStyle>
+		<Width></Width>
+		<AllowAutoFilter>True</AllowAutoFilter>
+	</Column>
+	<Column>
+		<IsDate>True</IsDate>
+		<FieldName>DatumKreiranja</FieldName>
+		<Caption>Datum</Caption>
+		<Visible>True</Visible>		
 	</Column>
 	<!-- <Column>
 		<IsReferential>True</IsReferential>
@@ -41,11 +102,11 @@
 </Columns>
 <ActionFieldName>edit</ActionFieldName>
 <ActionCaption>Akcije</ActionCaption>
-<ActionWidth>70</ActionWidth>
+<ActionWidth>100</ActionWidth>
 <ActionShowEdit>True</ActionShowEdit>
 <ActionEdit>Edit</ActionEdit>
 <ActionShowDelete>True</ActionShowDelete>
 <ActionDelete>Delete</ActionDelete>
-<ActionShowPrint>False</ActionShowPrint>
-<ActionPrint></ActionPrint>
+<ActionShowPrint>True</ActionShowPrint>
+<ActionPrint>Report</ActionPrint>
 </GridSettings>

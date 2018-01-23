@@ -475,7 +475,6 @@ namespace FireSys.Controllers
             report.Parameters["Mjesto"].Value = "test";
             report.Parameters["Grad"].Value = "test";
 
-
             report.RequestParameters = false;
             report.CreateDocument();
             //report.PrintingSystem.Document.AutoFitToPagesWidth = 1;

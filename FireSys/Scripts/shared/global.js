@@ -62,6 +62,8 @@ $(document).ready(function () {
         $('#zapisnikForm').find('input:radio, input:checkbox').prop('checked', false);
         clearValidation($('#zapisnikForm'));
     })
+
+    $(document).ajaxStart(mySpinner(true)).ajaxStop(mySpinner(false));
 });
 
 /* Global ajax handlers */
@@ -78,3 +80,68 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
         }
     }
 });
+
+
+function AttachReport() {
+    $('.print-report').off('click').on('click', function (e) {
+        e.preventDefault();
+        var dataUrl = $(this).attr('data-url');
+        var dataID = $(this).attr('data-id');
+        mySpinner(true);
+        $.ajax({
+            url: dataUrl,
+            data: { id: dataID },
+            dataType: 'json',
+            type: "POST",
+            beforeSend: function () {
+
+            },
+            complete: function () {
+
+            },
+            success: function (data) {
+                $('#modal_report_body').html(data.content);
+                mySpinner(false);
+            }
+        });
+    });
+}
+
+var spinner = null;
+function mySpinner(isStart) {
+    var opts = {
+        lines: 19, // The number of lines to draw
+        length: 25, // The length of each line
+        width: 7, // The line thickness
+        radius: 45, // The radius of the inner circle
+        scale: 0.85, // Scales overall size of the spinner
+        corners: 0.5, // Corner roundness (0..1)
+        color: '#ff0000', // CSS color or array of colors
+        fadeColor: 'transparent', // CSS color or array of colors
+        opacity: 0, // Opacity of the lines
+        rotate: 69, // The rotation offset
+        direction: 1, // 1: clockwise, -1: counterclockwise
+        speed: 1, // Rounds per second
+        trail: 49, // Afterglow percentage
+        fps: 20, // Frames per second when using setTimeout() as a fallback in IE 9
+        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        className: 'spinner', // The CSS class to assign to the spinner
+        top: '50%', // Top position relative to parent
+        left: '50%', // Left position relative to parent
+        position: 'absolute' // Element positioning
+    };
+
+    if (isStart && !spinner) {
+        spinner = new Spinner(opts).spin();
+        $('#waitSpinner').html(spinner.el);
+        $('#overlay').show(); //overlay  
+    }
+    else if (spinner) {
+        setTimeout(function () {
+            spinner.stop();
+            spinner = null;
+            $('#waitSpinner').remove();
+            $('#overlay').remove(); //overlay  
+        }, 1000);  //timeout – just to show the spinner for a while
+    }
+};

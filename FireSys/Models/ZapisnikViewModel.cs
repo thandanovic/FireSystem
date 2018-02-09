@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -18,8 +19,9 @@ namespace FireSys.Models
 
         public Zapisnik Zapisnik { get; set; }
 
-        public int KlijentId { get; set; }
-        public int RegijaId { get; set; }
+        public int? KlijentId { get; set; }
+        
+        public int? RegijaId { get; set; }
 
         public IEnumerable<SelectListItem> Lokacije
         {

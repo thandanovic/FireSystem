@@ -22,6 +22,7 @@
 
     .content {
         height: 85%;
+        margin-top: 10px;
     }
 
     .zapisnik {
@@ -45,11 +46,11 @@
 
     .zapisnik-container {
         display: grid;
-        grid-template-columns: 40% 60%;
+        grid-template-columns: 35% 65%;
         grid-template-rows: 50% 50%;
         grid-column-gap: 5px;
         grid-row-gap: 5px;
-        grid-template-areas: "zapisnik aparati" "zapisnik hidranti";
+        grid-template-areas: "zapisnik aparati" "zapisnik aparati";
         height: 100%;
     }
 
@@ -78,10 +79,27 @@
     .hidden {
         display: none;
     }
+
+    .box-form {
+        height: 94%;
+    }
+
+    .box-action {
+        height: 6%;
+        padding: 0 15px;
+    }
 </style>
 
 <script>
     $(function () {
+
+        if ($('#Zapisnik_ZapisnikTipId').val() != 1) {
+            $('.zapisnik-container').css("grid-template-areas", "'zapisnik hidranti' 'zapisnik hidranti'");
+            $('.page-header-right').text('Hidranti');
+        } else {
+            $('.page-header-right').text('Aparati');
+        }
+
         var ispravnost = JSON.parse($("#boxIspravnost").val());
         var tip = JSON.parse($("#boxTip").val());
         var vrsta = JSON.parse($("#boxVrste").val());
@@ -104,7 +122,7 @@
 
                     $.ajax({
                         url: "@Url.Action("GetZapisnikAparati", "Zapisnik")",
-                        data: { zapisnikId: 6 },
+                        data: { zapisnikId: parseInt($("#ZapisnikId").val()) },
                         method: "GET",
                         dataType: "json"
                     }).done(function (response) {
@@ -161,10 +179,7 @@
             },
 
             fields: [
-                //{ name: "Name", type: "text", width: 150, validate: "required" },
-                //{ name: "TipId", type: "select", width: 70, items: tip, valueField: "Id", textField: "Naziv" },
-                //{ name: "ZapisnikAparatId", type: "number", width: 70 },
-                //{ name: "TipId", type: "number", width: 70 },
+
                 { name: "TipId", title: "Tip", type: "select", width: 70, items: tip, valueField: "VatrogasniAparatTipId", textField: "Naziv", validate: "required" },
                 { name: "BrojAparata", title: "Broj aparata", type: "text", width: 50, validate: "required" },
                 { name: "GodinaProizvodnje", title: "Godina proizvodnje", type: "number", width: 50, validate: "required" },
@@ -180,14 +195,6 @@
                     //    return '<a class="fa fa-edit" href="/Hidrants/Edit/' + item.ID + '"> </a> | <a class="fa fa-search" href="/Hidrants/Details/' + item.ID + '"> </a> | <a class="fa fa-trash-o" href="/Hidrants/Delete/' + item.ID + '"> </a>';
                     //}
                 }
-
-
-
-                   //{ name: "Age", type: "number", width: 50 },
-                   //    { name: "Address", type: "text", width: 200 },
-                   //    { name: "Country", type: "select", items: countries, valueField: "Id", textField: "Name" },
-                   //    { name: "Married", type: "checkbox", title: "Is Married", sorting: false },
-                   //    { type: "control" }
             ]
         });
 
@@ -206,77 +213,113 @@
     <div class="zapisnik-container">
         @Html.Hidden("LokacijaId", Model.Zapisnik.LokacijaId)
         @Html.Hidden("ZapisnikId", Model.Zapisnik.ZapisnikId)
+        @Html.HiddenFor(model => model.Zapisnik.ZapisnikId)
+        @Html.HiddenFor(model => model.Zapisnik.DatumKreiranja)
+
         <div class="zapisnik">
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="Zapisnik.DatumZapisnika">Datum pregleda</label>
-                    @Html.EditorFor(model => model.Zapisnik.DatumZapisnika, new { htmlAttributes = new { @class = "form-control", placeholder = "Datum pregleda" } })
-                </div>
+            <div class="box-form">
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="Zapisnik.DatumZapisnika">Datum pregleda</label>
+                        @Html.EditorFor(model => model.Zapisnik.DatumZapisnika, new { htmlAttributes = new { @Value = Helper.ToShortDate(Model.Zapisnik.DatumZapisnika), @class = "form-control date", placeholder = "Datum pregleda" } })
+                        @Html.ValidationMessageFor(x => x.Zapisnik.DatumZapisnika)
 
-                <div class="form-group col-md-6">
-                    <label for="Zapisnik.BrojZapisnika">Broj zapisnika</label>
-                    <div class="broj-zapisnika">
-                        @Html.EditorFor(model => model.Zapisnik.BrojZapisnika, new { htmlAttributes = new { @class = "form-control text-width-100" } })
-                        @Html.EditorFor(model => model.Zapisnik.BrojZapisnikaMjesec, new { htmlAttributes = new { @class = "form-control text-width-50" } })
-                        @Html.EditorFor(model => model.Zapisnik.BrojZapisnikaGodina, new { htmlAttributes = new { @class = "form-control text-width-50" } })
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="Zapisnik.BrojZapisnika">Broj zapisnika</label>
+                        <div class="broj-zapisnika">
+                            @Html.EditorFor(model => model.Zapisnik.BrojZapisnika, new { htmlAttributes = new { @class = "form-control text-width-75" } })
+                            @Html.EditorFor(model => model.Zapisnik.BrojZapisnikaMjesec, new { htmlAttributes = new { @class = "form-control text-width-75" } })
+                            @Html.EditorFor(model => model.Zapisnik.BrojZapisnikaGodina, new { htmlAttributes = new { @class = "form-control text-width-75" } })
+                            @Html.ValidationMessageFor(x => x.Zapisnik.BrojZapisnika)
+                            @Html.ValidationMessageFor(x => x.Zapisnik.BrojZapisnikaMjesec)
+                            @Html.ValidationMessageFor(x => x.Zapisnik.BrojZapisnikaGodina)
+
+
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="KlijentId">Klijent</label>
-                    @Html.DropDownListFor(x => x.KlijentId, Model.Klijenti, new { @class = "form-control" })
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="KlijentId">Klijent</label>
+                        @Html.DropDownListFor(x => x.KlijentId, Model.Klijenti, new { @class = "form-control dropdown-klijenti" })
+
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="RegijaId">Regija</label>
+                        @Html.DropDownListFor(x => x.RegijaId, Model.Regije, "Odaberi regiju", new { @class = "form-control dropdown-regije" })
+                    </div>
                 </div>
 
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-12">
                     <label for="Zapisnik.LokacijaId">Lokacija</label>
-                    @Html.DropDownListFor(x => x.Zapisnik.LokacijaId, Model.Lokacije, new { @class = "form-control" })
-                </div>
-            </div>
+                    @Html.DropDownListFor(x => x.Zapisnik.LokacijaId, Model.Lokacije, new { @class = "form-control dropdown-lokacije" })
+                    @Html.ValidationMessageFor(x => x.Zapisnik.LokacijaId)
 
-            <div class="form-group col-md-12">
-                <label for="Zapisnik.ZapisnikTipId">Tip zapisnika</label>
-                @Html.DropDownListFor(x => x.Zapisnik.ZapisnikTipId, Model.TipoviZapisnika, new { @class = "form-control" })
-            </div>
 
-            <div class="form-row">
-                <div class="form-group col-md-6">
-                    <label for="Zapisnik.PregledIzvrsioId">Pregled izvršio</label>
-                    @Html.DropDownListFor(x => x.Zapisnik.PregledIzvrsioId, Model.Zaposlenici, new { @class = "form-control" })
                 </div>
 
-                <div class="form-group col-md-6">
-                    <label for="Zapisnik.KorisnikKontrolisaoId">Kontrolisao</label>
-                    @Html.DropDownListFor(x => x.Zapisnik.KorisnikKontrolisaoId, Model.Zaposlenici, new { @class = "form-control" })
+                <div class="form-group col-md-12">
+                    <label for="Zapisnik.ZapisnikTipId">Tip zapisnika</label>
+                    @Html.DropDownListFor(x => x.Zapisnik.ZapisnikTipId, Model.TipoviZapisnika, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(x => x.Zapisnik.ZapisnikTipId)
+
+
                 </div>
+
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="Zapisnik.PregledIzvrsioId">Pregled izvršio</label>
+                        @Html.DropDownListFor(x => x.Zapisnik.PregledIzvrsioId, Model.Zaposlenici, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Zapisnik.PregledIzvrsioId)
+
+
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="Zapisnik.KorisnikKontrolisaoId">Kontrolisao</label>
+                        @Html.DropDownListFor(x => x.Zapisnik.KorisnikKontrolisaoId, Model.Zaposlenici, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(x => x.Zapisnik.KorisnikKontrolisaoId)
+
+
+                    </div>
+                </div>
+
+                <div class="form-group col-md-12">
+                    <label for="Zapisnik.Napomena">Napomena</label>
+                    @Html.TextAreaFor(model => model.Zapisnik.Napomena, new { @class = "form-control", @rows = 5 })
+                </div>
+
+                <div class="form-group col-md-6 dokumentacija hidden">
+                    <label for="Zapisnik.DokumentacijaPrisutna">Dokumentacija prisutna</label>
+                    @Html.CheckBoxFor(model => model.Zapisnik.DokumentacijaPrisutna.Value, new { @class = "form-control" })
+                </div>
+
+
+                <div class="form-group col-md-6 hidden">
+                    <label for="Zapisnik.LokacijaHidranata">Lokacija hidranata</label>
+                    @Html.RadioButtonFor(m => m.Zapisnik.LokacijaHidranata, "U objektu", new { id = "UObjektu", @checked = true }) U objektu
+                    @Html.RadioButtonFor(m => m.Zapisnik.LokacijaHidranata, "Oko objekta", new { id = "OkoObjekta" }) Oko objekta
+                </div>
+
+                <div class="form-group col-md-12 hidden">
+                    <label for="Zapisnik.HidrantPrikljucenNa">Hidrant priključen na</label>
+                    @Html.TextAreaFor(model => model.Zapisnik.HidrantPrikljucenNa, new { @class = "form-control", @rows = 5 })
+                </div>
+
             </div>
 
-            <div class="form-group col-md-12">
-                <label for="Zapisnik.Napomena">Napomena</label>
-                @Html.TextAreaFor(model => model.Zapisnik.Napomena, new { @class = "form-control", @rows = 5 })
+            <div class="box-action">
+                <button id="close_zapisnik" type="button" class="btn btn-default">Zatvori</button>
+                <button type="submit" class="btn btn-danger pull-right">Spasi</button>
             </div>
-
-            <div class="form-group col-md-6 dokumentacija hidden">
-                <label for="Zapisnik.DokumentacijaPrisutna">Dokumentacija prisutna</label>
-                @Html.CheckBoxFor(model => model.Zapisnik.DokumentacijaPrisutna.Value, new { @class = "form-control" })
-            </div>
-
-
-            <div class="form-group col-md-6 hidden">
-                <label for="Zapisnik.LokacijaHidranata">Lokacija hidranata</label>
-                @Html.RadioButtonFor(m => m.Zapisnik.LokacijaHidranata, "U objektu", new { id = "UObjektu", @checked = true }) U objektu
-                @Html.RadioButtonFor(m => m.Zapisnik.LokacijaHidranata, "Oko objekta", new { id = "OkoObjekta" }) Oko objekta
-            </div>
-
-            <div class="form-group col-md-12 hidden">
-                <label for="Zapisnik.HidrantPrikljucenNa">Hidrant priključen na</label>
-                @Html.TextAreaFor(model => model.Zapisnik.HidrantPrikljucenNa, new { @class = "form-control", @rows = 5 })
-            </div>
-
-
 
         </div>
 
@@ -286,9 +329,6 @@
             @Html.Hidden("boxIspravnost", ViewData["Ispravnosti"])
             @Html.Hidden("boxVrste", ViewData["Vrste"])
             <div id="jsGrid"></div>
-
-
-
 
         </div>
 

@@ -17,12 +17,12 @@
     background-repeat: no-repeat;
     background-position: center;
     min-height: 160px;
-    margin-bottom: 0px
+    margin-bottom: 0px;
 }
 
 .field-validation-error {
     color: red;
-    font-size: 12px
+    font-size: 12px;
 }
 
 .input-validation-error {
@@ -123,6 +123,7 @@ hr {
 .no-padding-rg {
     padding-right: 0px !important;
 }
+
 .no-padding-lf {
     padding-left: 0px !important;
 }
@@ -189,34 +190,34 @@ a:hover {
     }
 
 
-.padding-top-10{
+.padding-top-10 {
     padding-top: 10px;
 }
 
-.min-height-300{
+.min-height-300 {
     min-height: 300px;
 }
 
-.export-button{
+.export-button {
     margin-left: 5px;
     background-color: gray !important;
 }
 
-.margin-bottom-20{
+.margin-bottom-20 {
     margin-bottom: 20px;
 }
 
-.edit-icon, .delete-icon{
+.edit-icon, .delete-icon {
     color: black;
     font-size: 20px;
 }
 
-.margin-top-5{
+.margin-top-5 {
     margin-top: 5px;
 }
 
 .no-padding {
-    padding-bottom : 0px;
+    padding-bottom: 0px;
     padding-top: 0px;
     padding-left: 0px;
     padding-right: 0px;
@@ -232,9 +233,15 @@ a:hover {
     padding-top: 0px;
     padding-left: 0px;
     padding-right: 0px;
-    float:left;
+    float: left;
     margin-top: 10px;
 }
-.no-padding-rg{
+
+.no-padding-rg {
     padding-right: 0px;
+}
+
+h1, label, .btn {
+    /*font-family: 'Eczar', serif;*/
+    font-family: 'Crete Round', serif !important;
 }

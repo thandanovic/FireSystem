@@ -69,10 +69,71 @@ namespace FireSys.Models
         }
     }
 
+    public class ZapisnikHidrantParticle
+    {
+        public int ZapisnikHidrantId { get; set; }
+        public int TipId { get; set; }
+        public string BrojAparata { get; set; }
+        public int GodinaProizvodnje { get; set; }
+        public int VrijediDo { get; set; }
+        public string BrojKartice { get; set; }
+        public string Napomena { get; set; }
+        public int IspravnostId { get; set; }
+        public int VrstaId { get; set; }
+        [JsonIgnore]
+        public int LokacijaId { get; set; }
+        [JsonIgnore]
+        public int ZapisnikId { get; set; }
+
+        public string ErrorMessage { get; set; }
+
+        public bool Validate()
+        {
+            if (TipId == 0)
+            {
+                ErrorMessage = "Tip aparata ne smije biti nedefinisan";
+                return false;
+            }
+
+            if (string.IsNullOrEmpty(BrojAparata))
+            {
+                ErrorMessage = "Broj aparata ne smije biti nedefinisan";
+                return false;
+            }
+
+            if (GodinaProizvodnje == 0)
+            {
+                ErrorMessage = "Godina proizvodnje ne smije biti nedefinisana";
+                return false;
+            }
+
+            if (VrijediDo == 0)
+            {
+                ErrorMessage = "Vrijedi do ne smije biti nedefinisan";
+                return false;
+            }
+
+            if (IspravnostId == 0)
+            {
+                ErrorMessage = "Ispravnost ne smije biti nedefinisana";
+                return false;
+            }
+
+            if (VrstaId == 0)
+            {
+                ErrorMessage = "Vrsta ne smije biti nedefinisana";
+                return false;
+            }
+
+            return true;
+        }
+    }
+
     public class ZapisnikAparatViewModel
     {
         public List<ZapisnikAparatParticle> Aparati { get; set; }
-      
+        public List<ZapisnikHidrantParticle> Hidranti { get; set; }
+
         readonly IEnumerable _lokacije;
         readonly IEnumerable _klijenti;
         readonly IEnumerable _tipoviZapisnika;

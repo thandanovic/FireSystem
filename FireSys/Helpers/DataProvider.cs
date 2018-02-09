@@ -199,11 +199,19 @@ namespace FireSys.Helpers
                         };
             return query.ToList();
         }
+
+
+
     }
 
 
     public static class Helper
     {
+        public static string ToShortDate(DateTime datetime)
+        {
+            return datetime.ToString("dd.MM.yyyy");
+        }
+
         public static ZapisnikAparatParticle RenderZapisnikAparat(ZapisnikAparat aparat)
         {
             ZapisnikAparatParticle ap = new ZapisnikAparatParticle();
@@ -263,4 +271,7 @@ namespace FireSys.Helpers
 
 
     }
+
+   
+
 }

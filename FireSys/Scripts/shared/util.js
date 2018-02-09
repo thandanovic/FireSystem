@@ -47,7 +47,7 @@
                 if (!regijaId) {
                     regijaId = "0";
                 }
-                $.getJSON("../Lokacija/GetLokacijeByKlijentRegija",
+                $.getJSON("/Lokacija/GetLokacijeByKlijentRegija",
                     { regijaId: regijaId, klijentId: klijentId },
                     function (Data) {
                         $(dropdownLokacija).empty();

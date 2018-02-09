@@ -28,6 +28,7 @@
     </NuGetPackageImportStamp>
     <Use64BitIISExpress />
     <TypeScriptToolsVersion>1.8</TypeScriptToolsVersion>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -155,17 +156,15 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Configuration" />
@@ -206,6 +205,7 @@
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.2.3\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
+    <Reference Include="System.Xml.Linq" />
     <Reference Include="WebGrease">
       <Private>True</Private>
       <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
@@ -355,23 +355,34 @@
     <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.zh-CN.min.js" />
     <Content Include="Content\bootstrap-datepicker\locales\bootstrap-datepicker.zh-TW.min.js" />
     <Content Include="Content\bootstrap-social\bootstrap-social.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap\css\bootstrap.css" />
     <Content Include="Content\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
-    <Content Include="Content\bootstrap\js\popper.min.js" />
     <Content Include="Content\img\CaWe-logo.png" />
     <Content Include="Content\plugins\notify\notify.js" />
     <Content Include="favicon.ico" />
     <Compile Include="Models\BaseViewModel.cs" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Scripts\app\account\account.js" />
     <Content Include="Scripts\app\dashboard\dashboard.js" />
+    <Content Include="Scripts\app\validate\jquery.validate.bootstrap-tooltip.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\moment-with-locales.js" />
     <Content Include="Scripts\moment-with-locales.min.js" />
     <Content Include="Scripts\moment.js" />
     <Content Include="Scripts\moment.min.js" />
     <Content Include="Scripts\shared\util.js" />
+    <Content Include="Scripts\spin.js" />
+    <Content Include="Scripts\spin.min.js" />
     <Content Include="Styles\style.css" />
     <Content Include="Content\theme\datatables-plugins\dataTables.bootstrap.css" />
     <Content Include="Content\theme\datatables-plugins\dataTables.bootstrap.js" />
@@ -474,6 +485,8 @@
     <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker.standalone.css.map" />
     <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker3.css.map" />
     <Content Include="Content\bootstrap-datepicker\css\bootstrap-datepicker3.standalone.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <Content Include="Content\bootstrap-theme.css.map" />
     <None Include="Content\jquery\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\shared\global.js" />
     <Content Include="Content\jquery\jquery-1.10.2.js" />
@@ -561,6 +574,9 @@
     <Content Include="Views\Lokacija\LokacijaGridView.cshtml" />
     <Content Include="Views\Klijenti\ClientGridView.cshtml" />
     <Content Include="Views\VatrogasniAparat\AparatGridView.cshtml" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Views\RadniNalog\Report.cshtml" />
     <Content Include="Views\Zapisnik\Reports\ZapisnikReport.cshtml" />
@@ -568,6 +584,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\plugins\validate\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>

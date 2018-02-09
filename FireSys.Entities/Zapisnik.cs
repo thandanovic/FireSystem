@@ -20,10 +20,14 @@ namespace FireSys.Entities
 
         public int ZapisnikId { get; set; }
 
+        [Required(ErrorMessage = ErrorMessages.Required)]
         public int BrojZapisnika { get; set; }
 
+        [Required(ErrorMessage = ErrorMessages.Required)]
+        [Range(2015, 2100, ErrorMessage = "Broj godine mora biti izmedju 2015 i 2100")]
         public int BrojZapisnikaGodina { get; set; }
 
+        [Required(ErrorMessage = ErrorMessages.Required)]
         public DateTime DatumKreiranja { get; set; }
 
         public int? RadniNalogId { get; set; }
@@ -32,19 +36,26 @@ namespace FireSys.Entities
 
         public DateTime? DatumBrisanja { get; set; }
 
+        [Required(ErrorMessage = ErrorMessages.Required)]
+        [Range(1,12, ErrorMessage = "Broj mjeseca mora biti izmedju 1 i 12")]
         public int BrojZapisnikaMjesec { get; set; }
 
+        [Required(ErrorMessage = ErrorMessages.Required)]
         public DateTime DatumZapisnika { get; set; }
 
+        [Required(ErrorMessage = ErrorMessages.Required)]
         public int ZapisnikTipId { get; set; }
 
+        [Required(ErrorMessage = ErrorMessages.Required)]
         public int LokacijaId { get; set; }
 
+        [Required(ErrorMessage = ErrorMessages.Required)]
         public Guid PregledIzvrsioId { get; set; }
 
         [StringLength(4000)]
         public string Napomena { get; set; }
 
+        [Required(ErrorMessage = ErrorMessages.Required)]
         public Guid KorisnikKreiraoId { get; set; }
 
         public bool Fakturisano { get; set; }

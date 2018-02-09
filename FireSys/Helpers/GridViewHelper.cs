@@ -210,6 +210,7 @@ namespace FireSys.Helpers
             gridSettings.CommandColumn.ShowDeleteButton = settings.ShowDeleteButton;
             gridSettings.CommandColumn.ShowEditButton = settings.ShowEditButton;
 
+            gridSettings.ClientSideEvents.BeginCallback = "GridBeginCallback";
             gridSettings.ClientSideEvents.EndCallback = "GridEndCallback";
 
             if (!string.IsNullOrEmpty(settings.PagerMode))
@@ -487,6 +488,12 @@ namespace FireSys.Helpers
         }
 
         public static GridViewSettings GetRadniNalogView(this HtmlHelper htmlHelper)
+        {
+            GridViewSettings settings = GetGridSettings("RadniNalozi", htmlHelper);
+            return settings;
+        }
+
+        public static GridViewSettings GetRadniNalogView1(this HtmlHelper htmlHelper)
         {
             GridViewSettings settings = new GridViewSettings();
             settings.Name = "radniNalogGrid";

@@ -15,9 +15,14 @@
     function OnCreateClick(s, e) {
         $("#zapisnikModal").modal('show');
     }
+    var commandName;
+    function GridBeginCallback(s, e) {
+        commandName = e.commandName;
+    }
 
     function GridEndCallback(s, e) {
-        console.log('end');
+        console.log(commandName);
+        commandName = null;
     }
 
     $(function () {
@@ -32,30 +37,9 @@
             }
         }
 
-        $('.print-report').on('click', function (e) {
-            e.preventDefault();
-            var dataUrl = $(this).attr('data-url');
-            var dataID = $(this).attr('data-id');
-
-            $.ajax({
-                url: dataUrl,
-                data: { id: dataID },
-                dataType: 'json',
-                type: "POST",
-                beforeSend: function () {
-
-                },
-                complete: function () {
-
-                },
-                success: function (data) {
-                    $('#modal_report_body').html(data.content);
-                    //$('#modal_report').modal('show');
-                }
-            });
-        });
+        AttachReport();
         $(document).ajaxComplete(function (event, request, settings) {
-            if (settings.data.includes('zapisnikGrid')) {
+            if (settings.data !== undefined && settings.data.includes('zapisnikGrid')) {
                 function deleteRow() {
                     var txt;
                     var r = confirm("Da li zelite obrisati?");
@@ -66,28 +50,7 @@
                     }
                 }
 
-                $('.print-report').on('click', function (e) {
-                    //e.preventDefault();
-                    var dataUrl = $(this).attr('data-url');
-                    var dataID = $(this).attr('data-id');
-
-                    $.ajax({
-                        url: dataUrl,
-                        data: { id: dataID },
-                        dataType: 'json',
-                        type: "POST",
-                        beforeSend: function () {
-
-                        },
-                        complete: function () {
-
-                        },
-                        success: function (data) {
-                            //$('#modal_report_body').html(data.content);
-                            //$('#modal_report').modal('show');
-                        }
-                    });
-                });
+                AttachReport();
             }
         });
 

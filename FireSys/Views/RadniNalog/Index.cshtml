@@ -13,6 +13,17 @@
         actionParams[1] = s.GetMainElement().getAttribute("OutputFormatAttribute");
         $("form").attr("action", actionParams.join("?OutputFormat="));
     }
+
+    var commandName;
+    function GridBeginCallback(s, e) {
+        commandName = e.commandName;
+    }
+
+    function GridEndCallback(s, e) {
+        console.log(commandName);
+        commandName = null;
+    }
+
     var globalSender = null;
 
     function documentViewer_Init(sender, e) {
@@ -62,7 +73,7 @@
                 },
                 success: function (data) {
                     $('#modal_report_body').html(data.content);
-                    $('#modal_report').modal('show');
+                    //$('#modal_report').modal('show');
                 }
             });
 

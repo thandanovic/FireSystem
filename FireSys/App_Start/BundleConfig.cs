@@ -47,6 +47,7 @@ namespace FireSys
             bundles.Add(new ScriptBundle("~/js/bootstrap").Include( 
                 "~/Content/bootstrap/js/bootstrap.js",
                 "~/Content/bootstrap/js/bootstrap-datepicker.js"
+                
                 ));
 
             bundles.Add(new ScriptBundle("~/js/shared").Include(
@@ -56,7 +57,9 @@ namespace FireSys
                        "~/Scripts/shared/util.js",
                        "~/Content/plugins/notify/notify.js",
                        "~/Content/plugins/jsgrid-1.5.3/jsgrid.js",
-                       "~/Content/bootstrap-datepicker/js/bootstrap-datepicker.js"
+                       "~/Content/bootstrap-datepicker/js/bootstrap-datepicker.js",
+                       "~/Scripts/app/validate/jquery.validate.bootstrap-tooltip.js",
+                       "~/Scripts/spin.min.js"
                        ));
 
             bundles.Add(new ScriptBundle("~/js/charts").Include(

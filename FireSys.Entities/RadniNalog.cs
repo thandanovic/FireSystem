@@ -21,6 +21,9 @@ namespace FireSys.Entities
         public int RadniNalogId { get; set; }
 
 
+        public int StatusId { get; set; }
+
+
         [Display(Name = "Lokacija")]
         public int LokacijaId { get; set; }
 
@@ -56,6 +59,8 @@ namespace FireSys.Entities
         public string Narucilac { get; set; }
 
         public virtual Lokacija Lokacija { get; set; }
+
+        public virtual Status Status { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<RadniNalogAparat> RadniNalogAparats { get; set; }

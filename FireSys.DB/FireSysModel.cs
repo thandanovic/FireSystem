@@ -19,7 +19,8 @@ namespace FireSys.DB
         public virtual DbSet<FireSys.Entities.AspNetUserClaim> AspNetUserClaims { get; set; }
         public virtual DbSet<FireSys.Entities.AspNetUserLogin> AspNetUserLogins { get; set; }
         public virtual DbSet<FireSys.Entities.AspNetUserRole> AspNetUserRoles { get; set; }
-        public virtual DbSet<FireSys.Entities.AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<AspNetUser> AspNetUsers { get; set; }
+        public virtual DbSet<Status> Statusi { get; set; }
         public virtual DbSet<FireSys.Entities.EvidencijskaKartica> EvidencijskaKarticas { get; set; }
         public virtual DbSet<FireSys.Entities.EvidencijskaKarticaTip> EvidencijskaKarticaTips { get; set; }
         public virtual DbSet<FireSys.Entities.Hidrant> Hidrants { get; set; }
@@ -187,6 +188,11 @@ namespace FireSys.DB
             modelBuilder.Entity<FireSys.Entities.viewGridZapisniciList>()
                 .Property(e => e.ZapisnikKreirao)
                 .IsUnicode(false);
+
+            modelBuilder.Entity<Status>()
+                .HasMany(e => e.RadniNalogs)
+                .WithRequired(e => e.Status)
+                .WillCascadeOnDelete(false);
         }
     }
 }

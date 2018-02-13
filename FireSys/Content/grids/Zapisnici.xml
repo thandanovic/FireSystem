@@ -62,8 +62,9 @@
 	<Column>
 		<IsDate>True</IsDate>
 		<FieldName>DatumZapisnika</FieldName>
-		<Caption>Datum</Caption>
-		<Visible>True</Visible>		
+		<Caption>Datum zapisnika</Caption>
+		<Visible>True</Visible>	
+		<ColumnType>DateEdit</ColumnType>		
 	</Column>
 	<Column>
 		<IsReferential>True</IsReferential>
@@ -82,8 +83,9 @@
 	<Column>
 		<IsDate>True</IsDate>
 		<FieldName>DatumKreiranja</FieldName>
-		<Caption>Datum</Caption>
-		<Visible>True</Visible>		
+		<Caption>Datum kreiranja</Caption>
+		<Visible>True</Visible>	
+	    <ColumnType>DateEdit</ColumnType>
 	</Column>
 	<!-- <Column>
 		<IsReferential>True</IsReferential>

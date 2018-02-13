@@ -50,8 +50,8 @@ namespace FireSys.Controllers
 
             UserManager userManager = new UserManager();
             FireSys.Entities.AspNetUser updateUser = userManager.Find(u => u.UserName == User.Identity.Name).FirstOrDefault();
-            updateUser.FirstName = model.UserInfo.FirstName;
-            updateUser.LastName = model.UserInfo.LastName;
+            //updateUser.FirstName = model.UserInfo.FirstName;
+            //updateUser.LastName = model.UserInfo.LastName;
             userManager.Update(updateUser);
             
 

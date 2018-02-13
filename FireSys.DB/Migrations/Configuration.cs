@@ -33,11 +33,35 @@ namespace FireSys.DB.Migrations
                 new FireSys.Entities.AspNetUser()
                 {
                     Id = Guid.NewGuid().ToString(),
-                    UserName = "admin1",
+                    UserName = "admin",
                     PasswordHash = hasher.HashPassword("nimda1"),
                     Discriminator = "ApplicationUser",
                     SecurityStamp = ""
                 });
+
+            context.Statusi.AddOrUpdate(
+                new FireSys.Entities.Status()
+                {
+                    Id = 0,
+                    Naziv = "Kreiran"
+                });
+            context.Statusi.AddOrUpdate(
+                new FireSys.Entities.Status()
+                {
+                    Id = 1,
+                    Naziv = "U Obradi"
+                });
+            context.Statusi.AddOrUpdate(
+                new FireSys.Entities.Status()
+                {
+                    Id = 2,
+                    Naziv = "Završen"
+                });
+
+
+
+
+
         }
     }
 }

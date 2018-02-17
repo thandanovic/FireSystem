@@ -6,20 +6,12 @@ $(document).ready(function () {
             ignore: ".ignore, :disabled,:hidden"
         });
     }
-
-
-
     $('.delete-row').on('click', function () {
         var URL = $(this).attr('data-ref');
 
         $.get(URL, function (data) {
             Utility.showErrorMessage(data);
         });
-
-        //$.ajax({
-        //    url: URL,
-        //    success: 
-        //});
 
     });
 
@@ -51,19 +43,21 @@ $(document).ready(function () {
         validator.resetForm();
         validator.reset();
     }
-
     $('#zapisnikModal').on('hide.bs.modal', function () {
         clearValidation($('#zapisnikForm'));
-    })
-  
+    })  
     $('#zapisnikModal').on('hidden.bs.modal', function () {
         $('#zapisnikForm').find('input:text, input:password, select, textarea').not('.exclude-reset').val('');
         $('#zapisnikForm').find('input[name="Zapisnik.BrojZapisnika"]').val('0');
         $('#zapisnikForm').find('input:radio, input:checkbox').prop('checked', false);
         clearValidation($('#zapisnikForm'));
     })
-
     $(document).ajaxStart(mySpinner(true)).ajaxStop(mySpinner(false));
+
+
+
+
+
 });
 
 /* Global ajax handlers */

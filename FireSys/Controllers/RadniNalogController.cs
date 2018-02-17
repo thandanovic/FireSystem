@@ -23,6 +23,8 @@ namespace FireSys.Controllers
         private FireSysModel db = new FireSysModel();
 
         private RadniNalogManager radniNalogManager = new RadniNalogManager();
+        private KlijentManager klijentiManager = new KlijentManager();
+        private LokacijaManager lokacijaManager = new LokacijaManager();
 
         // GET: RadniNalog
         public ActionResult Index()
@@ -202,12 +204,40 @@ namespace FireSys.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RadniNalogId,LokacijaId,DatumNaloga,KorisnikKreiraiId,BrojNaloga,SelectedKlijentId, BrojNalogaMjesec,BrojNalogaGodina,DatumKreiranja,Aparati,Hidranti,Komentar,BrojHidranata,BrojAparata,Narucilac")] RadniNalogViewModel radniNalog)
+        public ActionResult Create([Bind(Include = "RadniNalogId,LokacijaId,DatumNaloga,KorisnikKreiraiId, RegijaId, BrojNaloga,SelectedKlijentId, NoviKlijentNaziv, NovaLokacijaNaziv, NovaLokacijaKomentar, BrojNalogaMjesec,BrojNalogaGodina,DatumKreiranja,Aparati,Hidranti,Komentar,BrojHidranata,BrojAparata,Narucilac")] RadniNalogViewModel radniNalog)
         {
             try
             {
                 if (ModelState.IsValid)
-                {                  
+                {
+                    
+                    if (!String.IsNullOrEmpty(radniNalog.NoviKlijentNaziv)){
+                        Klijent klijent = new Klijent();
+                        klijent.Naziv = radniNalog.NoviKlijentNaziv;
+                        klijent.KorisnikKreiraoId = User.Identity.GetUserId();
+                        klijentiManager.Add(klijent);
+
+                        Lokacija lokacija = new Lokacija();
+                        lokacija.KlijentId = klijent.KlijentId;
+                        lokacija.RegijaId = radniNalog.RegijaId;
+                        lokacija.KorisnikKreiraoId = User.Identity.GetUserId();
+                        lokacija.Naziv = radniNalog.NovaLokacijaNaziv;
+                        lokacija.Komentar = radniNalog.NovaLokacijaKomentar;
+                        lokacijaManager.Add(lokacija);
+                        radniNalog.LokacijaId = lokacija.LokacijaId;
+
+                    }
+                    else if (!String.IsNullOrEmpty(radniNalog.NovaLokacijaNaziv)){
+                        Lokacija lokacija = new Lokacija();
+                        lokacija.KlijentId = radniNalog.SelectedKlijentId.Value;
+                        lokacija.RegijaId = radniNalog.RegijaId;
+                        lokacija.KorisnikKreiraoId = User.Identity.GetUserId();
+                        lokacija.Naziv = radniNalog.NovaLokacijaNaziv;
+                        lokacija.Komentar = radniNalog.NovaLokacijaKomentar;
+                        int lokacijaId = lokacijaManager.Add(lokacija);
+                        radniNalog.LokacijaId = lokacija.LokacijaId;
+                    }
+                    
                     radniNalogManager.Add(radniNalog.GetRadniNalog());
                     return RedirectToAction("Index");
                 }

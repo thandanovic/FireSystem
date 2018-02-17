@@ -1,0 +1,243 @@
+﻿@model FireSys.Models.RadniNalogViewModel
+
+
+<div class="row">
+    <div class="form-group col-lg-6 ">
+        @Html.LabelFor(model => model.DatumNaloga, htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.EditorFor(model => model.DatumNaloga, new { htmlAttributes = new { @Value = Model.DatumNaloga.ToShortDateString(), @class = "date form-control" } })
+            @Html.ValidationMessageFor(model => model.DatumNaloga, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group col-lg-6">
+        @Html.LabelFor(model => model.BrojNaloga, htmlAttributes: new { @class = "control-label " })
+        <div class="row">
+            <div class="col-lg-4 no-padding-rg">@Html.TextBoxFor(x => x.BrojNaloga, new { @class = "form-control", Style = "text-align:right;" }) </div>
+            <div class="col-lg-4 no-padding">@Html.TextBoxFor(x => x.BrojNalogaMjesec, new { @class = "form-control ", Style = "text-align:right;" })</div>
+            <div class="col-lg-4 no-padding-lf">@Html.TextBoxFor(x => x.BrojNalogaGodina, new { @class = "form-control", Style = "text-align:right;" })</div>
+            @* @Html.EditorFor(model => model.BrojNaloga, new { htmlAttributes = new { @class = "form-control" } })*@
+            @Html.ValidationMessageFor(model => model.BrojNaloga, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-lg-12 no-padding no-margin-bottom container-dropdown-klijenti">
+        <div class="form-group col-lg-9 ">
+            @Html.LabelFor(model => model.SelectedKlijentId, "Klijent", htmlAttributes: new { @class = "control-label " })
+            <div>
+                @Html.DropDownListFor(model => model.SelectedKlijentId, Model.Klijenti, "Odaberi klijenta", htmlAttributes: new { @class = "dropdown-klijenti form-control" })
+                @*@Html.DropDownListFor(x => x.SelectedKlijentId, Model.Klijenti, new { @class = "dropdownlistStyle", Style = "width:450px; text-align:right;" })*@
+                @Html.ValidationMessageFor(model => model.LokacijaId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-3 no-padding-lf">
+            <div class="">
+                <input type="button" id="button_dodaj_klijenta" value="Dodaj klijenta +" class="btn btn-success form-control margin-top-25" />
+            </div>
+        </div>
+    </div>
+    <div class="form-group col-lg-12 no-padding no-margin-bottom container-input-klijenti">
+        <div class="form-group col-lg-9 input-klijent">
+            @Html.LabelFor(model => model.SelectedKlijentId, "Novi klijent", htmlAttributes: new { @class = "control-label " })
+            <div>
+                @Html.EditorFor(model => model.NoviKlijentNaziv, new { htmlAttributes = new { @class = "input-klijenti form-control" } })
+                @*@Html.DropDownListFor(x => x.SelectedKlijentId, Model.Klijenti, new { @class = "dropdownlistStyle", Style = "width:450px; text-align:right;" })*@
+                @Html.ValidationMessageFor(model => model.NoviKlijentNaziv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-3 no-padding-lf">
+            <div class="">
+                <input type="button" id="button_otkazi_klijenta" value="Otkaži" class="btn btn-danger form-control margin-top-25" />
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="form-group">
+            <label for="RegijaId">Regija</label>
+            @Html.DropDownListFor(x => x.RegijaId, Model.Regije, "Odaberi regiju", new { @class = "form-control dropdown-regije" })
+            @Html.ValidationMessageFor(x => x.RegijaId)
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-lg-12 no-padding no-margin-bottom container-dropdown-lokacije">
+        <div class="form-group col-lg-9 ">
+            @Html.LabelFor(model => model.LokacijaId, "Lokacija", htmlAttributes: new { @class = "control-label " })
+            <div>
+                @Html.DropDownListFor(x => x.LokacijaId, Enumerable.Empty<SelectListItem>(), "Odaberi lokaciju", new { @class = "form-control dropdown-lokacije" })
+                @Html.ValidationMessageFor(model => model.LokacijaId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-3 no-padding-lf">
+            <div class="">
+                <input type="button" id="button_dodaj_lokaciju" value="Dodaj lokaciju +" class="btn btn-success form-control margin-top-25" />
+            </div>
+        </div>
+
+    </div>
+    <div class="form-group col-lg-12 no-padding no-margin-bottom container-input-lokacije">
+        <div class="form-group col-lg-12">
+            @Html.LabelFor(model => model.SelectedKlijentId, "Nova lokacija", htmlAttributes: new { @class = "control-label " })
+            <div>
+                @Html.EditorFor(model => model.NovaLokacijaNaziv, new { htmlAttributes = new { @class = "input-lokacija-naziv form-control" } })
+                @*@Html.DropDownListFor(x => x.SelectedKlijentId, Model.Klijenti, new { @class = "dropdownlistStyle", Style = "width:450px; text-align:right;" })*@
+                @Html.ValidationMessageFor(model => model.NovaLokacijaNaziv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-12">
+            @Html.LabelFor(model => model.SelectedKlijentId, "Nova lokacija komentar", htmlAttributes: new { @class = "control-label " })
+            <div>
+                @Html.EditorFor(model => model.NovaLokacijaKomentar, new { htmlAttributes = new { @class = "input-lokacija-komentar form-control" } })
+                @*@Html.DropDownListFor(x => x.SelectedKlijentId, Model.Klijenti, new { @class = "dropdownlistStyle", Style = "width:450px; text-align:right;" })*@
+                @Html.ValidationMessageFor(model => model.NovaLokacijaKomentar, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-3 col-lg-offset-9">
+            <div class="">
+                <input type="button" id="button_otkazi_lokaciju" value="Otkaži" class="btn btn-danger form-control margin-top-25" />
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    @*<div class="form-group col-lg-3 ">
+            @Html.LabelFor(model => model.Aparati, htmlAttributes: new { @class = "control-label " })
+            <div>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Aparati, new { htmlAttributes = new { @class = "form-check-input" } })
+                    @Html.ValidationMessageFor(model => model.Aparati, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+    <div class="form-group col-lg-6">
+        @Html.LabelFor(model => model.BrojAparata, htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.EditorFor(model => model.BrojAparata, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BrojAparata, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    @*<div class="form-group col-lg-3 ">
+            @Html.LabelFor(model => model.Hidranti, htmlAttributes: new { @class = "control-label " })
+            <div>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Hidranti, new { htmlAttributes = new { @class = "form-check-input" } })
+                    @Html.ValidationMessageFor(model => model.Hidranti, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>*@
+    <div class="form-group col-lg-6">
+        @Html.LabelFor(model => model.BrojHidranata, htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.EditorFor(model => model.BrojHidranata, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.BrojHidranata, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<div class="row">
+
+</div>
+<div class="row">
+    <div class="form-group col-lg-12 ">
+        @Html.LabelFor(model => model.Narucilac, htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.EditorFor(model => model.Narucilac, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Narucilac, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="form-group col-lg-12 ">
+        @Html.LabelFor(model => model.Komentar, htmlAttributes: new { @class = "control-label " })
+        <div>
+            @Html.TextAreaFor(k => k.Komentar, new { @class = "form-control", rows = "10" })
+            @Html.ValidationMessageFor(model => model.Komentar, "", new { @class = "text-danger" })
+        </div>
+    </div>
+</div>
+@*</div>*@
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        $(".container-dropdown-klijenti select").rules("add", {
+            required: true
+        });
+
+        $('#button_dodaj_klijenta').on("click", function () {
+            $(".container-dropdown-klijenti").hide();
+            $(".container-input-klijenti").show();
+            
+
+            $(".container-input-klijenti input:text").rules("add", {
+                required: true
+            });
+            $(".container-dropdown-klijenti select").rules("remove");
+            ShowInputLokacije();
+            $('#button_otkazi_lokaciju').hide();
+            $(".container-input-klijenti input:text").focus();
+        });
+
+        $('#button_otkazi_klijenta').on("click", function () {
+            //hide required validation-throw exception on server side
+            $(".container-input-klijenti input:text").val("");
+            $(".container-input-klijenti").hide();
+            $(".container-dropdown-klijenti").show();
+
+            $(".container-input-klijenti input:text").rules("remove");
+            $(".container-dropdown-klijenti select").rules("add", {
+                required: true
+            });
+            ShowDropdownLokacije();
+            $('#button_otkazi_lokaciju').show();
+        });
+
+        $('#button_dodaj_lokaciju').on("click", function () {            
+            ShowInputLokacije();
+        });
+
+        $('#button_otkazi_lokaciju').on("click", function () {
+            ShowDropdownLokacije();
+        });
+
+        function ShowDropdownLokacije() {
+            //hide required validation-throw exception on server side
+            $(".container-input-lokacije input:text").val("");
+            $(".container-input-lokacije").hide();
+            $(".container-dropdown-lokacije").show();
+
+            $(".container-input-lokacije input:text").rules("remove");
+            $(".container-dropdown-lokacije select").rules("add", {
+                required: true
+            });
+        }
+
+        function ShowInputLokacije() {
+            $(".container-dropdown-lokacije").hide();
+            $(".container-input-lokacije").show();
+            $(".container-input-lokacije .input-lokacija-naziv").focus();
+
+            $(".container-input-lokacije input:text").rules("add", {
+                required: true
+            });
+            $(".container-dropdown-lokacije select").rules("remove");
+            
+        }
+
+
+    });
+
+
+</script>
+
+
+
+
+
+
+
+
+
+

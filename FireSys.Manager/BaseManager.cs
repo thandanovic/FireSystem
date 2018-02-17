@@ -117,6 +117,7 @@ namespace FireSys.Manager
     {
         public override int Add(RadniNalog k)
         {
+            k.StatusId = 4;
             k.DatumKreiranja = DateTime.Now;
             return base.Add(k);
         }

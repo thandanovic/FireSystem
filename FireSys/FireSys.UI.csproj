@@ -364,6 +364,9 @@
     <Content Include="Content\bootstrap\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\bootstrap\js\bootstrap.js" />
     <Content Include="Content\bootstrap\js\bootstrap.min.js" />
+    <Content Include="Content\grids\Hidranti.xml" />
+    <Content Include="Content\grids\RadniNalozi.xml" />
+    <Content Include="Content\grids\Zapisnici.xml" />
     <Content Include="Content\img\CaWe-logo.png" />
     <Content Include="Content\plugins\notify\notify.js" />
     <Content Include="favicon.ico" />
@@ -581,6 +584,7 @@
     <Content Include="Views\RadniNalog\Report.cshtml" />
     <Content Include="Views\Zapisnik\Reports\ZapisnikReport.cshtml" />
     <Content Include="Views\Zapisnik\AparatPartial.cshtml" />
+    <Content Include="Views\RadniNalog\_DetailsCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

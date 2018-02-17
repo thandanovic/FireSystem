@@ -45,10 +45,18 @@ namespace FireSys.Models
         public int RadniNalogId { get; set; }
 
         [Display(Name = "Lokacija")]
-        public int LokacijaId { get; set; }
+        public int? LokacijaId { get; set; }
 
         [Display(Name = "Datum naloga")]
-        public DateTime DatumNaloga { get; set; }
+        public DateTime DatumNaloga { get; set; }   
+
+        public bool IsNewLokacija { get; set; }
+
+        public string NoviKlijentNaziv { get; set; }
+
+        public string NovaLokacijaNaziv { get; set; }
+
+        public string NovaLokacijaKomentar { get; set; }
 
         public Guid KorisnikKreiraiId { get; set; }
 
@@ -109,7 +117,7 @@ namespace FireSys.Models
         public string Narucilac { get; set; }
 
         [Display(Name = "Lokacija")]
-        public int SelectedKlijentId { get; set; }
+        public int? SelectedKlijentId { get; set; }
 
         [Display(Name = "Regija")]
         public int RegijaId { get; set; }
@@ -137,7 +145,7 @@ namespace FireSys.Models
         public RadniNalog GetRadniNalog()
         {
             RadniNalog radni = new RadniNalog();
-            radni.LokacijaId = this.LokacijaId;
+            radni.LokacijaId = this.LokacijaId.Value;
             radni.DatumNaloga = this.DatumNaloga;
             radni.BrojNaloga = this.BrojNaloga;
             radni.BrojNalogaMjesec = this.BrojNalogaMjesec;

@@ -44,6 +44,17 @@ namespace FireSys.Helpers
             return query.ToList();
         }
 
+        public static IEnumerable GetStatus()
+        {
+            var query = from status in DB.Statusi
+                        select new
+                        {
+                            StatusId = status.Id,
+                            Naziv = status.Naziv
+                        };
+            return query.ToList();
+        }
+
         public static IEnumerable GetKompletnost()
         {
             var query = from komp in DB.Kompletnosts

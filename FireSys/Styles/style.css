@@ -128,6 +128,10 @@ hr {
     padding-left: 0px !important;
 }
 
+.no-margin-bottom{
+    margin-bottom: 0px !important;
+}
+
 li.active a {
     color: #337ab7 !important;
 }
@@ -269,3 +273,11 @@ h1, label, .btn {
         /*height: auto;*/
         margin-left: 5px;
     }
+
+.container-input-klijenti {
+    display:none;
+}
+
+.container-input-lokacije {
+    display: none;
+}

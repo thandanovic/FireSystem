@@ -603,6 +603,7 @@
     <Content Include="Views\RadniNalog\Report.cshtml" />
     <Content Include="Views\Zapisnik\Reports\ZapisnikReport.cshtml" />
     <Content Include="Views\Zapisnik\AparatPartial.cshtml" />
+    <Content Include="Views\RadniNalog\_DetailsCreate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -38,7 +38,7 @@ namespace FireSys.Controllers
         public IEnumerable GetZapisniks()
         {
             FireSysModel DB = new FireSysModel();
-            return DB.Zapisniks.Include(z => z.Lokacija).ToList();
+            return DB.Zapisniks.Include(z => z.Lokacija).Include(x => x.Status).ToList();
         }
 
         public ActionResult ExportTo(string OutputFormat)
@@ -198,7 +198,7 @@ namespace FireSys.Controllers
         {
             ZapisnikViewModel model = new ZapisnikViewModel();
             model.Zapisnik = new Zapisnik();
-            
+
             return Json(new
             {
                 content = GridViewHelper.RenderRazorViewToString(this, "~/Views/Zapisnik/Create.cshtml", model)
@@ -520,6 +520,72 @@ namespace FireSys.Controllers
             });
         }
 
+        //Extinguishers
+        [HttpGet]
+        public JsonResult GetExtinguishers(int locationID, int zapisnikID, string vrsta, string ispravnost, string tip, string brojAparata, string brojKartice, string napomena, int godinaProizvodnje, int vrijediDo)
+        {
+            Zapisnik zapisnik = db.Zapisniks.Where(x => (x.LokacijaId == locationID && x.ZapisnikId != zapisnikID)).OrderByDescending(x => x.DatumKreiranja).FirstOrDefault();
+
+            Zapisnik tmpZapisnik = db.Zapisniks.Find(zapisnikID);
+
+            if (zapisnik == null)
+            {
+                return Json(new { error = "Zapisnik sa datom lokacijom nikada nije generisan." }, JsonRequestBehavior.AllowGet);
+            }
+
+            List<string> extinguisherIDs = new List<string>();
+
+            if (tmpZapisnik != null && tmpZapisnik.ZapisnikAparats.Count() > 0)
+            {
+
+                foreach (var extinguisher in tmpZapisnik.ZapisnikAparats)
+                {
+                    extinguisherIDs.Add(extinguisher.VatrogasniAparat.BrojaAparata);
+                }
+            }
+
+            List<ZapisnikAparatParticle> aparati = new List<ZapisnikAparatParticle>();
+
+
+            foreach (var aparat in zapisnik.ZapisnikAparats)
+            {
+                if (!string.IsNullOrEmpty(vrsta) && !aparat.VatrogasniAparat.VatrogasniAparatVrsta.Naziv.Contains(vrsta))
+                    continue;
+
+                if (!string.IsNullOrEmpty(ispravnost) && !aparat.VatrogasniAparat.Ispravnost.Naziv.Contains(ispravnost))
+                    continue;
+
+                if (!string.IsNullOrEmpty(tip) && !aparat.VatrogasniAparat.VatrogasniAparatTip.Naziv.Contains(tip))
+                    continue;
+
+                if (!string.IsNullOrEmpty(brojAparata) && !aparat.VatrogasniAparat.BrojaAparata.Contains(brojAparata.ToString()))
+                    continue;
+
+                if (!string.IsNullOrEmpty(brojKartice) && !aparat.VatrogasniAparat.EvidencijskaKartica.BrojEvidencijskeKartice.Contains(brojKartice))
+                    continue;
+
+                if (!string.IsNullOrEmpty(napomena) && !aparat.VatrogasniAparat.Napomena.Contains(napomena))
+                    continue;
+
+                if (godinaProizvodnje > 0 && aparat.VatrogasniAparat.GodinaProizvodnje != godinaProizvodnje)
+                    continue;
+
+                if (vrijediDo > 0 && aparat.VatrogasniAparat.IspitivanjeVrijediDo != vrijediDo)
+                    continue;
+
+                if (!extinguisherIDs.Contains(aparat.VatrogasniAparat.BrojaAparata))
+                {
+                    aparati.Add(Helper.RenderExtendedZapisnikAparat(aparat));
+                }
+            }
+
+            var jsonAparati = JsonConvert.SerializeObject(aparati);
+
+            return Json(new
+            {
+                streamAparati = jsonAparati
+            }, JsonRequestBehavior.AllowGet);
+        }
 
 
         [HttpPost]
@@ -609,6 +675,7 @@ namespace FireSys.Controllers
             return View(zapisnik);
         }
 
+
         // POST: Zapisnik/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -638,6 +705,45 @@ namespace FireSys.Controllers
             return Json(new
             {
                 content = GridViewHelper.RenderRazorViewToString(this, "~/Views/Zapisnik/Reports/ZapisnikReport.cshtml", report)
+            });
+        }
+
+        [HttpPost]
+        public JsonResult ChangeStatus(string IDs, int status)
+        {
+
+            if (string.IsNullOrEmpty(IDs))
+            {
+                return Json(new
+                {
+                    message = "ERROR"
+                });
+            }
+
+            List<int> ids = IDs.Split(',').ToList().Select(int.Parse).ToList();
+            List<Zapisnik> zapisnici = db.Zapisniks.Where(x => ids.Contains(x.ZapisnikId)).ToList();
+
+            foreach(var zapisnik in zapisnici)
+            {
+                zapisnik.StatusId = status;
+                db.Entry(zapisnik).State = EntityState.Modified;
+            }
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch
+            {
+                return Json(new
+                {
+                    message = "ERROR"
+                });
+            }
+
+            return Json(new
+            {
+                message = "OK"
             });
         }
 

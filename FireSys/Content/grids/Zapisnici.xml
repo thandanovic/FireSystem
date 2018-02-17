@@ -59,6 +59,20 @@
 		<Caption>Broj</Caption>
 		<Visible>True</Visible>		
 	</Column>
+  <Column>
+    <IsReferential>True</IsReferential>
+    <FieldName>Status.Naziv</FieldName>
+    <Caption>Status</Caption>
+    <Visible>True</Visible>
+    <ColumnType>ComboBox</ColumnType>
+    <DataSource>GetStatuses</DataSource>
+    <TextField>Naziv</TextField>
+    <ValueField>Naziv</ValueField>
+    <ValueType>string</ValueType>
+    <DropDownStyle>DropDown</DropDownStyle>
+    <Width></Width>
+    <AllowAutoFilter>True</AllowAutoFilter>
+  </Column>
 	<Column>
 		<IsDate>True</IsDate>
 		<FieldName>DatumZapisnika</FieldName>

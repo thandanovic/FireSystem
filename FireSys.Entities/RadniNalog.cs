@@ -58,6 +58,12 @@ namespace FireSys.Entities
         [Display(Name = "Naruèilac")]
         public string Narucilac { get; set; }
 
+        [NotMapped]
+        public string FullBrojNaloga
+        {
+            get { return string.Format("{0}-{1}/{2}", BrojNaloga, BrojNalogaMjesec, BrojNalogaGodina); }
+        }
+
         public virtual Lokacija Lokacija { get; set; }
 
         public virtual Status Status { get; set; }

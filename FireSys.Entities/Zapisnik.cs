@@ -83,6 +83,10 @@ namespace FireSys.Entities
             get { return string.Format("{0}-{1}/{2}", BrojZapisnika, BrojZapisnikaMjesec, BrojZapisnikaGodina); }
         }
 
+        public int StatusId { get; set; }
+
+        public virtual Status Status { get; set; }
+
         public virtual Lokacija Lokacija { get; set; }
 
         public virtual RadniNalog RadniNalog { get; set; }

@@ -336,6 +336,45 @@ namespace FireSys.Controllers
             return PartialView("_Details", model);
         }
 
+        [HttpPost]
+        public JsonResult ChangeStatus(string IDs, int status)
+        {
+
+            if (string.IsNullOrEmpty(IDs))
+            {
+                return Json(new
+                {
+                    message = "ERROR"
+                });
+            }
+
+            List<int> ids = IDs.Split(',').ToList().Select(int.Parse).ToList();
+            List<RadniNalog> nalozi = db.RadniNalogs.Where(x => ids.Contains(x.RadniNalogId)).ToList();
+
+            foreach (var nalog in nalozi)
+            {
+                nalog.StatusId = status;
+                db.Entry(nalog).State = EntityState.Modified;
+            }
+
+            try
+            {
+                db.SaveChanges();
+            }
+            catch
+            {
+                return Json(new
+                {
+                    message = "ERROR"
+                });
+            }
+
+            return Json(new
+            {
+                message = "OK"
+            });
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)

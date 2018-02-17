@@ -63,6 +63,10 @@ $(document).ready(function () {
         clearValidation($('#zapisnikForm'));
     })
 
+    $(window).on('hashchange', function () {
+        mySpinner(true);
+    });
+
     $(document).ajaxStart(mySpinner(true)).ajaxStop(mySpinner(false));
 });
 

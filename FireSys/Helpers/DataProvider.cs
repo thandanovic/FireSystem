@@ -200,6 +200,17 @@ namespace FireSys.Helpers
             return query.ToList();
         }
 
+        public static IEnumerable GetStatuses()
+        {
+            var query = from status in DB.Statusi
+                        select new
+                        {
+                            StatusId = status.Id,
+                            Naziv = status.Naziv
+                        };
+            return query.ToList();
+        }
+
 
 
     }
@@ -226,8 +237,32 @@ namespace FireSys.Helpers
             ap.BrojKartice = aparat.VatrogasniAparat.EvidencijskaKartica != null ? aparat.VatrogasniAparat.EvidencijskaKartica.BrojEvidencijskeKartice : string.Empty;
             return ap;
         }
+
+        public static ZapisnikAparatExtended RenderExtendedZapisnikAparat(ZapisnikAparat aparat)
+        {
+            ZapisnikAparatExtended ap = new ZapisnikAparatExtended();
+            ap.ZapisnikAparatId = aparat.ZapisnikAparatId;
+            ap.TipId = aparat.VatrogasniAparat.VatrogasniAparatTipId;
+            ap.GodinaProizvodnje = aparat.VatrogasniAparat.GodinaProizvodnje.HasValue ? aparat.VatrogasniAparat.GodinaProizvodnje.Value : 0;
+            ap.IspravnostId = aparat.IspravnostId;
+            ap.Napomena = aparat.VatrogasniAparat.Napomena;
+            ap.VrijediDo = aparat.VatrogasniAparat.IspitivanjeVrijediDo.HasValue ? aparat.VatrogasniAparat.IspitivanjeVrijediDo.Value : 0;
+            ap.BrojAparata = aparat.VatrogasniAparat.BrojaAparata;
+            ap.VrstaId = aparat.VatrogasniAparat.VatrogasniAparatVrstaId;
+            ap.BrojKartice = aparat.VatrogasniAparat.EvidencijskaKartica != null ? aparat.VatrogasniAparat.EvidencijskaKartica.BrojEvidencijskeKartice : string.Empty;
+            ap.Tip = aparat.VatrogasniAparat.VatrogasniAparatTip.Naziv;
+            ap.Ispravnost = aparat.Ispravnost.Naziv;
+            ap.Vrsta = aparat.VatrogasniAparat.VatrogasniAparatVrsta.Naziv;
+
+            return ap;
+        }
     }
 
+    public class TestControl
+    {
+        public string nos { get; set; }
+        public string dos { get; set; }
+    }
 
 
     public class ContextElement

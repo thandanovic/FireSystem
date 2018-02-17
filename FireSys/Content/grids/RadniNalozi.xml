@@ -69,20 +69,34 @@
 		<AllowAutoFilter>True</AllowAutoFilter>
 	</Column>
 	<Column>
-		<FieldName>BrojNaloga</FieldName>
+		<FieldName>FullBrojNaloga</FieldName>
 		<Caption>Broj</Caption>
 		<Visible>True</Visible>		
 	</Column>
+  <Column>
+    <IsReferential>True</IsReferential>
+    <FieldName>Status.Naziv</FieldName>
+    <Caption>Status</Caption>
+    <Visible>True</Visible>
+    <ColumnType>ComboBox</ColumnType>
+    <DataSource>GetStatuses</DataSource>
+    <TextField>Naziv</TextField>
+    <ValueField>Naziv</ValueField>
+    <ValueType>string</ValueType>
+    <DropDownStyle>DropDown</DropDownStyle>
+    <Width></Width>
+    <AllowAutoFilter>True</AllowAutoFilter>
+  </Column>
 	<Column>
 		<IsDate>True</IsDate>
 		<FieldName>DatumNaloga</FieldName>
-		<Caption>Datum</Caption>
+		<Caption>Datum naloga</Caption>
 		<Visible>True</Visible>		
 	</Column>
 	<Column>
 		<IsDate>True</IsDate>
 		<FieldName>DatumKreiranja</FieldName>
-		<Caption>Datum</Caption>
+		<Caption>Datum kreiranja</Caption>
 		<Visible>True</Visible>		
 	</Column>
 </Columns>

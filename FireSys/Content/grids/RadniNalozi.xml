@@ -1,126 +1,112 @@
 <GridSettings>
-<Name>radniNalogGrid</Name>
-<Controller>RadniNalog</Controller>
-<Action>RadniNalogGridView</Action>
-<WidthPercentage>100</WidthPercentage>
-<KeyFieldName>RadniNalogId</KeyFieldName>
-<ShowFilterRow>True</ShowFilterRow>
-<CommandColumnVisible>True</CommandColumnVisible>
-<ShowSelectCheckBox>True</ShowSelectCheckBox>
-<ExportSelectedRowsOnly>True</ExportSelectedRowsOnly>
-<ExportPageHeaderCenter>DOSTAH</ExportPageHeaderCenter>
-<ExportReportHeader>Vatrosistemi</ExportReportHeader>
-<ExportLandscape>True</ExportLandscape>
-<SelectAllCheckboxMode>Page</SelectAllCheckboxMode>
-<ShowFilterRowMenu>True</ShowFilterRowMenu>
-<ShowClearFilterButton>True</ShowClearFilterButton>
-<EnableAdaptivity>True</EnableAdaptivity>
-<ShowNewButton>False</ShowNewButton>
-<ShowDeleteButton>False</ShowDeleteButton>
-<ShowEditButton>False</ShowEditButton>
-<PagerMode>ShowPager</PagerMode>
-<PageSize>100</PageSize>
-<Columns>
-	<Column>
-		<FieldName>RadniNalogId</FieldName>
-		<Caption>ID</Caption>
-		<Visible>False</Visible>
-	</Column>
-  <Column>
-    <IsReferential>True</IsReferential>
-    <FieldName>Status.Naziv</FieldName>
-    <Caption>Status</Caption>
-    <Visible>True</Visible>
-    <ColumnType>ComboBox</ColumnType>
-    <DataSource>GetStatus</DataSource>
-    <TextField>Naziv</TextField>
-    <ValueField>Naziv</ValueField>
-    <ValueType>string</ValueType>
-    <DropDownStyle>DropDown</DropDownStyle>
-    <Width></Width>
-    <AllowAutoFilter>True</AllowAutoFilter>
-  </Column>
-	 <Column>
-		<IsReferential>True</IsReferential>
-		<FieldName>Lokacija.Klijent.Naziv</FieldName>
-		<Caption>Klijent</Caption>
-		<Visible>True</Visible>
-		<ColumnType>TextBox</ColumnType>
-		<DataSource>GetClients</DataSource>
-		<TextField>Naziv</TextField>
-		<ValueField>Naziv</ValueField>
-		<ValueType>string</ValueType>
-		<DropDownStyle>DropDown</DropDownStyle>
-		<Width></Width>
-		<AllowAutoFilter>True</AllowAutoFilter>
-	</Column>
-	<Column>
-		<IsReferential>True</IsReferential>
-		<FieldName>Lokacija.Regija.Naziv</FieldName>
-		<Caption>Regija</Caption>
-		<Visible>True</Visible>
-		<ColumnType>ComboBox</ColumnType>
-		<DataSource>GetRegions</DataSource>
-		<TextField>Naziv</TextField>
-		<ValueField>Naziv</ValueField>
-		<ValueType>string</ValueType>
-		<DropDownStyle>DropDown</DropDownStyle>
-		<Width></Width>
-		<AllowAutoFilter>True</AllowAutoFilter>
-	</Column>
-	<Column>
-		<IsReferential>True</IsReferential>
-		<FieldName>Lokacija.Naziv</FieldName>
-		<Caption>Lokacija</Caption>
-		<Visible>True</Visible>
-		<ColumnType>TextBox</ColumnType>
-		<DataSource>GetClients</DataSource>
-		<TextField>Naziv</TextField>
-		<ValueField>Naziv</ValueField>
-		<ValueType>string</ValueType>
-		<DropDownStyle>DropDown</DropDownStyle>
-		<Width></Width>
-		<AllowAutoFilter>True</AllowAutoFilter>
-	</Column>
-	<Column>
-		<FieldName>FullBrojNaloga</FieldName>
-		<Caption>Broj</Caption>
-		<Visible>True</Visible>		
-	</Column>
-  <Column>
-    <IsReferential>True</IsReferential>
-    <FieldName>Status.Naziv</FieldName>
-    <Caption>Status</Caption>
-    <Visible>True</Visible>
-    <ColumnType>ComboBox</ColumnType>
-    <DataSource>GetStatuses</DataSource>
-    <TextField>Naziv</TextField>
-    <ValueField>Naziv</ValueField>
-    <ValueType>string</ValueType>
-    <DropDownStyle>DropDown</DropDownStyle>
-    <Width></Width>
-    <AllowAutoFilter>True</AllowAutoFilter>
-  </Column>
-	<Column>
-		<IsDate>True</IsDate>
-		<FieldName>DatumNaloga</FieldName>
-		<Caption>Datum naloga</Caption>
-		<Visible>True</Visible>		
-	</Column>
-	<Column>
-		<IsDate>True</IsDate>
-		<FieldName>DatumKreiranja</FieldName>
-		<Caption>Datum kreiranja</Caption>
-		<Visible>True</Visible>		
-	</Column>
-</Columns>
-<ActionFieldName>edit</ActionFieldName>
-<ActionCaption>Akcije</ActionCaption>
-<ActionWidth>100</ActionWidth>
-<ActionShowEdit>True</ActionShowEdit>
-<ActionEdit>Edit</ActionEdit>
-<ActionShowDelete>True</ActionShowDelete>
-<ActionDelete>Delete</ActionDelete>
-<ActionShowPrint>True</ActionShowPrint>
-<ActionPrint>Report</ActionPrint>
+  <Name>radniNalogGrid</Name>
+  <Controller>RadniNalog</Controller>
+  <Action>RadniNalogGridView</Action>
+  <WidthPercentage>100</WidthPercentage>
+  <KeyFieldName>RadniNalogId</KeyFieldName>
+  <ShowFilterRow>True</ShowFilterRow>
+  <CommandColumnVisible>True</CommandColumnVisible>
+  <ShowSelectCheckBox>True</ShowSelectCheckBox>
+  <ExportSelectedRowsOnly>True</ExportSelectedRowsOnly>
+  <ExportPageHeaderCenter>DOSTAH</ExportPageHeaderCenter>
+  <ExportReportHeader>Vatrosistemi</ExportReportHeader>
+  <ExportLandscape>True</ExportLandscape>
+  <SelectAllCheckboxMode>Page</SelectAllCheckboxMode>
+  <ShowFilterRowMenu>True</ShowFilterRowMenu>
+  <ShowClearFilterButton>True</ShowClearFilterButton>
+  <EnableAdaptivity>True</EnableAdaptivity>
+  <ShowNewButton>False</ShowNewButton>
+  <ShowDeleteButton>False</ShowDeleteButton>
+  <ShowEditButton>False</ShowEditButton>
+  <PagerMode>ShowPager</PagerMode>
+  <PageSize>100</PageSize>
+  <Columns>
+    <Column>
+      <FieldName>RadniNalogId</FieldName>
+      <Caption>ID</Caption>
+      <Visible>False</Visible>
+    </Column>
+    <Column>
+      <IsReferential>True</IsReferential>
+      <FieldName>Lokacija.Klijent.Naziv</FieldName>
+      <Caption>Klijent</Caption>
+      <Visible>True</Visible>
+      <ColumnType>TextBox</ColumnType>
+      <DataSource>GetClients</DataSource>
+      <TextField>Naziv</TextField>
+      <ValueField>Naziv</ValueField>
+      <ValueType>string</ValueType>
+      <DropDownStyle>DropDown</DropDownStyle>
+      <Width></Width>
+      <AllowAutoFilter>True</AllowAutoFilter>
+    </Column>
+    <Column>
+      <IsReferential>True</IsReferential>
+      <FieldName>Lokacija.Regija.Naziv</FieldName>
+      <Caption>Regija</Caption>
+      <Visible>True</Visible>
+      <ColumnType>ComboBox</ColumnType>
+      <DataSource>GetRegions</DataSource>
+      <TextField>Naziv</TextField>
+      <ValueField>Naziv</ValueField>
+      <ValueType>string</ValueType>
+      <DropDownStyle>DropDown</DropDownStyle>
+      <Width></Width>
+      <AllowAutoFilter>True</AllowAutoFilter>
+    </Column>
+    <Column>
+      <IsReferential>True</IsReferential>
+      <FieldName>Lokacija.Naziv</FieldName>
+      <Caption>Lokacija</Caption>
+      <Visible>True</Visible>
+      <ColumnType>TextBox</ColumnType>
+      <DataSource>GetClients</DataSource>
+      <TextField>Naziv</TextField>
+      <ValueField>Naziv</ValueField>
+      <ValueType>string</ValueType>
+      <DropDownStyle>DropDown</DropDownStyle>
+      <Width></Width>
+      <AllowAutoFilter>True</AllowAutoFilter>
+    </Column>
+    <Column>
+      <FieldName>FullBrojNaloga</FieldName>
+      <Caption>Broj</Caption>
+      <Visible>True</Visible>
+    </Column>
+    <Column>
+      <IsReferential>True</IsReferential>
+      <FieldName>Status.Naziv</FieldName>
+      <Caption>Status</Caption>
+      <Visible>True</Visible>
+      <ColumnType>ComboBox</ColumnType>
+      <DataSource>GetStatuses</DataSource>
+      <TextField>Naziv</TextField>
+      <ValueField>Naziv</ValueField>
+      <ValueType>string</ValueType>
+      <DropDownStyle>DropDown</DropDownStyle>
+      <Width></Width>
+      <AllowAutoFilter>True</AllowAutoFilter>
+    </Column>
+    <Column>
+      <IsDate>True</IsDate>
+      <FieldName>DatumNaloga</FieldName>
+      <Caption>Datum naloga</Caption>
+      <Visible>True</Visible>
+    </Column>
+    <Column>
+      <IsDate>True</IsDate>
+      <FieldName>DatumKreiranja</FieldName>
+      <Caption>Datum kreiranja</Caption>
+      <Visible>True</Visible>
+    </Column>
+  </Columns>
+  <ActionFieldName>edit</ActionFieldName>
+  <ActionCaption>Akcije</ActionCaption>
+  <ActionWidth>100</ActionWidth>
+  <ActionShowEdit>True</ActionShowEdit>
+  <ActionEdit>Edit</ActionEdit>
+  <ActionShowDelete>True</ActionShowDelete>
+  <ActionDelete>Delete</ActionDelete>
+  <ActionShowPrint>True</ActionShowPrint>
+  <ActionPrint>Report</ActionPrint>
 </GridSettings>

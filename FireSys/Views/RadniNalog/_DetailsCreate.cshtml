@@ -5,7 +5,7 @@
     <div class="form-group col-lg-6 ">
         @Html.LabelFor(model => model.DatumNaloga, htmlAttributes: new { @class = "control-label " })
         <div>
-            @Html.EditorFor(model => model.DatumNaloga, new { htmlAttributes = new { @Value = Model.DatumNaloga.ToShortDateString(), @class = "date form-control" } })
+            @Html.EditorFor(model => model.DatumNaloga, new { htmlAttributes = new { @Value = Model.DatumNaloga.ToString("dd.mm.yyyy"), @class = "date form-control" } })
             @Html.ValidationMessageFor(model => model.DatumNaloga, "", new { @class = "text-danger" })
         </div>
     </div>

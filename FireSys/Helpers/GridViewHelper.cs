@@ -174,118 +174,160 @@ namespace FireSys.Helpers
 
         public static GridViewSettings GetGridSettings(string gridName, HtmlHelper htmlHelper)
         {
-            GridViewSettings gridSettings = new GridViewSettings();
-            Type provider = typeof(DataProvider);
-
-            GridSettings settings = GetConfiguration(gridName);
-
-            gridSettings.Name = settings.Name;
-            gridSettings.CallbackRouteValues = new { Controller = settings.Controller, Action = settings.Action };
-            gridSettings.Width = System.Web.UI.WebControls.Unit.Percentage(settings.WidthPercentage);
-            gridSettings.KeyFieldName = settings.KeyFieldName;
-            gridSettings.Settings.ShowFilterRow = settings.ShowFilterRow;
-
-            gridSettings.CommandColumn.Visible = settings.CommandColumnVisible;
-            gridSettings.CommandColumn.ShowSelectCheckbox = settings.ShowSelectCheckBox;
-
-            gridSettings.SettingsExport.ExportSelectedRowsOnly = settings.ExportSelectedRowsOnly;
-
-            gridSettings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
-            gridSettings.SettingsExport.Landscape = settings.ExportLandscape;
-
-            if (!string.IsNullOrEmpty(settings.ExportPageHeaderCenter))
-                gridSettings.SettingsExport.PageHeader.Center = settings.ExportPageHeaderCenter;
-
-            if (!string.IsNullOrEmpty(settings.ExportReportHeader))
-                gridSettings.SettingsExport.ReportHeader = settings.ExportReportHeader;
-
-            if (!string.IsNullOrEmpty(settings.SelectAllCheckboxMode))
-                gridSettings.CommandColumn.SelectAllCheckboxMode = (GridViewSelectAllCheckBoxMode)System.Enum.Parse(typeof(GridViewSelectAllCheckBoxMode), settings.SelectAllCheckboxMode);
-
-            gridSettings.Settings.ShowFilterRowMenu = settings.ShowFilterRowMenu;
-            gridSettings.CommandColumn.ShowClearFilterButton = settings.ShowClearFilterButton;
-            gridSettings.SettingsPager.EnableAdaptivity = settings.EnableAdaptivity;
-
-            gridSettings.CommandColumn.ShowNewButton = settings.ShowNewButton;
-            gridSettings.CommandColumn.ShowDeleteButton = settings.ShowDeleteButton;
-            gridSettings.CommandColumn.ShowEditButton = settings.ShowEditButton;
-
-            gridSettings.ClientSideEvents.BeginCallback = "GridBeginCallback";
-            gridSettings.ClientSideEvents.EndCallback = "GridEndCallback";
-
-            if (!string.IsNullOrEmpty(settings.PagerMode))
-                gridSettings.SettingsPager.Mode = (GridViewPagerMode)System.Enum.Parse(typeof(GridViewPagerMode), settings.PagerMode);
-
-            if (gridSettings.SettingsPager.Mode.ToString() == settings.PagerMode)
-                gridSettings.SettingsPager.PageSize = settings.PageSize;
-
-            foreach (ColumnSettings column in settings.Columns)
+            try
             {
-                if (column.IsReferential)
+
+                GridViewSettings gridSettings = new GridViewSettings();
+                Type provider = typeof(DataProvider);
+
+                GridSettings settings = GetConfiguration(gridName);
+
+                gridSettings.Name = settings.Name;
+                gridSettings.CallbackRouteValues = new { Controller = settings.Controller, Action = settings.Action };
+                gridSettings.Width = System.Web.UI.WebControls.Unit.Percentage(settings.WidthPercentage);
+                gridSettings.KeyFieldName = settings.KeyFieldName;
+                gridSettings.Settings.ShowFilterRow = settings.ShowFilterRow;
+
+                gridSettings.CommandColumn.Visible = settings.CommandColumnVisible;
+                gridSettings.CommandColumn.ShowSelectCheckbox = settings.ShowSelectCheckBox;
+
+                gridSettings.SettingsExport.ExportSelectedRowsOnly = settings.ExportSelectedRowsOnly;
+
+                gridSettings.SettingsExport.PaperKind = System.Drawing.Printing.PaperKind.A4;
+                gridSettings.SettingsExport.Landscape = settings.ExportLandscape;
+
+                if (!string.IsNullOrEmpty(settings.ExportPageHeaderCenter))
+                    gridSettings.SettingsExport.PageHeader.Center = settings.ExportPageHeaderCenter;
+
+                if (!string.IsNullOrEmpty(settings.ExportReportHeader))
+                    gridSettings.SettingsExport.ReportHeader = settings.ExportReportHeader;
+
+                if (!string.IsNullOrEmpty(settings.SelectAllCheckboxMode))
+                    gridSettings.CommandColumn.SelectAllCheckboxMode = (GridViewSelectAllCheckBoxMode)System.Enum.Parse(typeof(GridViewSelectAllCheckBoxMode), settings.SelectAllCheckboxMode);
+
+                gridSettings.Settings.ShowFilterRowMenu = settings.ShowFilterRowMenu;
+                gridSettings.CommandColumn.ShowClearFilterButton = settings.ShowClearFilterButton;
+                gridSettings.SettingsPager.EnableAdaptivity = settings.EnableAdaptivity;
+
+                gridSettings.CommandColumn.ShowNewButton = settings.ShowNewButton;
+                gridSettings.CommandColumn.ShowDeleteButton = settings.ShowDeleteButton;
+                gridSettings.CommandColumn.ShowEditButton = settings.ShowEditButton;
+
+                gridSettings.ClientSideEvents.BeginCallback = "GridBeginCallback";
+                gridSettings.ClientSideEvents.EndCallback = "GridEndCallback";
+
+                gridSettings.ClientSideEvents.SelectionChanged = "OnSelectionChanged";
+                
+
+                if (!string.IsNullOrEmpty(settings.PagerMode))
+                    gridSettings.SettingsPager.Mode = (GridViewPagerMode)System.Enum.Parse(typeof(GridViewPagerMode), settings.PagerMode);
+
+                if (gridSettings.SettingsPager.Mode.ToString() == settings.PagerMode)
+                    gridSettings.SettingsPager.PageSize = settings.PageSize;
+
+                foreach (ColumnSettings column in settings.Columns)
                 {
-                    gridSettings.Columns.Add(c =>
+                    if (column.IsReferential)
                     {
-                        c.FieldName = column.FieldName;
-                        c.Caption = column.Caption;
-                        c.Visible = column.Visible;
-
-                        c.ColumnType = (MVCxGridViewColumnType)System.Enum.Parse(typeof(MVCxGridViewColumnType), column.ColumnType);
-                        if (column.ColumnType == "ComboBox")
+                        gridSettings.Columns.Add(c =>
                         {
-                            ComboBoxProperties properties = c.PropertiesEdit as ComboBoxProperties;
-                            properties.DataSource = provider.GetMethod(column.DataSource).Invoke(null, null);
-                            properties.TextField = column.TextField;
-                            properties.ValueField = column.ValueField;
-                            properties.ValueType = Type.GetType(column.ValueType);
-                            properties.DropDownStyle = (DropDownStyle)System.Enum.Parse(typeof(DropDownStyle), column.DropDownStyle);
-                        }
-                        else if (column.ColumnType == "TextBox")
-                        {
+                            c.FieldName = column.FieldName;
+                            c.Caption = column.Caption;
+                            c.Visible = column.Visible;
 
-                        }
+                            c.ColumnType = (MVCxGridViewColumnType)System.Enum.Parse(typeof(MVCxGridViewColumnType), column.ColumnType);
+                            if (column.ColumnType == "ComboBox")
+                            {
+                                ComboBoxProperties properties = c.PropertiesEdit as ComboBoxProperties;
+                                properties.DataSource = provider.GetMethod(column.DataSource).Invoke(null, null);
+                                properties.TextField = column.TextField;
+                                properties.ValueField = column.ValueField;
+                                properties.ValueType = Type.GetType(column.ValueType);
+                                properties.DropDownStyle = (DropDownStyle)System.Enum.Parse(typeof(DropDownStyle), column.DropDownStyle);
+                            }
+                            else if (column.ColumnType == "TextBox")
+                            {
 
-                        if (column.Width > 0)
-                            c.Width = column.Width;
+                            }
 
-                        c.Settings.AllowAutoFilter = (DevExpress.Utils.DefaultBoolean)System.Enum.Parse(typeof(DevExpress.Utils.DefaultBoolean), column.AllowAutoFilter.ToString());
-                    });
-                }
-                else
-                {
-                    gridSettings.Columns.Add(c =>
+                            if(column.Caption == "Klijent")
+                            {
+                                c.SortIndex = 0;
+                                c.SortOrder = DevExpress.Data.ColumnSortOrder.Ascending;
+                            }
+
+                            if (column.Width > 0)
+                                c.Width = column.Width;
+
+                            c.Settings.AllowAutoFilter = (DevExpress.Utils.DefaultBoolean)System.Enum.Parse(typeof(DevExpress.Utils.DefaultBoolean), column.AllowAutoFilter.ToString());
+                        });
+                    }
+                    else
                     {
-                        c.FieldName = column.FieldName;
-                        c.Caption = column.Caption;
-                        c.Visible = column.Visible;
-
-                        if (column.IsDate)
+                        gridSettings.Columns.Add(c =>
                         {
-                            c.PropertiesEdit.DisplayFormatString = "dd.MM.yyyy";
-                        }
-                    });
+                            c.FieldName = column.FieldName;
+                            c.Caption = column.Caption;
+                            c.Visible = column.Visible;
+
+                            if (column.IsDate || column.ColumnType == "DateEdit")
+                            {
+                                c.PropertiesEdit.DisplayFormatString = "dd.MM.yyyy";
+                                //c.Settings.AutoFilterCondition = AutoFilterCondition.Greater;
+                                c.Settings.AllowHeaderFilter = DevExpress.Utils.DefaultBoolean.True;
+                                c.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.False;
+                                c.SettingsHeaderFilter.Mode = GridHeaderFilterMode.DateRangePicker;
+                            }
+                        });
+                    }
                 }
-            }
 
-            gridSettings.Columns.Add(s =>
-            {
-                s.FieldName = settings.ActionFieldName;
-                s.Caption = settings.ActionCaption;
-                s.Width = settings.ActionWidth;
-                s.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.False;
-
-                s.SetDataItemTemplateContent(c =>
+                gridSettings.HtmlRowPrepared = (s, e) =>
                 {
-                    var keyValue = DataBinder.Eval(c.DataItem, settings.KeyFieldName);
-                    if (settings.ActionShowEdit)
-                        htmlHelper.ViewContext.Writer.Write(String.Format("<a href='{0}'><i class='fa fa-pencil-square-o edit-icon'></i></a>", DevExpressHelper.GetUrl(new { Controller = settings.Controller, Action = settings.ActionEdit, id = keyValue })));
-                    if (settings.ActionShowDelete)
-                        htmlHelper.ViewContext.Writer.Write(String.Format("<a style='margin-left: 10px;' class='delete-row' href='#' data-ref='{0}'><i class='fa fa-trash-o delete-icon'></i></a>", DevExpressHelper.GetUrl(new { Controller = settings.Controller, Action = settings.ActionDelete, id = keyValue })));
-                    if (settings.ActionShowPrint)
-                        htmlHelper.ViewContext.Writer.Write(String.Format("<a href='#' class='print-report' style='margin-left: 10px;' data-id='{0}' data-url='{1}'><i class='fa fa-print edit-icon'></i></a>", keyValue, DevExpressHelper.GetUrl(new { Controller = settings.Controller, Action = settings.ActionPrint })));
+                    if (e.RowType != GridViewRowType.Data) return;
+
+                    //bool fakturisano = Convert.ToBoolean(e.GetValue("Fakturisano").ToString());
+                    int status = Convert.ToInt32(e.GetValue("StatusId").ToString());
+
+                    switch (status)
+                    {
+                        case 1: //u obradi - yellow
+                            e.Row.BackColor = System.Drawing.Color.Yellow;
+                            break;
+                        case 2: //zavrsen
+                            e.Row.BackColor = System.Drawing.Color.LightGreen;
+                            //e.Row.ForeColor = System.Drawing.Color.White;
+                            break;
+                        case 4: //kreiran
+                            break;                      
+                    }
+                };
+
+                gridSettings.Columns.Add(s =>
+                {
+                    s.FieldName = settings.ActionFieldName;
+                    s.Caption = settings.ActionCaption;
+                    s.Width = settings.ActionWidth;
+                    s.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.False;
+
+                    s.SetDataItemTemplateContent(c =>
+                    {
+                        var keyValue = DataBinder.Eval(c.DataItem, settings.KeyFieldName);
+                        if (settings.ActionShowEdit)
+                            htmlHelper.ViewContext.Writer.Write(String.Format("<a href='{0}'><i class='fa fa-pencil-square-o edit-icon'></i></a>", DevExpressHelper.GetUrl(new { Controller = settings.Controller, Action = settings.ActionEdit, id = keyValue })));
+                        if (settings.ActionShowDelete)
+                            htmlHelper.ViewContext.Writer.Write(String.Format("<a style='margin-left: 10px;' class='delete-row' href='#' data-ref='{0}'><i class='fa fa-trash-o delete-icon'></i></a>", DevExpressHelper.GetUrl(new { Controller = settings.Controller, Action = settings.ActionDelete, id = keyValue })));
+                        if (settings.ActionShowPrint)
+                            htmlHelper.ViewContext.Writer.Write(String.Format("<a href='#' class='print-report' style='margin-left: 10px;' data-id='{0}' data-url='{1}'><i class='fa fa-print edit-icon'></i></a>", keyValue, DevExpressHelper.GetUrl(new { Controller = settings.Controller, Action = settings.ActionPrint })));
+                    });
                 });
-            });
 
-            return gridSettings;
+                return gridSettings;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
         }
 
         public static GridViewSettings GetHidrantsView(this HtmlHelper htmlHelper)

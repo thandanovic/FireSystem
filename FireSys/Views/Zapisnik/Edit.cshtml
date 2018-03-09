@@ -1,7 +1,7 @@
 ﻿@model FireSys.Models.ZapisnikViewModel
 
 @{
-    ViewBag.Title = "Detalji zapisnika";
+    //ViewBag.Title = "Detalji zapisnika";
     Layout = "~/Views/Shared/_Layout.cshtml";
     Model.Zapisnik.DokumentacijaPrisutna = true;
 }
@@ -88,23 +88,40 @@
         height: 6%;
         padding: 0 15px;
     }
+
+    .header-actions {
+        margin-top: 25px;
+    }
+
+    .selected-row > td {
+        background: #e06377 !important;
+        border-color: #e06377;
+    }
+
+    .jsgrid-selected-row > .jsgrid-cell{
+        background:  #d6d4e0 !important;
+        border-color:  #d6d4e0 !important;
+    }
 </style>
 
 <script>
+
     $(function () {
 
         if ($('#Zapisnik_ZapisnikTipId').val() != 1) {
             $('.zapisnik-container').css("grid-template-areas", "'zapisnik hidranti' 'zapisnik hidranti'");
-            $('.page-header-right').text('Hidranti');
+            $('.page-header-right').text('Lista hidranata na lokaciji');
         } else {
-            $('.page-header-right').text('Aparati');
+            $('.page-header-right').text('Lista aparata na lokaciji');
         }
+
+        $('.header-left').html('<h1>Detalji zapisnika</h1>');
 
         var ispravnost = JSON.parse($("#boxIspravnost").val());
         var tip = JSON.parse($("#boxTip").val());
         var vrsta = JSON.parse($("#boxVrste").val());
 
-        $("#jsGrid").jsGrid({
+        $("#aparatiGrid").jsGrid({
             width: "100%",
             height: "100%",
             inserting: true,
@@ -204,6 +221,31 @@
 
 </script>
 
+@section Actions {
+
+    <script>
+        function AddDevices(s, e) {
+            var $extinguisher = $('#extinguishersModal');
+
+            $extinguisher.modal('show');
+
+            $extinguisher.off('shown.bs.modal').on('shown.bs.modal', function (e) {
+                LoadExtinguishers();
+            });
+        }
+    </script>
+
+    @Html.DevExpress().Button(btn =>
+{
+    btn.Name = "btnAddDevices";
+    btn.Text = "Dodaj aparate";
+    btn.UseSubmitBehavior = false;
+    btn.ClientSideEvents.Click = "AddDevices";
+    //btn.ControlStyle.CssClass = "export-button";
+    //btn.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+}).GetHtml()
+
+}
 
 
 @using (Html.BeginForm())
@@ -279,16 +321,12 @@
                         <label for="Zapisnik.PregledIzvrsioId">Pregled izvršio</label>
                         @Html.DropDownListFor(x => x.Zapisnik.PregledIzvrsioId, Model.Zaposlenici, new { @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.Zapisnik.PregledIzvrsioId)
-
-
                     </div>
 
                     <div class="form-group col-md-6">
                         <label for="Zapisnik.KorisnikKontrolisaoId">Kontrolisao</label>
                         @Html.DropDownListFor(x => x.Zapisnik.KorisnikKontrolisaoId, Model.Zaposlenici, new { @class = "form-control" })
                         @Html.ValidationMessageFor(x => x.Zapisnik.KorisnikKontrolisaoId)
-
-
                     </div>
                 </div>
 
@@ -320,7 +358,6 @@
                 <button id="close_zapisnik" type="button" class="btn btn-default">Zatvori</button>
                 <button type="submit" class="btn btn-danger pull-right">Spasi</button>
             </div>
-
         </div>
 
         <div class="aparati">
@@ -328,18 +365,15 @@
             @Html.Hidden("boxLokacije", ViewData["Lokacije"])
             @Html.Hidden("boxIspravnost", ViewData["Ispravnosti"])
             @Html.Hidden("boxVrste", ViewData["Vrste"])
-            <div id="jsGrid"></div>
-
+            <div id="aparatiGrid"></div>
         </div>
 
         <div class="hidranti">
-
-
         </div>
-
     </div>
-
 }
 
+
+@Html.Partial("~/Views/Zapisnik/AddExtinguishers.cshtml")
 
 

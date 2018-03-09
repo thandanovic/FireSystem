@@ -69,6 +69,13 @@ namespace FireSys.Models
         }
     }
 
+    public class ZapisnikAparatExtended : ZapisnikAparatParticle
+    {
+        public string Tip { get; set; }
+        public string Ispravnost { get; set; }
+        public string Vrsta { get; set; }
+    }
+
     public class ZapisnikHidrantParticle
     {
         public int ZapisnikHidrantId { get; set; }

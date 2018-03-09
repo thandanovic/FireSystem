@@ -1,0 +1,144 @@
+﻿
+<script>
+    var selectedItems = [];
+    function AddExtinguishers(s, e) {
+
+        for (var i = 0; i < selectedItems.length; i++) {
+
+            var item = selectedItems[i];
+            item.BrojKartice = "";
+
+            $("#aparatiGrid").jsGrid("insertItem", item).done(function () {
+                console.log("insertion completed");
+            });
+        }
+    }
+
+    function LoadExtinguishers() {
+
+        $("#extinguishersGrid").jsGrid({
+            width: "100%",
+            height: "100%",
+            inserting: false,
+            noDataContent: "Nema podataka",
+            editing: false,
+            sorting: true,
+            deleting: false,
+            data: [],
+            paging: true,
+            selecting: true,
+            autoload: true,
+            pageloading: true,
+            filtering: true,
+            controller: {
+                loadData: function (filter) {
+                    var d = $.Deferred();
+
+                    filter.VrijediDo = 0;
+                    filter.GodinaProizvodnje = 0;
+
+                    var parameters = {
+                        locationID: parseInt($("#LokacijaId").val()),
+                        zapisnikID: parseInt($("#ZapisnikId").val()),
+                        vrsta: filter.Vrsta,
+                        ispravnost: filter.Ispravnost,
+                        tip: filter.Tip,
+                        brojAparata: filter.BrojAparata,
+                        brojKartice: filter.BrojKartice,
+                        napomena: filter.Napomena,
+                        godinaProizvodnje: filter.GodinaProizvodnje,
+                        vrijediDo: filter.VrijediDo,
+                    }
+                    $.ajax({
+                        url: "@Url.Action("GetExtinguishers", "Zapisnik")",
+                        data: parameters,
+                        method: "GET"
+                    }).done(function (response) {
+                        d.resolve(JSON.parse(response.streamAparati));
+                    });
+
+                    return d.promise();
+                }
+            },          
+            rowClick: function (args) {
+                // save selected item
+                var selectedItem = args.item;
+
+                // save selected row
+                $selectedRow = $(args.event.target).closest("tr");
+
+                // add class to highlight row
+                $selectedRow.removeClass("selected-row");
+                var index = selectedItems.indexOf(selectedItem);
+
+                if (index > -1) {
+                    selectedItems.splice(index, 1);
+                }
+            },
+            rowDoubleClick: function (args) {
+                // save selected item
+                var selectedItem = args.item;
+
+                // save selected row
+                $selectedRow = $(args.event.target).closest("tr");
+
+                // add class to highlight row
+                $selectedRow.addClass("selected-row");
+                selectedItems.push(selectedItem);
+            },
+            fields: [
+
+                { name: "Tip", title: "Tip", type: "text", width: 70, filtering: true, autosearch: true },
+                { name: "BrojAparata", title: "Broj aparata", type: "text", width: 50 },
+                { name: "GodinaProizvodnje", title: "Godina proizvodnje", type: "number", width: 50 },
+                { name: "VrijediDo", title: "Vrijedi do", type: "number", width: 50 },
+                { name: "BrojKartice", title: "Broj kartice", type: "text", width: 50 },
+                { name: "Napomena", type: "text" },
+                { name: "Ispravnost", title: "Ispravnost", type: "text", width: 70 },
+                { name: "Vrsta", title: "Vrsta", type: "text", width: 70 },
+                {
+                    type: "control",
+                    title: "Akcije",
+                    deleteButton: false,
+                    editButton: false
+                }
+            ]
+        });
+    }
+
+</script>
+
+
+<div id="extinguishersModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Aparati</h4>
+            </div>
+            <div class="modal-body" style="height: 500px;">
+
+                <div id="extinguishersGrid">
+
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>
+
+
+                @Html.DevExpress().Button(btn =>
+{
+    btn.Name = "btnAddExtinguishers";
+    btn.Text = "Dodaj aparate";
+    btn.UseSubmitBehavior = false;
+    btn.ClientSideEvents.Click = "AddExtinguishers";
+    //btn.ControlStyle.CssClass = "export-button";
+    //btn.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+}).GetHtml()
+
+
+            </div>
+        </div>
+
+    </div>
+</div>

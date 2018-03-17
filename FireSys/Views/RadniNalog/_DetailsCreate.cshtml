@@ -5,7 +5,7 @@
     <div class="form-group col-lg-6 ">
         @Html.LabelFor(model => model.DatumNaloga, htmlAttributes: new { @class = "control-label " })
         <div>
-            @Html.EditorFor(model => model.DatumNaloga, new { htmlAttributes = new { @Value = Model.DatumNaloga.ToShortDateString(), @class = "date form-control" } })
+            @Html.EditorFor(model => model.DatumNaloga, new { htmlAttributes = new { @Value = Model.DatumNaloga.ToString("dd.mm.yyyy"), @class = "date form-control" } })
             @Html.ValidationMessageFor(model => model.DatumNaloga, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -84,6 +84,21 @@
                 @Html.EditorFor(model => model.NovaLokacijaNaziv, new { htmlAttributes = new { @class = "input-lokacija-naziv form-control" } })
                 @*@Html.DropDownListFor(x => x.SelectedKlijentId, Model.Klijenti, new { @class = "dropdownlistStyle", Style = "width:450px; text-align:right;" })*@
                 @Html.ValidationMessageFor(model => model.NovaLokacijaNaziv, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-12">
+            @Html.LabelFor(model => model.NovaLokacijaVrstaId, "Vrsta lokacije", htmlAttributes: new { @class = "control-label " })
+            <div>
+               @* @Html.DropDownList("LokacijaVrstaId", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.DropDownListFor(x => x.NovaLokacijaVrstaId, Model.LokacijaVrste, "Odaberi vrstu lokacije", new { @class = "input-lokacija-vrsta form-control dropdown-regije" })
+                @Html.ValidationMessageFor(model => model.NovaLokacijaVrstaId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-12">
+            @Html.LabelFor(model => model.NovaLokacijaAdresa, htmlAttributes: new { @class = "control-label " })
+            <div>
+                @Html.EditorFor(model => model.NovaLokacijaAdresa, new { htmlAttributes = new { @class = "input-lokacija-adresa form-control" } })
+                @Html.ValidationMessageFor(model => model.NovaLokacijaAdresa, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group col-lg-12">

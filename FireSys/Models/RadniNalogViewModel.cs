@@ -56,6 +56,11 @@ namespace FireSys.Models
 
         public string NovaLokacijaNaziv { get; set; }
 
+        public string NovaLokacijaAdresa { get; set; }
+
+        public int? NovaLokacijaVrstaId { get; set; }
+
+
         public string NovaLokacijaKomentar { get; set; }
 
         public Guid KorisnikKreiraiId { get; set; }
@@ -124,6 +129,7 @@ namespace FireSys.Models
 
         private SelectList _klijenti;
         private SelectList _regije;
+        private SelectList _lokacijaVrste;
 
 
         public SelectList Klijenti
@@ -138,6 +144,15 @@ namespace FireSys.Models
             get
             {
                 return _regije ?? new SelectList(DataProvider.DB.Regijas, "RegijaId", "Naziv");
+            }
+            set { }
+        }
+
+        public SelectList LokacijaVrste
+        {
+            get
+            {
+                return _lokacijaVrste ?? new SelectList(DataProvider.DB.LokacijaVrstas, "LokacijaVrstaId", "Naziv");
             }
             set { }
         }

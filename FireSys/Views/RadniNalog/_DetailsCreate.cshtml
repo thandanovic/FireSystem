@@ -87,6 +87,21 @@
             </div>
         </div>
         <div class="form-group col-lg-12">
+            @Html.LabelFor(model => model.NovaLokacijaVrstaId, "Vrsta lokacije", htmlAttributes: new { @class = "control-label " })
+            <div>
+               @* @Html.DropDownList("LokacijaVrstaId", null, htmlAttributes: new { @class = "form-control" })*@
+                @Html.DropDownListFor(x => x.NovaLokacijaVrstaId, Model.LokacijaVrste, "Odaberi vrstu lokacije", new { @class = "input-lokacija-vrsta form-control dropdown-regije" })
+                @Html.ValidationMessageFor(model => model.NovaLokacijaVrstaId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-12">
+            @Html.LabelFor(model => model.NovaLokacijaAdresa, htmlAttributes: new { @class = "control-label " })
+            <div>
+                @Html.EditorFor(model => model.NovaLokacijaAdresa, new { htmlAttributes = new { @class = "input-lokacija-adresa form-control" } })
+                @Html.ValidationMessageFor(model => model.NovaLokacijaAdresa, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group col-lg-12">
             @Html.LabelFor(model => model.SelectedKlijentId, "Nova lokacija komentar", htmlAttributes: new { @class = "control-label " })
             <div>
                 @Html.EditorFor(model => model.NovaLokacijaKomentar, new { htmlAttributes = new { @class = "input-lokacija-komentar form-control" } })

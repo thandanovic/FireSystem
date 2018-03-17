@@ -15,6 +15,7 @@ using FireSys.Helpers;
 using FireSys.Manager;
 using FireSys.Models;
 using Microsoft.AspNet.Identity;
+using System.Data.SqlClient;
 
 namespace FireSys.Controllers
 {
@@ -33,6 +34,12 @@ namespace FireSys.Controllers
             //return View(radniNalogs.ToList());
 
             //GridViewHelper.GetConfiguration(string.Empty);
+
+            var datumOd = new SqlParameter("@DatumOd", DateTime.Now.AddMonths(-24));
+                var datumDo = new SqlParameter("@DatumDo", DateTime.Now.AddMonths(24));
+            var result = db.Database
+                .SqlQuery<RadniNalogDolazeci>("spGetDolazeceNaloge @DatumOd, @DatumDo", datumOd, datumDo )
+                .ToList();
 
             Session["WorkingSheetModel"] = GetSheets();
             return View(Session["WorkingSheetModel"]);
@@ -204,7 +211,7 @@ namespace FireSys.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "RadniNalogId,LokacijaId,DatumNaloga,KorisnikKreiraiId, RegijaId, BrojNaloga,SelectedKlijentId, NoviKlijentNaziv, NovaLokacijaNaziv, NovaLokacijaKomentar, BrojNalogaMjesec,BrojNalogaGodina,DatumKreiranja,Aparati,Hidranti,Komentar,BrojHidranata,BrojAparata,Narucilac")] RadniNalogViewModel radniNalog)
+        public ActionResult Create([Bind(Include = "RadniNalogId,LokacijaId,DatumNaloga,KorisnikKreiraiId, RegijaId, BrojNaloga,SelectedKlijentId, NoviKlijentNaziv, NovaLokacijaNaziv,NovaLokacijaVrstaId, NovaLokacijaAdresa, NovaLokacijaKomentar, BrojNalogaMjesec,BrojNalogaGodina,DatumKreiranja,Aparati,Hidranti,Komentar,BrojHidranata,BrojAparata,Narucilac")] RadniNalogViewModel radniNalog)
         {
             try
             {
@@ -223,6 +230,8 @@ namespace FireSys.Controllers
                         lokacija.KorisnikKreiraoId = User.Identity.GetUserId();
                         lokacija.Naziv = radniNalog.NovaLokacijaNaziv;
                         lokacija.Komentar = radniNalog.NovaLokacijaKomentar;
+                        lokacija.LokacijaVrstaId = radniNalog.NovaLokacijaVrstaId;
+                        lokacija.Adresa = radniNalog.NovaLokacijaAdresa;
                         lokacijaManager.Add(lokacija);
                         radniNalog.LokacijaId = lokacija.LokacijaId;
 
@@ -234,6 +243,8 @@ namespace FireSys.Controllers
                         lokacija.KorisnikKreiraoId = User.Identity.GetUserId();
                         lokacija.Naziv = radniNalog.NovaLokacijaNaziv;
                         lokacija.Komentar = radniNalog.NovaLokacijaKomentar;
+                        lokacija.LokacijaVrstaId = radniNalog.NovaLokacijaVrstaId;
+                        lokacija.Adresa = radniNalog.NovaLokacijaAdresa;
                         int lokacijaId = lokacijaManager.Add(lokacija);
                         radniNalog.LokacijaId = lokacija.LokacijaId;
                     }

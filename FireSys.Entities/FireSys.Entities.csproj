@@ -59,6 +59,7 @@
     <Compile Include="EvidencijskaKarticaTip.cs" />
     <Compile Include="Hidrant.cs" />
     <Compile Include="HidrantTip.cs" />
+    <Compile Include="RadniNalogDolazeci.cs" />
     <Compile Include="Status.cs" />
     <Compile Include="Instalacija.cs" />
     <Compile Include="Ispravnost.cs" />

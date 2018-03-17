@@ -1,0 +1,123 @@
+﻿@model IEnumerable<FireSys.Entities.RadniNalogDolazeci>
+
+@{
+    ViewBag.Title = "Radni nalozi dolazeći";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script type="text/javascript">
+    var selectedIDs;
+
+    function OnSelectionChanged(s, e) {
+        s.GetSelectedFieldValues("ZapisnikId", GetSelectedFieldValuesCallback);
+    }
+    function GetSelectedFieldValuesCallback(values) {
+        //Capture all selected keys
+        selectedIDs = values.join(',');
+    }
+
+    function PoveziClick(s, e) {
+        mySpinner(true);
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.Action("PoveziRadniNalog", "RadniNalog")",
+                data: { IDs: selectedIDs, status: 1 },
+                method: "POST",
+                dataType: "json"
+            }).done(function (response) {
+                if (response.message == "OK") {
+                    mySpinner(false);
+                    var url = "/RadniNalog/Edit?id=" + response.radniNalogId;
+                    window.location.href = url;
+                }
+                else {
+                    Utility.showErrorMessage(response.errorMessage);
+                }
+                
+            });
+
+        }, 2000);
+
+    }   
+    
+
+    function OnClick(s, e) {
+        var actionParams = $("form").attr("action").split("?OutputFormat=");
+        actionParams[1] = s.GetMainElement().getAttribute("OutputFormatAttribute");
+        $("form").attr("action", actionParams.join("?OutputFormat="));
+    }
+
+    function OnCreateClick(s, e) {
+        $("#zapisnikModal").modal('show');
+    }
+    var commandName;
+    function GridBeginCallback(s, e) {
+        commandName = e.commandName;
+        //Pass all selected keys to GridView callback action
+        e.customArgs["selectedIDs"] = selectedIDs;
+    }
+
+    function GridEndCallback(s, e) {
+        console.log(commandName);
+        commandName = null;
+    }
+
+    $(function () {
+
+        function deleteRow() {
+            var txt;
+            var r = confirm("Da li zelite obrisati?");
+            if (r == true) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        AttachReport();
+        $(document).ajaxComplete(function (event, request, settings) {
+            if (settings.data !== undefined && settings.data.includes('zapisnikGrid')) {
+                function deleteRow() {
+                    var txt;
+                    var r = confirm("Da li zelite obrisati?");
+                    if (r == true) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+                AttachReport();
+            }
+        });
+
+    });
+
+</script>
+
+@using (Html.BeginForm("ExportTo", "Zapisnik"))
+{
+
+    <div class="action-container margin-bottom-20 pull-right">
+        <table>
+            <tr>
+                
+                <td>
+                    @Html.DevExpress().Button(settings =>
+               {
+                   settings.Name = "btnUObradi";
+                   settings.Text = "Poveži";
+                   settings.ControlStyle.CssClass = "greenButton";
+                   settings.ClientSideEvents.Click = "PoveziClick";
+               }).GetHtml()
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <br />
+
+
+    @Html.Partial("RadniNalogDolazeciGridView", Model)
+
+}

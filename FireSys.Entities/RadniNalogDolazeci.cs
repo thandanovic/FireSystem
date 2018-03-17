@@ -10,6 +10,8 @@ namespace FireSys.Entities
         public string BrojZapisnika { get; set; }
         public DateTime DatumZapisnika { get; set; }
         public string VrstaZapisnika { get; set; }
+
+        public int StatusId { get; set; }
     }
    
 }

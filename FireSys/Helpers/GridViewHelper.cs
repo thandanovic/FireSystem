@@ -309,6 +309,7 @@ namespace FireSys.Helpers
                     s.Caption = settings.ActionCaption;
                     s.Width = settings.ActionWidth;
                     s.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.False;
+                    s.Visible = settings.ActionWidth != 0;
 
                     s.SetDataItemTemplateContent(c =>
                     {
@@ -526,6 +527,12 @@ namespace FireSys.Helpers
                 });
             });
 
+            return settings;
+        }
+
+        public static GridViewSettings GetRadniNalogDolazeciView(this HtmlHelper htmlHelper)
+        {
+            GridViewSettings settings = GetGridSettings("RadniNalogDolazeci", htmlHelper);
             return settings;
         }
 

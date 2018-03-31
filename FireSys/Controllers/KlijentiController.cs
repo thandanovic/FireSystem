@@ -14,10 +14,12 @@ using System.Collections;
 using DevExpress.Web.Mvc;
 using DevExpress.Web;
 using FireSys.Helpers;
+using FireSys.Attributes;
 
 namespace FireSys.Controllers
 {
-    public class KlijentiController : Controller
+    [AuthorizeRoles("user")]
+    public class KlijentiController : BaseController
     {
         private FireSysModel db = new FireSysModel();
         private KlijentManager klijentManager = new KlijentManager();

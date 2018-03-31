@@ -16,10 +16,12 @@ using FireSys.Helpers;
 using System.Web.UI;
 using System.Web.Routing;
 using System.Data.SqlClient;
+using FireSys.Attributes;
 
 namespace FireSys.Controllers
 {
-    public class HidrantsController : Controller
+    [AuthorizeRoles("user")]
+    public class HidrantsController : BaseController
     {
         public ActionResult Index()
         {

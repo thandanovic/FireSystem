@@ -16,10 +16,12 @@ using FireSys.Models;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
 using FireSys.Common;
+using FireSys.Attributes;
 
 namespace FireSys.Controllers
 {
-    public class ZapisnikController : Controller
+    [AuthorizeRoles("user")]
+    public class ZapisnikController : BaseController
     {
         private FireSysModel db = new FireSysModel();
 

@@ -14,9 +14,11 @@ using Microsoft.Owin.Logging;
 using System.Collections;
 using DevExpress.Web.Mvc;
 using DevExpress.Web;
+using FireSys.Attributes;
 
 namespace FireSys.Controllers
 {
+    [AuthorizeRoles("user")]
     public class LokacijaController : BaseController
     {
 

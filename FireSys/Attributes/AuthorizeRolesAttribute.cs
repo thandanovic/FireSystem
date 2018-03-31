@@ -19,7 +19,13 @@ namespace FireSys.Attributes
         public override void OnAuthorization(AuthorizationContext filterContext)
         {
             var principal = filterContext.HttpContext.User;
-            if (!principal.Identity.IsAuthenticated || !HasAnyRole(principal))
+
+            if(!principal.Identity.IsAuthenticated)
+            {
+                filterContext.HttpContext.Response.Redirect("~/Login/Index");
+            }
+
+            if (!HasAnyRole(principal))
             {
                 filterContext.HttpContext.Response.Redirect("~/401.html");
             }

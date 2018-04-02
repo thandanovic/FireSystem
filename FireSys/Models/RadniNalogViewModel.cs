@@ -56,6 +56,7 @@ namespace FireSys.Models
 
         public string NovaLokacijaNaziv { get; set; }
 
+        [Display(Name = "Nova lokacija - Adresa")]
         public string NovaLokacijaAdresa { get; set; }
 
         public int? NovaLokacijaVrstaId { get; set; }

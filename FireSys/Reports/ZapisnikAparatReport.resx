@@ -1,0 +1,218 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="xrRichText3.SerializableRtfString" xml:space="preserve">
+    <value>ewBcAHIAdABmADEAXABkAGUAZgBmADAAewBcAGYAbwBuAHQAdABiAGwAewBcAGYAMAAgAEMAYQBsAGkAYgByAGkAOwB9AHsAXABmADEAXABmAGMAaABhAHIAcwBlAHQAMgAzADgAIABUAGkAbQBlAHMAIABOAGUAdwAgAFIAbwBtAGEAbgA7AH0AfQB7AFwAYwBvAGwAbwByAHQAYgBsACAAOwBcAHIAZQBkADAAXABnAHIAZQBlAG4AMABcAGIAbAB1AGUAMAAgADsAXAByAGUAZAAwAFwAZwByAGUAZQBuADAAXABiAGwAdQBlADIANQA1ACAAOwB9AHsAXAAqAFwAZABlAGYAYwBoAHAAIABcAGYAMQBcAGYAcwAyADQAfQB7AFwAcwB0AHkAbABlAHMAaABlAGUAdAAgAHsAXABxAGwAXABmADEAXABmAHMAMgA0ACAATgBvAHIAbQBhAGwAOwB9AHsAXAAqAFwAYwBzADEAXABmADEAXABmAHMAMgA0AFwAYwBmADEAIABEAGUAZgBhAHUAbAB0ACAAUABhAHIAYQBnAHIAYQBwAGgAIABGAG8AbgB0ADsAfQB7AFwAKgBcAGMAcwAyAFwAcwBiAGEAcwBlAGQAbwBuADEAXABmADEAXABmAHMAMgA0AFwAYwBmADEAIABMAGkAbgBlACAATgB1AG0AYgBlAHIAOwB9AHsAXAAqAFwAYwBzADMAXAB1AGwAXABmADEAXABmAHMAMgA0AFwAYwBmADIAIABIAHkAcABlAHIAbABpAG4AawA7AH0AewBcACoAXAB0AHMANABcAHQAcwByAG8AdwBkAFwAZgAxAFwAZgBzADIANABcAHEAbABcAHQAcwBjAGUAbABsAHAAYQBkAGQAZgBsADMAXAB0AHMAYwBlAGwAbABwAGEAZABkAGwAMQAwADgAXAB0AHMAYwBlAGwAbABwAGEAZABkAGYAYgAzAFwAdABzAGMAZQBsAGwAcABhAGQAZABmAHIAMwBcAHQAcwBjAGUAbABsAHAAYQBkAGQAcgAxADAAOABcAHQAcwBjAGUAbABsAHAAYQBkAGQAZgB0ADMAXAB0AHMAdgBlAHIAdABhAGwAdABcAGMAbAB0AHgAbAByAHQAYgAgAE4AbwByAG0AYQBsACAAVABhAGIAbABlADsAfQB7AFwAKgBcAHQAcwA1AFwAdABzAHIAbwB3AGQAXABzAGIAYQBzAGUAZABvAG4ANABcAGYAMQBcAGYAcwAyADQAXABxAGwAXAB0AHIAYgByAGQAcgB0AFwAYgByAGQAcgBzAFwAYgByAGQAcgB3ADEAMABcAHQAcgBiAHIAZAByAGwAXABiAHIAZAByAHMAXABiAHIAZAByAHcAMQAwAFwAdAByAGIAcgBkAHIAYgBcAGIAcgBkAHIAcwBcAGIAcgBkAHIAdwAxADAAXAB0AHIAYgByAGQAcgByAFwAYgByAGQAcgBzAFwAYgByAGQAcgB3ADEAMABcAHQAcgBiAHIAZAByAGgAXABiAHIAZAByAHMAXABiAHIAZAByAHcAMQAwAFwAdAByAGIAcgBkAHIAdgBcAGIAcgBkAHIAcwBcAGIAcgBkAHIAdwAxADAAXAB0AHMAYwBlAGwAbABwAGEAZABkAGYAbAAzAFwAdABzAGMAZQBsAGwAcABhAGQAZABsADEAMAA4AFwAdABzAGMAZQBsAGwAcABhAGQAZABmAHIAMwBcAHQAcwBjAGUAbABsAHAAYQBkAGQAcgAxADAAOABcAHQAcwB2AGUAcgB0AGEAbAB0AFwAYwBsAHQAeABsAHIAdABiACAAVABhAGIAbABlACAAUwBpAG0AcABsAGUAIAAxADsAfQB9AHsAXAAqAFwAbABpAHMAdABvAHYAZQByAHIAaQBkAGUAdABhAGIAbABlAH0AXABuAG8AdQBpAGMAbwBtAHAAYQB0AFwAcwBwAGwAeQB0AHcAbgBpAG4AZQBcAGgAdABtAGEAdQB0AHMAcABcAHAAYQByAGQAXABwAGwAYQBpAG4AXABxAGwAewBcAGwAYQBuAGcAMQAwADMAMwBcAGwAYQBuAGcAZgBlADEAMAAzADMAXABiAFwAaQBcAGYAMQBcAGYAcwAyADQAXABjAGYAMQAgAG8AIABpAHoAdgByAH0AewBcAGwAYQBuAGcANAAxADIAMgBcAGwAYQBuAGcAZgBlADQAMQAyADIAXABiAFwAaQBcAGYAMQBcAGYAcwAyADQAXABjAGYAMQAgAFwAdQAzADUAMwBcACcAOQBhAGUAbgBvAG0AIABwAGUAcgBpAG8AZABpAFwAdQAyADYAOQBcACcAZQA4AG4AbwBtACAAcAByAGUAZwBsAGUAZAB1ACAAYQBwAGEAcgBhAHQAYQAgAHoAYQAgAHAAbwBcAHUAMgA2ADkAXAAnAGUAOABlAHQAbgBvACAAZwBhAFwAdQAzADUAMwBcACcAOQBhAGUAbgBqAGUAIABwAG8AXAB1ADMAOAAyAFwAJwA5AGUAYQByAGEAIAB1ACAAfQB7AFwAbABhAG4AZwAxADAAMwAzAFwAbABhAG4AZwBmAGUAMQAwADMAMwBcAGIAXABpAFwAZgAxAFwAZgBzADIANABcAGMAZgAxACAAbwBiAGoAZQBrAHQAdQAvAHYAbwB6AGkAbAB1AH0AewBcAGwAYQBuAGcAMQAwADMAMwBcAGwAYQBuAGcAZgBlADEAMAAzADMAXABiAFwAaQBcAGYAMQBcAGYAcwAyADQAXABjAGYAMQAgADoAfQBcAGYAMQBcAGYAcwAyADQAXABjAGYAMQBcAHAAYQByAH0A</value>
+  </data>
+  <data name="xrLabel7.Text" xml:space="preserve">
+    <value>1. PROPISI I STANDARDI:
+Periodični pregled aparata za početno gašenje požara vršen je na osnovu slijedećih zakona, tehničkih propisa, pravilnika i standarda
+1. Zakon o zaštiti od požara i vatrogastvu,član 39. (Sl. Novine FBIH br. 64/09)
+2. Pravilnik o izboru i održavanju aparata za gašenje početnog požara koji se mogu stavljati u promet sa garantnim rokom i rokom servisiranja (Službene novine FBiH 46/11 ),
+
+2. PREGLED I ISPITIVANJE:
+Periodični pregled PP aparata pod stalnim pritiskom:
+
+1.vanjski pregled opšteg stanja aparata s obzirom na koroziju i oštećenja,
+2.vanjski pregled stanja i kompletnosti svih dijelova aparata,
+
+3. pregled uočljivosti i čitljivosti natpisa i uputstva za rukovanje na aparatu,
+4. provjeru roka za vršenje hidrauličkog ispitivanja čvrstoće i nepropusnosti rezervoara,
+5. kontrolu radnog pritiska u aparatu (osim CO2 aparata),
+6. kontrolu ispravnosti manometra (ako je omogućena),
+7. izvlačenje osigurača i ponovno plombiranje,
+8. pregled stanja spojne cijevi i mlaznice uz produvavanje zrakom i obaveznu zamjenu oštećenih ili dotrajalih dijelova i brtvi,
+9. provjeru mase sredstava za gašenje vaganjem, te upisivanje na samoljepivu naljepnicu (slika 1. u prilogu), i ljepljenjem na rezervoar aparata
+10. protresanje aparata u obrnutom položaju u svrhu rastresanja praha.
+Kod periodičnog pregleda aparata punjenih prahom nakon isteka druge godine od dana prodaje, kao i kod svakog sljedećeg periodičnog pregleda, izvršit će se sve radnje iz stava 1. ovog člana, osim radnje iz tačke 5. stava 1. ovog člana, umjesto koje treba smanjiti pritisak na aparatu na pritisak okoline i provjeriti stanje praha u pogledu sipkosti, pojave grudica i stranih tijela.
+
+Periodični pregled aparata s bočicom obuhvata sljedeće:
+
+1.vanjski pregled opšteg stanja aparata s obzirom na koroziju i oštećenja,
+2. vanjski pregled stanja i kompletnosti svih dijelova aparata,
+3. pregled uočljivosti i čitljivosti natpisa i uputstva za rukovanje na aparatu,
+4. provjeru roka za vršenje hidrauličkog ispitivanja čvrstoće i nepropusnosti rezervoara,
+5. skidanje zatvarača, provjeru rada mehanizma za aktiviranje i svih brtvi,  
+6. provjeru usponske i uzbudne cijevi,
+7. izvlačenje osigurača i ponovno plombiranje,
+8. pregled stanja spojne cijevi i mlaznice uz produvavanje zrakom i obaveznu zamjenu oštećenih ili dotrajalih dijelova i brtvi,
+9. provjeru mase pogonskog plina u bočici vaganjem, protresanje aparata u obrnutom položaju u svrhu rastresanja praha
+10. upisivanje izvagane mase i datuma na samoljepljivu naljepnicu i ljepljenje na bočicu,
+11. kod aparata punjenih prahom provjeriti stanje praha u pogledu rastresitosti, pojave grudvica i stranih tijela. Kod prenosnih aparata treba zatvoriti otvor rezervoara, protresti prah preokretanjem i trešnjom aparata. Prevozne aparate polegnuti i protresti. Neupotrebljivi prah treba zamijeniti u cijelosti istovrsnim novim. Prosijavanje praha nije dopušteno. Navedene radnje treba izvršiti u suhoj zatvorenoj prostoriji i u što kraće vrijeme da se izbjegne vlaženje praha vlagom iz zraka.
+12. aparate za gašenje sa sredstvom na bazi vode isprazniti, izvršiti provjeru unutrašnjosti rezervoara na koroziju, te u slučaju da zadovoljavaju ponovno napuniti.
+3. OPŠTA DOKUMENTACIJA
+ Rješenje Kantonalnog MUP-a za obavljanje predmetne djelatnosti broj: 01/3-44-14604 od 08.11.2017. godine.
+ Uvjerenja MUP-a za tehnička lica, koja mogu vršiti kontrolu,ispitivanje i održavanje vatrogasnih aparata.
+</value>
+  </data>
+  <metadata name="sqlDataSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="customSqlQuery1.Sql" xml:space="preserve">
+    <value>select "VatrogasniAparatTip"."VatrogasniAparatTipId" as "AparatTip",
+       "VatrogasniAparat"."BrojaAparata" as "BrojAparata",
+       "VatrogasniAparat"."GodinaProizvodnje" as "Proizvodnja",
+       "VatrogasniAparat"."IspitivanjeVrijediDo" as "Ispitivanje",
+       "EvidencijskaKartica"."BrojEvidencijskeKartice" as "Kartica",
+       "ZapisnikAparat"."Komentar" as "Napomena",
+       "Ispravnost"."Naziv" as "Ispravnost"
+  from ((((("dbo"."ZapisnikAparat"
+       "ZapisnikAparat"
+  inner join "dbo"."VatrogasniAparat"
+       "VatrogasniAparat"
+       on ("VatrogasniAparat"."VatrogasniAparatId" = "ZapisnikAparat"."VatrogasniAparatId"))
+  inner join "dbo"."VatrogasniAparatTip"
+       "VatrogasniAparatTip"
+       on ("VatrogasniAparatTip"."VatrogasniAparatTipId" = "VatrogasniAparat"."VatrogasniAparatTipId"))
+  left
+  join "dbo"."EvidencijskaKartica"
+       "EvidencijskaKartica"
+       on ("EvidencijskaKartica"."EvidencijskaKarticaId" = "ZapisnikAparat"."EvidencijskaKarticaId"))
+  inner join "dbo"."Ispravnost" "Ispravnost"
+       on ("Ispravnost"."IspravnostId" = "ZapisnikAparat"."IspravnostId"))
+  inner join "dbo"."Zapisnik" "Zapisnik"
+       on ("Zapisnik"."ZapisnikId" = "ZapisnikAparat"."ZapisnikId"))
+  where ("Zapisnik"."ZapisnikId" = @ID)</value>
+  </data>
+  <data name="customSqlQuery2.Sql" xml:space="preserve">
+    <value>select "Klijent"."Naziv" as "Klijent",
+       "Lokacija"."Naziv" as "Lokacija", "Lokacija"."Adresa",
+       "Regija"."Naziv" as "Mjesto", "Mjesto"."Naziv" as "Regija"
+  from (((("dbo"."Zapisnik" "Zapisnik"
+  inner join "dbo"."Lokacija" "Lokacija"
+       on ("Lokacija"."LokacijaId" = "Zapisnik"."LokacijaId"))
+  inner join "dbo"."Klijent" "Klijent"
+       on ("Klijent"."KlijentId" = "Lokacija"."KlijentId"))
+  inner join "dbo"."Regija" "Regija"
+       on ("Regija"."RegijaId" = "Lokacija"."RegijaId"))
+  inner join "dbo"."Mjesto" "Mjesto"
+       on ("Mjesto"."MjestoId" = "Lokacija"."MjestoId"))
+  where ("Zapisnik"."ZapisnikId" = @ID)
+</value>
+  </data>
+  <data name="sqlDataSource1.ResultSchemaSerializable" xml:space="preserve">
+    <value>PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IlphcGlzbmlrQXBhcmF0Ij48RmllbGQgTmFtZT0iQXBhcmF0VGlwIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iQnJvakFwYXJhdGEiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iUHJvaXp2b2RuamEiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJJc3BpdGl2YW5qZSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkthcnRpY2EiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iTmFwb21lbmEiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iSXNwcmF2bm9zdCIgVHlwZT0iU3RyaW5nIiAvPjwvVmlldz48VmlldyBOYW1lPSJaYXBpc25payI+PEZpZWxkIE5hbWU9IktsaWplbnQiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iTG9rYWNpamEiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iQWRyZXNhIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ik1qZXN0byIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJSZWdpamEiIFR5cGU9IlN0cmluZyIgLz48L1ZpZXc+PC9EYXRhU2V0Pg==</value>
+  </data>
+  <data name="xrRichText2.SerializableRtfString" xml:space="preserve">
+    <value>ewBcAHIAdABmADEAXABkAGUAZgBmADAAewBcAGYAbwBuAHQAdABiAGwAewBcAGYAMAAgAEMAYQBsAGkAYgByAGkAOwB9AHsAXABmADEAXABmAGMAaABhAHIAcwBlAHQAMgAzADgAIABUAGkAbQBlAHMAIABOAGUAdwAgAFIAbwBtAGEAbgA7AH0AfQB7AFwAYwBvAGwAbwByAHQAYgBsACAAOwBcAHIAZQBkADAAXABnAHIAZQBlAG4AMABcAGIAbAB1AGUAMAAgADsAXAByAGUAZAAwAFwAZwByAGUAZQBuADAAXABiAGwAdQBlADIANQA1ACAAOwB9AHsAXAAqAFwAZABlAGYAYwBoAHAAIABcAGYAMQBcAGYAcwAyADQAfQB7AFwAcwB0AHkAbABlAHMAaABlAGUAdAAgAHsAXABxAGwAXABmADEAXABmAHMAMgA0ACAATgBvAHIAbQBhAGwAOwB9AHsAXAAqAFwAYwBzADEAXABmADEAXABmAHMAMgA0AFwAYwBmADEAIABEAGUAZgBhAHUAbAB0ACAAUABhAHIAYQBnAHIAYQBwAGgAIABGAG8AbgB0ADsAfQB7AFwAKgBcAGMAcwAyAFwAcwBiAGEAcwBlAGQAbwBuADEAXABmADEAXABmAHMAMgA0AFwAYwBmADEAIABMAGkAbgBlACAATgB1AG0AYgBlAHIAOwB9AHsAXAAqAFwAYwBzADMAXAB1AGwAXABmADEAXABmAHMAMgA0AFwAYwBmADIAIABIAHkAcABlAHIAbABpAG4AawA7AH0AewBcACoAXAB0AHMANABcAHQAcwByAG8AdwBkAFwAZgAxAFwAZgBzADIANABcAHEAbABcAHQAcwBjAGUAbABsAHAAYQBkAGQAZgBsADMAXAB0AHMAYwBlAGwAbABwAGEAZABkAGwAMQAwADgAXAB0AHMAYwBlAGwAbABwAGEAZABkAGYAYgAzAFwAdABzAGMAZQBsAGwAcABhAGQAZABmAHIAMwBcAHQAcwBjAGUAbABsAHAAYQBkAGQAcgAxADAAOABcAHQAcwBjAGUAbABsAHAAYQBkAGQAZgB0ADMAXAB0AHMAdgBlAHIAdABhAGwAdABcAGMAbAB0AHgAbAByAHQAYgAgAE4AbwByAG0AYQBsACAAVABhAGIAbABlADsAfQB7AFwAKgBcAHQAcwA1AFwAdABzAHIAbwB3AGQAXABzAGIAYQBzAGUAZABvAG4ANABcAGYAMQBcAGYAcwAyADQAXABxAGwAXAB0AHIAYgByAGQAcgB0AFwAYgByAGQAcgBzAFwAYgByAGQAcgB3ADEAMABcAHQAcgBiAHIAZAByAGwAXABiAHIAZAByAHMAXABiAHIAZAByAHcAMQAwAFwAdAByAGIAcgBkAHIAYgBcAGIAcgBkAHIAcwBcAGIAcgBkAHIAdwAxADAAXAB0AHIAYgByAGQAcgByAFwAYgByAGQAcgBzAFwAYgByAGQAcgB3ADEAMABcAHQAcgBiAHIAZAByAGgAXABiAHIAZAByAHMAXABiAHIAZAByAHcAMQAwAFwAdAByAGIAcgBkAHIAdgBcAGIAcgBkAHIAcwBcAGIAcgBkAHIAdwAxADAAXAB0AHMAYwBlAGwAbABwAGEAZABkAGYAbAAzAFwAdABzAGMAZQBsAGwAcABhAGQAZABsADEAMAA4AFwAdABzAGMAZQBsAGwAcABhAGQAZABmAHIAMwBcAHQAcwBjAGUAbABsAHAAYQBkAGQAcgAxADAAOABcAHQAcwB2AGUAcgB0AGEAbAB0AFwAYwBsAHQAeABsAHIAdABiACAAVABhAGIAbABlACAAUwBpAG0AcABsAGUAIAAxADsAfQB9AHsAXAAqAFwAbABpAHMAdABvAHYAZQByAHIAaQBkAGUAdABhAGIAbABlAH0AXABuAG8AdQBpAGMAbwBtAHAAYQB0AFwAcwBwAGwAeQB0AHcAbgBpAG4AZQBcAGgAdABtAGEAdQB0AHMAcABcAHAAYQByAGQAXABwAGwAYQBpAG4AXABxAGwAewBcAGwAYQBuAGcAMQAwADMAMwBcAGwAYQBuAGcAZgBlADEAMAAzADMAXABmADEAXABmAHMAMgAwAFwAYwBmADEAIAB1AHMAdABhAG4AbwB2AGwAagBlAG4AbwAgAGoAZQAgAGQAYQAgAHMAdQAgAGEAcABhAHIAYQB0AGkAIAB6AGEAIABwAG8AfQB7AFwAbABhAG4AZwA0ADEAMgAyAFwAbABhAG4AZwBmAGUANAAxADIAMgBcAGYAMQBcAGYAcwAyADAAXABjAGYAMQAgAFwAdQAyADYAOQBcACcAZQA4AGUAdABuAG8AIABnAGEAXAB1ADMANQAzAFwAJwA5AGEAZQBuAGoAZQAgAHAAbwBcAHUAMwA4ADIAXAAnADkAZQBhAHIAYQAgAH0AewBcAGwAYQBuAGcAMQAwADMAMwBcAGwAYQBuAGcAZgBlADEAMAAzADMAXABiAFwAZgAxAFwAZgBzADIAMABcAGMAZgAxACAAWwBQAGEAcgBhAG0AZQB0AGUAcgBzAC4AUwB0AGEAdAB1AHMAXQB9AFwAZgAxAFwAZgBzADIAMABcAGMAZgAxAFwAcABhAHIAfQA=</value>
+  </data>
+  <data name="xrRichText1.SerializableRtfString" xml:space="preserve">
+    <value>ewBcAHIAdABmADEAXABkAGUAZgBmADAAewBcAGYAbwBuAHQAdABiAGwAewBcAGYAMAAgAEMAYQBsAGkAYgByAGkAOwB9AHsAXABmADEAXABmAGMAaABhAHIAcwBlAHQAMgAzADgAIABUAGkAbQBlAHMAIABOAGUAdwAgAFIAbwBtAGEAbgA7AH0AfQB7AFwAYwBvAGwAbwByAHQAYgBsACAAOwBcAHIAZQBkADAAXABnAHIAZQBlAG4AMABcAGIAbAB1AGUAMAAgADsAXAByAGUAZAAwAFwAZwByAGUAZQBuADAAXABiAGwAdQBlADIANQA1ACAAOwB9AHsAXAAqAFwAZABlAGYAYwBoAHAAIABcAGYAMQBcAGYAcwAyADQAfQB7AFwAcwB0AHkAbABlAHMAaABlAGUAdAAgAHsAXABxAGwAXABmADEAXABmAHMAMgA0ACAATgBvAHIAbQBhAGwAOwB9AHsAXAAqAFwAYwBzADEAXABmADEAXABmAHMAMgA0AFwAYwBmADEAIABEAGUAZgBhAHUAbAB0ACAAUABhAHIAYQBnAHIAYQBwAGgAIABGAG8AbgB0ADsAfQB7AFwAKgBcAGMAcwAyAFwAcwBiAGEAcwBlAGQAbwBuADEAXABmADEAXABmAHMAMgA0AFwAYwBmADEAIABMAGkAbgBlACAATgB1AG0AYgBlAHIAOwB9AHsAXAAqAFwAYwBzADMAXAB1AGwAXABmADEAXABmAHMAMgA0AFwAYwBmADIAIABIAHkAcABlAHIAbABpAG4AawA7AH0AewBcACoAXAB0AHMANABcAHQAcwByAG8AdwBkAFwAZgAxAFwAZgBzADIANABcAHEAbABcAHQAcwBjAGUAbABsAHAAYQBkAGQAZgBsADMAXAB0AHMAYwBlAGwAbABwAGEAZABkAGwAMQAwADgAXAB0AHMAYwBlAGwAbABwAGEAZABkAGYAYgAzAFwAdABzAGMAZQBsAGwAcABhAGQAZABmAHIAMwBcAHQAcwBjAGUAbABsAHAAYQBkAGQAcgAxADAAOABcAHQAcwBjAGUAbABsAHAAYQBkAGQAZgB0ADMAXAB0AHMAdgBlAHIAdABhAGwAdABcAGMAbAB0AHgAbAByAHQAYgAgAE4AbwByAG0AYQBsACAAVABhAGIAbABlADsAfQB7AFwAKgBcAHQAcwA1AFwAdABzAHIAbwB3AGQAXABzAGIAYQBzAGUAZABvAG4ANABcAGYAMQBcAGYAcwAyADQAXABxAGwAXAB0AHIAYgByAGQAcgB0AFwAYgByAGQAcgBzAFwAYgByAGQAcgB3ADEAMABcAHQAcgBiAHIAZAByAGwAXABiAHIAZAByAHMAXABiAHIAZAByAHcAMQAwAFwAdAByAGIAcgBkAHIAYgBcAGIAcgBkAHIAcwBcAGIAcgBkAHIAdwAxADAAXAB0AHIAYgByAGQAcgByAFwAYgByAGQAcgBzAFwAYgByAGQAcgB3ADEAMABcAHQAcgBiAHIAZAByAGgAXABiAHIAZAByAHMAXABiAHIAZAByAHcAMQAwAFwAdAByAGIAcgBkAHIAdgBcAGIAcgBkAHIAcwBcAGIAcgBkAHIAdwAxADAAXAB0AHMAYwBlAGwAbABwAGEAZABkAGYAbAAzAFwAdABzAGMAZQBsAGwAcABhAGQAZABsADEAMAA4AFwAdABzAGMAZQBsAGwAcABhAGQAZABmAHIAMwBcAHQAcwBjAGUAbABsAHAAYQBkAGQAcgAxADAAOABcAHQAcwB2AGUAcgB0AGEAbAB0AFwAYwBsAHQAeABsAHIAdABiACAAVABhAGIAbABlACAAUwBpAG0AcABsAGUAIAAxADsAfQB9AHsAXAAqAFwAbABpAHMAdABvAHYAZQByAHIAaQBkAGUAdABhAGIAbABlAH0AXABuAG8AdQBpAGMAbwBtAHAAYQB0AFwAcwBwAGwAeQB0AHcAbgBpAG4AZQBcAGgAdABtAGEAdQB0AHMAcABcAHAAYQByAGQAXABwAGwAYQBpAG4AXABxAGwAewBcAGYAMQBcAGYAcwAyADAAXABjAGYAMQAgAFAAcgBlAGcAbABlAGQAIABpAHoAdgByAFwAdQAzADUAMwBcACcAOQBhAGUAbgAgAGQAYQBuAGEAfQB7AFwAZgAxAFwAZgBzADIAMABcAGMAZgAxACAAIAB9AHsAXABiAFwAZgAxAFwAZgBzADIAMABcAGMAZgAxACAAWwBQAGEAcgBhAG0AZQB0AGUAcgBzAC4AUAByAGUAZwBsAGUAZABJAHoAdgByAHMAZQBuAF0AfQB7AFwAZgAxAFwAZgBzADIAMABcAGMAZgAxACAAIABpACAAdgByAGkAagBlAGQAaQAgAGQAbwAgAH0AewBcAGIAXABmADEAXABmAHMAMgAwAFwAYwBmADEAIABbAFAAYQByAGEAbQBlAHQAZQByAHMALgBWAHIAaQBqAGUAZABpAEQAbwBdAH0AewBcAGYAMQBcAGYAcwAyADAAXABjAGYAMQAgACAAZwBvAGQAaQBuAGUALgB9AFwAZgAxAFwAZgBzADIANABcAGMAZgAxAFwAcABhAHIAfQA=</value>
+  </data>
+</root>

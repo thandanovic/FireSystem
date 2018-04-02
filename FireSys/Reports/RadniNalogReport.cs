@@ -76,13 +76,13 @@ public class RadniNalogReport : DevExpress.XtraReports.UI.XtraReport
     private XRTable xrTable4;
     private XRTableRow xrTableRow4;
     private XRTableCell xrTableCell28;
-    private XRTableCell xrTableCell21;
     private XRTableCell xrTableCell22;
-    private XRTableCell xrTableCell23;
     private XRTableCell xrTableCell24;
     private XRTableCell xrTableCell25;
     private XRTableCell xrTableCell26;
     private XRTableCell xrTableCell27;
+    private XRTableCell xrTableCell21;
+    private XRTableCell xrTableCell23;
 
     /// <summary>
     /// Required designer variable.
@@ -203,9 +203,7 @@ public class RadniNalogReport : DevExpress.XtraReports.UI.XtraReport
             this.xrTable4 = new DevExpress.XtraReports.UI.XRTable();
             this.xrTableRow4 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell28 = new DevExpress.XtraReports.UI.XRTableCell();
-            this.xrTableCell21 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell22 = new DevExpress.XtraReports.UI.XRTableCell();
-            this.xrTableCell23 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell24 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell25 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell26 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -222,6 +220,8 @@ public class RadniNalogReport : DevExpress.XtraReports.UI.XtraReport
             this.xrTableCell18 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell20 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrLabel15 = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrTableCell21 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCell23 = new DevExpress.XtraReports.UI.XRTableCell();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable4)).BeginInit();
@@ -772,20 +772,20 @@ public class RadniNalogReport : DevExpress.XtraReports.UI.XtraReport
             this.xrTable4.Name = "xrTable4";
             this.xrTable4.Rows.AddRange(new DevExpress.XtraReports.UI.XRTableRow[] {
             this.xrTableRow4});
-            this.xrTable4.SizeF = new System.Drawing.SizeF(650.0001F, 25F);
+            this.xrTable4.SizeF = new System.Drawing.SizeF(650.0002F, 25F);
             this.xrTable4.StylePriority.UseBorders = false;
             // 
             // xrTableRow4
             // 
             this.xrTableRow4.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
             this.xrTableCell28,
-            this.xrTableCell21,
             this.xrTableCell22,
-            this.xrTableCell23,
             this.xrTableCell24,
             this.xrTableCell25,
             this.xrTableCell26,
-            this.xrTableCell27});
+            this.xrTableCell27,
+            this.xrTableCell21,
+            this.xrTableCell23});
             this.xrTableRow4.Name = "xrTableRow4";
             this.xrTableRow4.Weight = 11.5D;
             // 
@@ -797,51 +797,30 @@ public class RadniNalogReport : DevExpress.XtraReports.UI.XtraReport
             this.xrTableCell28.Summary = xrSummary1;
             this.xrTableCell28.Weight = 0.0743104450365564D;
             // 
-            // xrTableCell21
-            // 
-            this.xrTableCell21.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "VatrogasniAparat.Broj")});
-            this.xrTableCell21.Name = "xrTableCell21";
-            this.xrTableCell21.Text = "xrTableCell21";
-            this.xrTableCell21.Weight = 0.15799010877580116D;
-            // 
             // xrTableCell22
             // 
             this.xrTableCell22.Name = "xrTableCell22";
-            this.xrTableCell22.Text = "[Tip]";
-            this.xrTableCell22.Weight = 0.11180901697214769D;
-            // 
-            // xrTableCell23
-            // 
-            this.xrTableCell23.DataBindings.AddRange(new DevExpress.XtraReports.UI.XRBinding[] {
-            new DevExpress.XtraReports.UI.XRBinding("Text", null, "VatrogasniAparat.Godina")});
-            this.xrTableCell23.Name = "xrTableCell23";
-            this.xrTableCell23.Text = "xrTableCell23";
-            this.xrTableCell23.Weight = 0.12917367419911779D;
+            this.xrTableCell22.Weight = 0.15799019318040947D;
             // 
             // xrTableCell24
             // 
             this.xrTableCell24.Name = "xrTableCell24";
-            this.xrTableCell24.Text = "[VrijediDo]";
-            this.xrTableCell24.Weight = 0.1262797226474805D;
+            this.xrTableCell24.Weight = 0.11180895248736555D;
             // 
             // xrTableCell25
             // 
             this.xrTableCell25.Name = "xrTableCell25";
-            this.xrTableCell25.Text = "[BrojKartice]";
-            this.xrTableCell25.Weight = 0.17403248394234261D;
+            this.xrTableCell25.Weight = 0.12917359936864789D;
             // 
             // xrTableCell26
             // 
             this.xrTableCell26.Name = "xrTableCell26";
-            this.xrTableCell26.Text = "[Lokacija]";
-            this.xrTableCell26.Weight = 0.17403211530789675D;
+            this.xrTableCell26.Weight = 0.12627992456132581D;
             // 
             // xrTableCell27
             // 
             this.xrTableCell27.Name = "xrTableCell27";
-            this.xrTableCell27.Text = "[Ispravnost]";
-            this.xrTableCell27.Weight = 0.17403236545269929D;
+            this.xrTableCell27.Weight = 0.17403231279064049D;
             // 
             // GroupHeader1
             // 
@@ -938,6 +917,16 @@ public class RadniNalogReport : DevExpress.XtraReports.UI.XtraReport
             this.xrLabel15.SizeF = new System.Drawing.SizeF(650F, 23F);
             this.xrLabel15.StylePriority.UseFont = false;
             this.xrLabel15.Text = "Aparati";
+            // 
+            // xrTableCell21
+            // 
+            this.xrTableCell21.Name = "xrTableCell21";
+            this.xrTableCell21.Weight = 0.17403231279064049D;
+            // 
+            // xrTableCell23
+            // 
+            this.xrTableCell23.Name = "xrTableCell23";
+            this.xrTableCell23.Weight = 0.17403231279064049D;
             // 
             // RadniNalogReport
             // 

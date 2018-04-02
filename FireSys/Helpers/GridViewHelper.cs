@@ -995,6 +995,7 @@ namespace FireSys.Helpers
             {
                 column.FieldName = "EvidencijskaKarticaId";
                 column.Caption = "ID";
+                column.Visible = false;
             });
 
             settings.Columns.Add(column =>
@@ -1005,16 +1006,46 @@ namespace FireSys.Helpers
 
             settings.Columns.Add(column =>
             {
-                column.FieldName = "EvidencijskaKarticaTip.EvidencijskaKarticaTipNaziv";
-                column.Caption = "Tip";
+                column.FieldName = "Radnik";
+                column.Caption = "Radnik";
 
                 column.ColumnType = MVCxGridViewColumnType.ComboBox;
                 var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
-                comboBoxProperties.DataSource = FireSys.Helpers.DataProvider.GetEvidencijskeKarticeTip();
-                comboBoxProperties.TextField = "Naziv";
-                comboBoxProperties.ValueField = "Naziv";
+                comboBoxProperties.DataSource = DataProvider.DB.Korisniks.Select(x => new SelectListItem
+                {
+                    Value = x.KorisnikId.ToString(),
+                    Text = x.Ime + " " + x.Prezime
+                }).ToList();
+                comboBoxProperties.TextField = "Text";
+                comboBoxProperties.ValueField = "Value";
                 comboBoxProperties.ValueType = typeof(string);
                 comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
+            });
+
+            //settings.Columns.Add(column =>
+            //{
+            //    column.FieldName = "EvidencijskaKarticaTip.EvidencijskaKarticaTipNaziv";
+            //    column.Caption = "Tip";
+
+            //    column.ColumnType = MVCxGridViewColumnType.ComboBox;
+            //    var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+            //    comboBoxProperties.DataSource = FireSys.Helpers.DataProvider.GetEvidencijskeKarticeTip();
+            //    comboBoxProperties.TextField = "Naziv";
+            //    comboBoxProperties.ValueField = "Naziv";
+            //    comboBoxProperties.ValueType = typeof(string);
+            //    comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
+            //});
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Klijent";
+                column.Caption = "Klijent";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Lokacija";
+                column.Caption = "Lokacija";
             });
 
             settings.Columns.Add(column =>
@@ -1036,6 +1067,9 @@ namespace FireSys.Helpers
                 column.FieldName = "DatumZaduzenja";
                 column.Caption = "Datum zaduzenja";
                 column.PropertiesEdit.DisplayFormatString = "dd.MM.yyyy";
+                column.Settings.AllowHeaderFilter = DevExpress.Utils.DefaultBoolean.True;
+                column.Settings.AllowAutoFilter = DevExpress.Utils.DefaultBoolean.False;
+                column.SettingsHeaderFilter.Mode = GridHeaderFilterMode.DateRangePicker;
 
             });
 
@@ -1056,7 +1090,7 @@ namespace FireSys.Helpers
             settings.CommandColumn.ShowEditButton = false;
 
             settings.Settings.ShowFilterRow = true;
-
+            settings.ClientSideEvents.SelectionChanged = "OnSelectionChanged";
             settings.Columns.Add(s =>
             {
                 s.FieldName = "edit";

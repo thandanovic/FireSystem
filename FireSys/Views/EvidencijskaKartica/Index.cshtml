@@ -1,4 +1,4 @@
-﻿@model IEnumerable<FireSys.Entities.EvidencijskaKartica>
+﻿@model IEnumerable<FireSys.Entities.EvidencijskaKarticaGrid>
 @using FireSys.Models;
 @{
     ViewBag.Title = "Evidencijske kartice";
@@ -8,6 +8,40 @@
 
 
 <script type="text/javascript">
+
+     var selectedIDs;
+
+    function OnSelectionChanged(s, e) {
+        s.GetSelectedFieldValues("EvidencijskaKarticaId", GetSelectedFieldValuesCallback);
+    }
+    function GetSelectedFieldValuesCallback(values) {
+        //Capture all selected keys
+        selectedIDs = values.join(',');
+    }
+
+    function PonistiKarticeClick(s, e) {
+        mySpinner(true);
+        setTimeout(function () {
+            $.ajax({
+                url: "@Url.Action("PonistiKartice", "EvidencijskaKartica")",
+                data: { IDs: selectedIDs},
+                method: "POST",
+                dataType: "json"
+            }).done(function (response) {
+                if (response.message == "OK") {
+                    window.location.reload();
+                    mySpinner(false);
+                }
+                else {
+                    mySpinner(false);
+                    Utility.showErrorMessage(response.errorMessage);
+                }                
+            });
+
+        }, 2000);
+
+    }
+
     function OnClick(s, e) {
         var actionParams = $("form").attr("action").split("?OutputFormat=");
         actionParams[1] = s.GetMainElement().getAttribute("OutputFormatAttribute");
@@ -51,57 +85,57 @@
 
 @using (Html.BeginForm("ExportTo", "EvidencijskaKartica"))
 {
-<div class="action-container margin-bottom-20 pull-right">
-    <table>
-        <tr>
-            <td>
-                @*@Html.ActionLink("Kreiraj novog klijenta", "Create", null, new { @class = "btn btn-primary" })*@
-                @Html.DevExpress().Button(btn =>
-                     {
-                         btn.Name = "btnNewZaduzenje";
-                         btn.Text = "Kreiraj novo zaduženje";
-                    //  btn.RouteValues = new { Controller = "RadniNalog", Action = "Create", ParamValue = "" };
-                    btn.ControlStyle.CssClass = "create-button";
-                         btn.ClientSideEvents.Click = "OnCreateClick";
-                     }).GetHtml()
-            </td>
-            <td>
-                @*@Html.ActionLink("Kreiraj novog klijenta", "Create", null, new { @class = "btn btn-primary" })*@
-                @*@Html.DevExpress().Button(btn =>
-                {
-                    btn.Name = "btnNewRadniNalog";
-                    btn.Text = "Poništi postojeće zaduženje";
-                   //  btn.RouteValues = new { Controller = "RadniNalog", Action = "Create", ParamValue = "" };
-                   btn.ControlStyle.CssClass = "yellowButton";
-                    btn.ClientSideEvents.Click = "OnRemoveClick";
-                }).GetHtml()*@
-            </td>
-            <td>
-                @Html.DevExpress().Button(btn =>
-                  {
-                      btn.Name = "btnExportToPDF";
-                      btn.Attributes["OutputFormatAttribute"] = "PDF";
-                      btn.Text = "PDF";
-                      btn.UseSubmitBehavior = true;
-                      btn.ControlStyle.CssClass = "export-button";
-                      btn.ClientSideEvents.Click = "OnClick";
-                  }).GetHtml()
-            </td>
-            <td>
-                @Html.DevExpress().Button(btn =>
-                  {
-                      btn.Name = "btnExportToXLSX";
-                      btn.Attributes["OutputFormatAttribute"] = "XLSX";
-                      btn.Text = "EXCEL";
-                      btn.UseSubmitBehavior = true;
-                      btn.ControlStyle.CssClass = "export-button";
-                      btn.ClientSideEvents.Click = "OnClick";
-                  }).GetHtml()
-            </td>
-        </tr>
-    </table>
-</div>
-    
+    <div class="action-container margin-bottom-20 pull-right">
+        <table>
+            <tr>
+                <td>
+                    @*@Html.ActionLink("Kreiraj novog klijenta", "Create", null, new { @class = "btn btn-primary" })*@
+                    @Html.DevExpress().Button(btn =>
+                              {
+                                  btn.Name = "btnNewZaduzenje";
+                                  btn.Text = "Kreiraj novo zaduženje";
+                             //  btn.RouteValues = new { Controller = "RadniNalog", Action = "Create", ParamValue = "" };
+                             btn.ControlStyle.CssClass = "create-button";
+                                  btn.ClientSideEvents.Click = "OnCreateClick";
+                              }).GetHtml()
+                </td>
+                <td>
+                    @*@Html.ActionLink("Kreiraj novog klijenta", "Create", null, new { @class = "btn btn-primary" })*@
+                    @Html.DevExpress().Button(btn =>
+                        {
+                            btn.Name = "btnNewRadniNalog";
+                            btn.Text = "Poništi odabrane kartice";
+                           //  btn.RouteValues = new { Controller = "RadniNalog", Action = "Create", ParamValue = "" };
+                           btn.ControlStyle.CssClass = "yellowButton";
+                            btn.ClientSideEvents.Click = "PonistiKarticeClick";
+                        }).GetHtml()
+                </td>
+                <td>
+                    @Html.DevExpress().Button(btn =>
+                           {
+                               btn.Name = "btnExportToPDF";
+                               btn.Attributes["OutputFormatAttribute"] = "PDF";
+                               btn.Text = "PDF";
+                               btn.UseSubmitBehavior = true;
+                               btn.ControlStyle.CssClass = "export-button";
+                               btn.ClientSideEvents.Click = "OnClick";
+                           }).GetHtml()
+                </td>
+                <td>
+                    @Html.DevExpress().Button(btn =>
+                           {
+                               btn.Name = "btnExportToXLSX";
+                               btn.Attributes["OutputFormatAttribute"] = "XLSX";
+                               btn.Text = "EXCEL";
+                               btn.UseSubmitBehavior = true;
+                               btn.ControlStyle.CssClass = "export-button";
+                               btn.ClientSideEvents.Click = "OnClick";
+                           }).GetHtml()
+                </td>
+            </tr>
+        </table>
+    </div>
+
 
     <br />
 
@@ -126,7 +160,7 @@
                     <h4 class="modal-title">Zaduženje evidencijskih kartica</h4>
                 </div>
                 <div class="modal-body">
-                    @Html.Partial("_DetailsCreate", evidencijskaKarticaViewModel);
+                    @Html.Partial("_DetailsCreate", evidencijskaKarticaViewModel)
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Zatvori</button>

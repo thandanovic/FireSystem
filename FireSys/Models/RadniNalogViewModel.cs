@@ -137,14 +137,14 @@ namespace FireSys.Models
         {
             get
             {
-                return _klijenti ?? new SelectList(DataProvider.DB.Klijents, "KlijentId", "Naziv");
+                return _klijenti ?? (_klijenti = new SelectList(DataProvider.DB.Klijents, "KlijentId", "Naziv"));
             }
             set { }
         }
         public SelectList Regije {
             get
             {
-                return _regije ?? new SelectList(DataProvider.DB.Regijas, "RegijaId", "Naziv");
+                return _regije ?? (_regije = new SelectList(DataProvider.DB.Regijas, "RegijaId", "Naziv"));
             }
             set { }
         }
@@ -153,7 +153,7 @@ namespace FireSys.Models
         {
             get
             {
-                return _lokacijaVrste ?? new SelectList(DataProvider.DB.LokacijaVrstas, "LokacijaVrstaId", "Naziv");
+                return _lokacijaVrste ?? (_lokacijaVrste = new SelectList(DataProvider.DB.LokacijaVrstas, "LokacijaVrstaId", "Naziv"));
             }
             set { }
         }
@@ -162,7 +162,7 @@ namespace FireSys.Models
         {
             get
             {
-                return _lokacije ?? new SelectList(DataProvider.DB.Lokacijas, "LokacijaId", "Naziv");
+                return _lokacije ?? (_lokacije = new SelectList(DataProvider.DB.Lokacijas, "LokacijaId", "Naziv"));
             }
             set { }
         }

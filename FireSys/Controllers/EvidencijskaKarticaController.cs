@@ -14,6 +14,8 @@ using DevExpress.Web;
 using FireSys.Attributes;
 using FireSys.UI.Manager;
 using FireSys.Models;
+using FireSys.Helpers;
+using System.Data.SqlClient;
 
 namespace FireSys.Controllers
 {
@@ -38,8 +40,14 @@ namespace FireSys.Controllers
 
         public IEnumerable GetKartice()
         {
-            FireSysModel DB = new FireSysModel();
-            return DB.EvidencijskaKarticas.Include(z => z.EvidencijskaKarticaTip).ToList();
+            var datumOd = new SqlParameter("@DatumOd", System.DBNull.Value);
+            var datumDo = new SqlParameter("@DatumDo", System.DBNull.Value);
+            var korisnik = new SqlParameter("@KorisnikId", System.DBNull.Value);
+            var result = db.Database
+                .SqlQuery<EvidencijskaKarticaGrid>("spGetEvidencijskeKartice @KorisnikId, @DatumOd, @DatumDo", korisnik, datumOd, datumDo)
+                .ToList();
+            return result;
+           // return DataProvider.DB.EvidencijskaKarticas.Include(z => z.EvidencijskaKarticaTip).ToList();
         }
 
         public ActionResult ExportTo(string OutputFormat)
@@ -82,12 +90,31 @@ namespace FireSys.Controllers
             {
                 column.FieldName = "EvidencijskaKarticaId";
                 column.Caption = "ID";
+                column.Visible = false;
             });
 
             settings.Columns.Add(column =>
             {
                 column.FieldName = "BrojEvidencijskeKartice";
                 column.Caption = "Broj kartice";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Radnik";
+                column.Caption = "Radnik";
+
+                column.ColumnType = MVCxGridViewColumnType.ComboBox;
+                var comboBoxProperties = column.PropertiesEdit as ComboBoxProperties;
+                comboBoxProperties.DataSource = DataProvider.DB.Korisniks.Select(x => new SelectListItem
+                {
+                    Value = x.KorisnikId.ToString(),
+                    Text = x.Ime + " " + x.Prezime
+                });
+                comboBoxProperties.TextField = "Text";
+                comboBoxProperties.ValueField = "Value";
+                comboBoxProperties.ValueType = typeof(string);
+                comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
             });
 
             settings.Columns.Add(column =>
@@ -102,6 +129,18 @@ namespace FireSys.Controllers
                 comboBoxProperties.ValueField = "Naziv";
                 comboBoxProperties.ValueType = typeof(string);
                 comboBoxProperties.DropDownStyle = DropDownStyle.DropDown;
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Klijent";
+                column.Caption = "Klijent";
+            });
+
+            settings.Columns.Add(column =>
+            {
+                column.FieldName = "Lokacija";
+                column.Caption = "Lokacija";
             });
 
             settings.Columns.Add(column =>
@@ -129,7 +168,56 @@ namespace FireSys.Controllers
             return settings;
         }
 
+        [HttpPost]
+        public JsonResult PonistiKartice(string IDs) { 
 
+            if (string.IsNullOrEmpty(IDs))
+            {
+                return Json(new
+                {
+                    message = "ERROR",
+                    errorMessage = "Nije odabrana niti jedna kartica za poništenje."
+                });
+            }
+
+            List<int> ids = IDs.Split(',').ToList().Select(int.Parse).ToList();   
+            int zapisnikAparati = DataProvider.DB.ZapisnikAparats.Where(x => ids.Contains(x.EvidencijskaKarticaId.Value)).Count();
+
+            if (zapisnikAparati > 0)
+            {
+                return Json(new {
+                    message = "ERROR",
+                    errorMessage = "Neke od odabranih kartica su već iskorištene."
+                });
+            }
+
+            List<EvidencijskaKartica> kartice = db.EvidencijskaKarticas.Where(x => ids.Contains(x.EvidencijskaKarticaId)).ToList();
+            foreach (var kartica in kartice)
+            {
+                kartica.Obrisana = true;
+                kartica.Validna = false;
+                db.Entry(kartica).State = EntityState.Modified;
+            }
+
+            try
+            {
+                db.SaveChanges();
+
+            }
+            catch
+            {
+                return Json(new
+                {
+                    message = "ERROR",
+                    errorMessage = "Desio se problem pri spašavanju u bazu."
+                });
+            }
+
+            return Json(new
+            {
+                message = "OK"
+            });
+        }
 
 
 
@@ -210,6 +298,7 @@ namespace FireSys.Controllers
             {
                 try
                 {
+                   
                     EvidendijskaManager.DodajEvidencijskeKartice(evidencijskaKartica);
                     return RedirectToAction("Index");
                 }

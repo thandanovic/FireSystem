@@ -19,7 +19,6 @@
     }
 
     function UObradiClick(s, e) {
-        mySpinner(true);
         setTimeout(function () {
             $.ajax({
                 url: "@Url.Action("ChangeStatus", "RadniNalog")",
@@ -28,7 +27,6 @@
                 dataType: "json"
             }).done(function (response) {
                 window.location.reload();
-                mySpinner(false);
             });
 
         }, 2000);

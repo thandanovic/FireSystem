@@ -101,6 +101,21 @@ $(document).ajaxError(function (event, jqxhr, settings, thrownError) {
     }
 });
 
+$(document).ajaxComplete(function (event, request, settings) {
+    if (settings.data !== undefined && (settings.data.includes('zapisnikGrid') || settings.data.includes('radniNalogGrid'))) {
+        function deleteRow() {
+            var txt;
+            var r = confirm("Da li zelite obrisati?");
+            if (r == true) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+        AttachReport();
+    }
+});
+
 
 function AttachReport() {
     $('.print-report').off('click').on('click', function (e) {
@@ -161,8 +176,8 @@ function mySpinner(isStart) {
             if (spinner != null) {
                 spinner.stop();
                 spinner = null;
-                $('#waitSpinner').remove();
-                $('#overlay').remove(); //overlay  
+                $('#waitSpinner').html("");
+                $('#overlay').hide(); //overlay  
             }
         }, 1000);  //timeout – just to show the spinner for a while
     }

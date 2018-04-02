@@ -83,21 +83,7 @@
         }
 
         AttachReport();
-        $(document).ajaxComplete(function (event, request, settings) {
-            if (settings.data !== undefined && settings.data.includes('zapisnikGrid')) {
-                function deleteRow() {
-                    var txt;
-                    var r = confirm("Da li zelite obrisati?");
-                    if (r == true) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                }
-
-                AttachReport();
-            }
-        });
+       
 
     });
 

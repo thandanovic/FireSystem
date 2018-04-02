@@ -55,6 +55,7 @@
     <Compile Include="AspNetUserLogin.cs" />
     <Compile Include="AspNetUserRole.cs" />
     <Compile Include="ErrorMessages.cs" />
+    <Compile Include="EvidencijskaKarticaGrid.cs" />
     <Compile Include="EvidencijskaKartica.cs" />
     <Compile Include="EvidencijskaKarticaTip.cs" />
     <Compile Include="Hidrant.cs" />

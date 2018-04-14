@@ -281,3 +281,7 @@ h1, label, .btn {
 .container-input-lokacije {
     display: none;
 }
+
+.notifyjs-corner{
+    z-index:20001 !important;
+}

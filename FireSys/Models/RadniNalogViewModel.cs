@@ -15,7 +15,23 @@ namespace FireSys.Models
         {
             this.BrojAparata = 0;
             this.BrojHidranata = 0;            
-            this.DatumNaloga = DateTime.Now;
+            this.DatumNaloga = DateTime.Now;   
+        }
+
+        public void FillBrojRadnogNaloga()
+        {
+            int lastRadniNalogId = DataProvider.DB.RadniNalogs.Max(r => r.RadniNalogId);
+
+            RadniNalog radniNalog = DataProvider.DB.RadniNalogs.Find(lastRadniNalogId);
+
+            if (radniNalog.BrojNalogaGodina == DateTime.Now.Year)
+            {
+                this.BrojNaloga = radniNalog.BrojNaloga + 1;
+            }
+            else
+            {
+                this.BrojNaloga = 1;
+            }
         }
 
         public RadniNalogViewModel(RadniNalog radniNalog)
@@ -40,6 +56,7 @@ namespace FireSys.Models
             this.Komentar = radniNalog.Komentar;
             this.Narucilac = radniNalog.Narucilac;
             this.SelectedKlijentId = radniNalog.Lokacija.KlijentId;
+            this.RegijaId = radniNalog.Lokacija.RegijaId;
         }
 
         public int RadniNalogId { get; set; }
@@ -126,7 +143,7 @@ namespace FireSys.Models
         public int? SelectedKlijentId { get; set; }
 
         [Display(Name = "Regija")]
-        public int RegijaId { get; set; }
+        public int? RegijaId { get; set; }
 
         private SelectList _klijenti;
         private SelectList _regije;

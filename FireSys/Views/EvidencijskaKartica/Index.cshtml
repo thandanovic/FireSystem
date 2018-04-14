@@ -8,38 +8,29 @@
 
 
 <script type="text/javascript">
-
-     var selectedIDs;
-
-    function OnSelectionChanged(s, e) {
-        s.GetSelectedFieldValues("EvidencijskaKarticaId", GetSelectedFieldValuesCallback);
-    }
-    function GetSelectedFieldValuesCallback(values) {
-        //Capture all selected keys
-        selectedIDs = values.join(',');
-    }
-
+    
     function PonistiKarticeClick(s, e) {
         mySpinner(true);
-        setTimeout(function () {
+        evidencijskaKarticaGrid.GetSelectedFieldValues("EvidencijskaKarticaId", function (values) {
+            //Capture all selected keys
+            var selectedIDs = values.join(',');
             $.ajax({
                 url: "@Url.Action("PonistiKartice", "EvidencijskaKartica")",
-                data: { IDs: selectedIDs},
+                data: { IDs: selectedIDs },
                 method: "POST",
                 dataType: "json"
             }).done(function (response) {
                 if (response.message == "OK") {
-                    window.location.reload();
                     mySpinner(false);
+                    Utility.success("Kartice poništene!");
+                    window.location.reload();                    
                 }
                 else {
                     mySpinner(false);
                     Utility.showErrorMessage(response.errorMessage);
-                }                
+                }
             });
-
-        }, 2000);
-
+        });
     }
 
     function OnClick(s, e) {

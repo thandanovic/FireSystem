@@ -80,7 +80,10 @@ $(document).ready(function () {
 
 
 
-
+    $(window).on('beforeunload', function (e) {
+        //your function's body
+        mySpinner(true);
+    });
 
     $(window).on('hashchange', function () {
         mySpinner(true);
@@ -169,19 +172,16 @@ function mySpinner(isStart) {
         position: 'absolute' // Element positioning
     };
 
-    if (isStart && !spinner) {
-        spinner = new Spinner(opts).spin();
+    spinner = new Spinner(opts).spin();
+
+    if (isStart) {        
         $('#waitSpinner').html(spinner.el);
         $('#overlay').show(); //overlay  
     }
-    else if (spinner) {
-        setTimeout(function () {
-            if (spinner != null) {
+    else {
+       
                 spinner.stop();
-                spinner = null;
                 $('#waitSpinner').html("");
-                $('#overlay').hide(); //overlay  
-            }
-        }, 1000);  //timeout – just to show the spinner for a while
+                $('#overlay').hide(); //overlay 
     }
 };

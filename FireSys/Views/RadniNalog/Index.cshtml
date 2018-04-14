@@ -5,48 +5,41 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     RadniNalogViewModel radniNalogModel = new RadniNalogViewModel();
+    radniNalogModel.FillBrojRadnogNaloga();
 }
 
 <script type="text/javascript">
     var selectedIDs;
 
-    function OnSelectionChanged(s, e) {
-        s.GetSelectedFieldValues("RadniNalogId", GetSelectedFieldValuesCallback);
-    }
-    function GetSelectedFieldValuesCallback(values) {
-        //Capture all selected keys
-        selectedIDs = values.join(',');
-    }
 
     function UObradiClick(s, e) {
-        setTimeout(function () {
+        mySpinner(true);
+        radniNalogGrid.GetSelectedFieldValues("RadniNalogId", function (values) {
+            selectedIDs = values.join(',');
             $.ajax({
                 url: "@Url.Action("ChangeStatus", "RadniNalog")",
                 data: { IDs: selectedIDs, status: 1 },
                 method: "POST",
                 dataType: "json"
             }).done(function (response) {
-                window.location.reload();
+                Utility.statusChanged();
             });
-
-        }, 2000);
-
+        });
     }
 
     function ZavrsenClick(s, e) {
         mySpinner(true);
-        setTimeout(function () {
+        radniNalogGrid.GetSelectedFieldValues("RadniNalogId", function (values) {
+            selectedIDs = values.join(',');
             $.ajax({
                 url: "@Url.Action("ChangeStatus", "RadniNalog")",
                 data: { IDs: selectedIDs, status: 2 },
                 method: "POST",
                 dataType: "json"
             }).done(function (response) {
-                window.location.reload();
-                mySpinner(false);
+                Utility.statusChanged();
             });
-
-        }, 2000);
+        });
     }
     function OnClick(s, e) {
         var actionParams = $("form").attr("action").split("?OutputFormat=");
@@ -54,17 +47,7 @@
         $("form").attr("action", actionParams.join("?OutputFormat="));
     }
 
-    var commandName;
-    function GridBeginCallback(s, e) {
-        commandName = e.commandName;
-        //Pass all selected keys to GridView callback action
-        e.customArgs["selectedIDs"] = selectedIDs;
-    }
-
-    function GridEndCallback(s, e) {
-        console.log(commandName);
-        commandName = null;
-    }
+    
 
     var globalSender = null;
 
@@ -154,53 +137,53 @@
                 <td>
                     @*@Html.ActionLink("Kreiraj novog klijenta", "Create", null, new { @class = "btn btn-primary" })*@
                     @Html.DevExpress().Button(btn =>
-               {
-                   btn.Name = "btnNewRadniNalog";
-                   btn.Text = "Kreiraj novi radni nalog";
-                   //  btn.RouteValues = new { Controller = "RadniNalog", Action = "Create", ParamValue = "" };
-                   btn.ControlStyle.CssClass = "create-button";
-                   btn.ClientSideEvents.Click = "OnCreateClick";
-               }).GetHtml()
+                         {
+                             btn.Name = "btnNewRadniNalog";
+                             btn.Text = "Kreiraj novi radni nalog";
+                            //  btn.RouteValues = new { Controller = "RadniNalog", Action = "Create", ParamValue = "" };
+                            btn.ControlStyle.CssClass = "create-button";
+                             btn.ClientSideEvents.Click = "OnCreateClick";
+                         }).GetHtml()
                 </td>
                 <td>
                     @Html.DevExpress().Button(settings =>
-               {
-                   settings.Name = "btnUObradi";
-                   settings.Text = "U obradi";
-                   settings.ControlStyle.CssClass = "yellowButton";
-                   settings.ClientSideEvents.Click = "UObradiClick";
-               }).GetHtml()
+                         {
+                             settings.Name = "btnUObradi";
+                             settings.Text = "U obradi";
+                             settings.ControlStyle.CssClass = "yellowButton";
+                             settings.ClientSideEvents.Click = "UObradiClick";
+                         }).GetHtml()
                 </td>
                 <td>
                     @Html.DevExpress().Button(settings =>
-               {
-                   settings.Name = "btnZavrsen";
-                   settings.Text = "Završen";
-                   settings.ControlStyle.CssClass = "greenButton";
-                   settings.ClientSideEvents.Click = "ZavrsenClick";
-               }).GetHtml()
+                         {
+                             settings.Name = "btnZavrsen";
+                             settings.Text = "Završen";
+                             settings.ControlStyle.CssClass = "greenButton";
+                             settings.ClientSideEvents.Click = "ZavrsenClick";
+                         }).GetHtml()
                 </td>
                 <td>
                     @Html.DevExpress().Button(btn =>
-           {
-               btn.Name = "btnExportToPDF";
-               btn.Attributes["OutputFormatAttribute"] = "PDF";
-               btn.Text = "PDF";
-               btn.UseSubmitBehavior = true;
-               btn.ClientSideEvents.Click = "OnClick";
-               btn.ControlStyle.CssClass = "export-button";
-           }).GetHtml()
+                     {
+                         btn.Name = "btnExportToPDF";
+                         btn.Attributes["OutputFormatAttribute"] = "PDF";
+                         btn.Text = "PDF";
+                         btn.UseSubmitBehavior = true;
+                         btn.ClientSideEvents.Click = "OnClick";
+                         btn.ControlStyle.CssClass = "export-button";
+                     }).GetHtml()
                 </td>
                 <td>
                     @Html.DevExpress().Button(btn =>
-           {
-               btn.Name = "btnExportToXLSX";
-               btn.Attributes["OutputFormatAttribute"] = "XLSX";
-               btn.Text = "EXCEL";
-               btn.UseSubmitBehavior = true;
-               btn.ClientSideEvents.Click = "OnClick";
-               btn.ControlStyle.CssClass = "export-button";
-           }).GetHtml()
+                     {
+                         btn.Name = "btnExportToXLSX";
+                         btn.Attributes["OutputFormatAttribute"] = "XLSX";
+                         btn.Text = "EXCEL";
+                         btn.UseSubmitBehavior = true;
+                         btn.ClientSideEvents.Click = "OnClick";
+                         btn.ControlStyle.CssClass = "export-button";
+                     }).GetHtml()
                 </td>
             </tr>
         </table>

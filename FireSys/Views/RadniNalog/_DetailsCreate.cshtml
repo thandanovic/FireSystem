@@ -227,6 +227,7 @@
             $(".container-dropdown-lokacije select").rules("add", {
                 required: true
             });
+            $("#RegijaId").rules("remove");
         }
 
         function ShowInputLokacije() {
@@ -237,6 +238,11 @@
             $(".container-input-lokacije input:text").rules("add", {
                 required: true
             });
+
+            $("#RgijaId").rules("add", {
+                required: true
+            });
+
             $(".container-dropdown-lokacije select").rules("remove");
             
         }

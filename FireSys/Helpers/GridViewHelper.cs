@@ -213,10 +213,9 @@ namespace FireSys.Helpers
                 gridSettings.CommandColumn.ShowDeleteButton = settings.ShowDeleteButton;
                 gridSettings.CommandColumn.ShowEditButton = settings.ShowEditButton;
 
-                gridSettings.ClientSideEvents.BeginCallback = "GridBeginCallback";
-                gridSettings.ClientSideEvents.EndCallback = "GridEndCallback";
-
-                gridSettings.ClientSideEvents.SelectionChanged = "OnSelectionChanged";
+                //gridSettings.ClientSideEvents.BeginCallback = "GridBeginCallback";
+                //gridSettings.ClientSideEvents.EndCallback = "GridEndCallback";
+                
                 
 
                 if (!string.IsNullOrEmpty(settings.PagerMode))
@@ -1090,7 +1089,6 @@ namespace FireSys.Helpers
             settings.CommandColumn.ShowEditButton = false;
 
             settings.Settings.ShowFilterRow = true;
-            settings.ClientSideEvents.SelectionChanged = "OnSelectionChanged";
             settings.Columns.Add(s =>
             {
                 s.FieldName = "edit";

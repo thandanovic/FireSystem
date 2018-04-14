@@ -35,6 +35,22 @@
             }
         }
     }
+
+    function success(message) {
+        $.notify(message, {
+            position: "top center",
+            className: "success",
+            autohide: false,
+            clicktohide:true
+        });
+    }
+
+    function statusChanged() {
+        mySpinner(false);
+        Utility.success("Status uspješno promijenjen.");
+        window.location.reload();   
+    }
+
     function initLocationChangeEvent() {
         if ($(".dropdown-regije, .dropdown-klijenti").length > 0) {
 
@@ -69,7 +85,9 @@
 
     return {
         showErrorMessage: showErrorMessage,
-        initLocationChangeEvent: initLocationChangeEvent
+        initLocationChangeEvent: initLocationChangeEvent,
+        success: success,
+        statusChanged: statusChanged
     }
 }();
 

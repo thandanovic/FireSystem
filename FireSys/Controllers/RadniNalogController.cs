@@ -31,7 +31,7 @@ namespace FireSys.Controllers
 
         // GET: RadniNalog
         public ActionResult Index()
-        {            
+        {
             Session["WorkingSheetModel"] = GetSheets();
             return View(Session["WorkingSheetModel"]);
         }
@@ -216,7 +216,7 @@ namespace FireSys.Controllers
         public ActionResult Create()
         {
             RadniNalogViewModel model = new RadniNalogViewModel();
-            ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv");            
+            ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv");
             return View(model);
         }
 
@@ -231,40 +231,49 @@ namespace FireSys.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
-                    if (!String.IsNullOrEmpty(radniNalog.NoviKlijentNaziv)){
-                        Klijent klijent = new Klijent();
-                        klijent.Naziv = radniNalog.NoviKlijentNaziv;
-                        klijent.KorisnikKreiraoId = User.Identity.GetUserId();
-                        klijentiManager.Add(klijent);
-
-                        Lokacija lokacija = new Lokacija();
-                        lokacija.KlijentId = klijent.KlijentId;
-                        lokacija.RegijaId = radniNalog.RegijaId;
-                        lokacija.KorisnikKreiraoId = User.Identity.GetUserId();
-                        lokacija.Naziv = radniNalog.NovaLokacijaNaziv;
-                        lokacija.Komentar = radniNalog.NovaLokacijaKomentar;
-                        lokacija.LokacijaVrstaId = radniNalog.NovaLokacijaVrstaId;
-                        lokacija.Adresa = radniNalog.NovaLokacijaAdresa;
-                        lokacijaManager.Add(lokacija);
-                        radniNalog.LokacijaId = lokacija.LokacijaId;
-
+                    bool radniNalogExist = DataProvider.DB.RadniNalogs.Count(x => x.BrojNaloga == radniNalog.BrojNaloga && x.BrojNalogaGodina == radniNalog.BrojNalogaGodina && x.BrojNalogaMjesec == radniNalog.BrojNalogaMjesec) > 0;
+                    if (radniNalogExist)
+                    {
+                        ViewBag.ErrorMessage = "Broj radnog naloga je već iskorišten";
                     }
-                    else if (!String.IsNullOrEmpty(radniNalog.NovaLokacijaNaziv)){
-                        Lokacija lokacija = new Lokacija();
-                        lokacija.KlijentId = radniNalog.SelectedKlijentId.Value;
-                        lokacija.RegijaId = radniNalog.RegijaId;
-                        lokacija.KorisnikKreiraoId = User.Identity.GetUserId();
-                        lokacija.Naziv = radniNalog.NovaLokacijaNaziv;
-                        lokacija.Komentar = radniNalog.NovaLokacijaKomentar;
-                        lokacija.LokacijaVrstaId = radniNalog.NovaLokacijaVrstaId;
-                        lokacija.Adresa = radniNalog.NovaLokacijaAdresa;
-                        int lokacijaId = lokacijaManager.Add(lokacija);
-                        radniNalog.LokacijaId = lokacija.LokacijaId;
+                    else
+                    {
+                        if (!String.IsNullOrEmpty(radniNalog.NoviKlijentNaziv))
+                        {
+                            Klijent klijent = new Klijent();
+                            klijent.Naziv = radniNalog.NoviKlijentNaziv;
+                            klijent.KorisnikKreiraoId = User.Identity.GetUserId();
+                            klijentiManager.Add(klijent);
+
+                            Lokacija lokacija = new Lokacija();
+                            lokacija.KlijentId = klijent.KlijentId;
+                            lokacija.RegijaId = radniNalog.RegijaId;
+                            lokacija.KorisnikKreiraoId = User.Identity.GetUserId();
+                            lokacija.Naziv = radniNalog.NovaLokacijaNaziv;
+                            lokacija.Komentar = radniNalog.NovaLokacijaKomentar;
+                            lokacija.LokacijaVrstaId = radniNalog.NovaLokacijaVrstaId;
+                            lokacija.Adresa = radniNalog.NovaLokacijaAdresa;
+                            lokacijaManager.Add(lokacija);
+                            radniNalog.LokacijaId = lokacija.LokacijaId;
+
+                        }
+                        else if (!String.IsNullOrEmpty(radniNalog.NovaLokacijaNaziv))
+                        {
+                            Lokacija lokacija = new Lokacija();
+                            lokacija.KlijentId = radniNalog.SelectedKlijentId.Value;
+                            lokacija.RegijaId = radniNalog.RegijaId;
+                            lokacija.KorisnikKreiraoId = User.Identity.GetUserId();
+                            lokacija.Naziv = radniNalog.NovaLokacijaNaziv;
+                            lokacija.Komentar = radniNalog.NovaLokacijaKomentar;
+                            lokacija.LokacijaVrstaId = radniNalog.NovaLokacijaVrstaId;
+                            lokacija.Adresa = radniNalog.NovaLokacijaAdresa;
+                            int lokacijaId = lokacijaManager.Add(lokacija);
+                            radniNalog.LokacijaId = lokacija.LokacijaId;
+                        }
+
+                        radniNalogManager.Add(radniNalog.GetRadniNalog());
+                        return RedirectToAction("Index");
                     }
-                    
-                    radniNalogManager.Add(radniNalog.GetRadniNalog());
-                    return RedirectToAction("Index");
                 }
             }
             catch (Exception ex)
@@ -303,12 +312,30 @@ namespace FireSys.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "RadniNalogId,LokacijaId,DatumNaloga,KorisnikKreiraiId,BrojNaloga,BrojNalogaMjesec,BrojNalogaGodina,DatumKreiranja,Aparati,Hidranti,Komentar,BrojHidranata,BrojAparata,Narucilac")] RadniNalogViewModel radniNalog)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(radniNalog.GetRadniNalog()).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    bool radniNalogExist = DataProvider.DB.RadniNalogs.Count(x => x.RadniNalogId != radniNalog.RadniNalogId && x.BrojNaloga == radniNalog.BrojNaloga && x.BrojNalogaGodina == radniNalog.BrojNalogaGodina && x.BrojNalogaMjesec == radniNalog.BrojNalogaMjesec) > 0;
+                    if (radniNalogExist)
+                    {
+                        ViewBag.ErrorMessage = "Broj radnog naloga je već iskorišten";
+                    }
+                    else
+                    {
+                        db.Entry(radniNalog.GetRadniNalog()).State = EntityState.Modified;
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
             }
+            catch(Exception ex)
+            {
+                ViewBag.ErrorMessage = Common.Constants.GenericErrorMessage;
+                //log error to some logger
+                log.Error(Common.Constants.GenericErrorMessage, ex);
+            }
+            
             return View(radniNalog);
         }
 
@@ -387,7 +414,7 @@ namespace FireSys.Controllers
             {
                 RadniNalog radniNalog = db.RadniNalogs.Find(id);
                 model.FillViewModel(radniNalog);
-            }          
+            }
             return PartialView("_Details", model);
         }
 
@@ -434,11 +461,11 @@ namespace FireSys.Controllers
         public JsonResult PoveziRadniNalog(string IDs)
         {
             int? lokacija = 0;
-            bool zapisnikHidrant = false ;
-            bool zapisnikAparat = false ;
+            bool zapisnikHidrant = false;
+            bool zapisnikAparat = false;
 
-            int brojHidranta=0;
-            int brojAparata=0;
+            int brojHidranta = 0;
+            int brojAparata = 0;
 
             if (string.IsNullOrEmpty(IDs))
             {
@@ -458,7 +485,7 @@ namespace FireSys.Controllers
                     lokacija = zapisnik.LokacijaId;
                 }
                 else if (lokacija != zapisnik.LokacijaId)
-                {        
+                {
                     return Json(new
                     {
                         message = "ERROR",
@@ -489,7 +516,7 @@ namespace FireSys.Controllers
 
             RadniNalog radniNalog = db.RadniNalogs.Find(lastRadniNalogId);
 
-            if(radniNalog.BrojNalogaGodina == DateTime.Now.Year)
+            if (radniNalog.BrojNalogaGodina == DateTime.Now.Year)
             {
                 newRadniNalog.BrojNaloga = radniNalog.BrojNaloga + 1;
             }

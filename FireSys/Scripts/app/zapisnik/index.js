@@ -1,42 +1,35 @@
-﻿var selectedIDs;
+﻿
 
-function OnSelectionChanged(s, e) {
-    s.GetSelectedFieldValues("ZapisnikId", GetSelectedFieldValuesCallback);
-}
-function GetSelectedFieldValuesCallback(values) {
-    //Capture all selected keys
-    selectedIDs = values.join(',');
-}
+
 
 function UObradiClick(s, e) {
     mySpinner(true);
-    setTimeout(function () {
+    zapisnikGrid.GetSelectedFieldValues("ZapisnikId", function (values) {
+        var selectedIDs = values.join(',');
         $.ajax({
-            url: "@Url.Action('ChangeStatus', 'Zapisnik')",
+            url: "ChangeStatus/Zapisnik",
             data: { IDs: selectedIDs, status: 1 },
             method: "POST",
             dataType: "json"
         }).done(function (response) {
-            window.location.reload();
-            mySpinner(false);
+            Utility.statusChanged();         
         });
-
-    }, 2000);
+    });        
 }
 
 function ZavrsenClick(s, e) {
     mySpinner(true);
-    setTimeout(function () {
+    zapisnikGrid.GetSelectedFieldValues("ZapisnikId", function (values) {
+        var selectedIDs = values.join(',');
         $.ajax({
-            url: "@Url.Action('ChangeStatus', 'Zapisnik')",
+            url: "ChangeStatus/Zapisnik",
             data: { IDs: selectedIDs, status: 2 },
             method: "POST",
             dataType: "json"
         }).done(function (response) {
-            window.location.reload();
-            mySpinner(false);
+            Utility.statusChanged();
         });
-    }, 2000);
+    });
 }
 
 function OnClick(s, e) {
@@ -48,17 +41,7 @@ function OnClick(s, e) {
 function OnCreateClick(s, e) {
     $("#zapisnikModal").modal('show');
 }
-var commandName;
-function GridBeginCallback(s, e) {
-    commandName = e.commandName;
-    //Pass all selected keys to GridView callback action
-    e.customArgs["selectedIDs"] = selectedIDs;
-}
 
-function GridEndCallback(s, e) {
-    console.log(commandName);
-    commandName = null;
-}
 
 $(function () {
 

@@ -8,7 +8,7 @@ $(document).ready(function () {
     }
 
     jQuery.extend(jQuery.validator.messages, {
-        required: "Ovo je obavezno polje.",
+        required: "Obavezno polje.",
         remote: "Please fix this field.",
         email: "Please enter a valid email address.",
         url: "Please enter a valid URL.",

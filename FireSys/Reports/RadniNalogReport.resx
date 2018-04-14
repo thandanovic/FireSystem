@@ -122,7 +122,9 @@
   </metadata>
   <data name="customSqlQuery1.Sql" xml:space="preserve">
     <value>select "RadniNalog"."DatumNaloga",
-	 "RadniNalog"."LokacijaId", 
+	 "RadniNalog"."LokacijaId",
+	 "RadniNalog"."BrojNalogaMjesec",
+	 "RadniNalog"."BrojNalogaGodina",
 	 "Lokacija"."Naziv",
        "RadniNalog"."BrojNaloga", "RadniNalog"."Narucilac",
        "Lokacija"."Adresa", "Mjesto"."Naziv" as "Mjesto_Naziv",
@@ -138,6 +140,35 @@
  where ("RadniNalog"."RadniNalogId" = @ID)</value>
   </data>
   <data name="customSqlQuery2.Sql" xml:space="preserve">
+    <value>select "Hidrant"."Oznaka", "Instalacija"."Naziv",
+       "Hidrant"."HidrostatickiPritisak",
+       "Hidrant"."HidrodinamickiPritisak",
+       "Kompletnost"."Naziv" as "Kompletnost_Naziv",
+       "Lokacija"."Naziv" as "Lokacija_Naziv"
+  from ((("dbo"."Hidrant" "Hidrant"
+  left
+  join "dbo"."Instalacija" "Instalacija"
+       on ("Instalacija"."InstalacijaId" = "Hidrant"."InstalacijaId"))
+  left
+  join "dbo"."Kompletnost" "Kompletnost"
+       on ("Kompletnost"."KompletnostId" = "Hidrant"."KompletnostId"))
+  left
+  join "dbo"."Lokacija" "Lokacija"
+       on ("Lokacija"."LokacijaId" = "Hidrant"."LokacijaId"))
+ where ("Hidrant"."HidrantId" in 
+(
+select "ZapisnikHidrant"."HidrantId" from "dbo"."ZapisnikHidrant"
+where("ZapisnikHidrant"."ZapisnikId" in
+(
+select top 1 "Zapisnik"."ZapisnikId" from "dbo"."Zapisnik" where
+("Zapisnik"."LokacijaId" = @Lokacija and "Zapisnik"."ZapisnikTipId" = 2 and "Zapisnik"."DatumKreiranja" &lt; @DatumNaloga) order by "Zapisnik"."DatumKreiranja" desc
+)
+)
+)
+)
+</value>
+  </data>
+  <data name="customSqlQuery3.Sql" xml:space="preserve">
     <value>select "VatrogasniAparat"."BrojaAparata" as "Broj",
        "VatrogasniAparatTip"."Naziv" as "Tip",
        "VatrogasniAparat"."GodinaProizvodnje" as "Godina",
@@ -161,10 +192,63 @@
   left
   join "dbo"."Ispravnost" "Ispravnost"
        on ("Ispravnost"."IspravnostId" = "VatrogasniAparat"."IspravnostId"))
- where
-       ("VatrogasniAparat"."LokacijaId" = (select "RadniNalog"."LokacijaId" from "dbo"."RadniNalog" "RadniNalog" where "RadniNalog"."RadniNalogId" = @ID))</value>
+where ("VatrogasniAparat"."VatrogasniAparatId" in 
+(
+select "ZapisnikAparat"."VatrogasniAparatId" from "dbo"."ZapisnikAparat"
+where("ZapisnikAparat"."ZapisnikId" in
+(
+select top 1 "Zapisnik"."ZapisnikId" from "dbo"."Zapisnik" where
+("Zapisnik"."LokacijaId" = @Lokacija and "Zapisnik"."ZapisnikTipId" = 1 and "Zapisnik"."DatumKreiranja" &lt; @DatumNaloga) order by "Zapisnik"."DatumKreiranja" desc
+)
+)
+)
+)
+</value>
+  </data>
+  <data name="customSqlQuery4.Sql" xml:space="preserve">
+    <value>select top(@Count) "Hidrant"."Oznaka", "Instalacija"."Naziv",
+       "Hidrant"."HidrostatickiPritisak",
+       "Hidrant"."HidrodinamickiPritisak",
+       "Kompletnost"."Naziv" as "Kompletnost_Naziv",
+       "Lokacija"."Naziv" as "Lokacija_Naziv"
+  from ((("dbo"."Hidrant" "Hidrant"
+  left
+  join "dbo"."Instalacija" "Instalacija"
+       on ("Instalacija"."InstalacijaId" = "Hidrant"."InstalacijaId"))
+  left
+  join "dbo"."Kompletnost" "Kompletnost"
+       on ("Kompletnost"."KompletnostId" = "Hidrant"."KompletnostId"))
+  left
+  join "dbo"."Lokacija" "Lokacija"
+       on ("Lokacija"."LokacijaId" = "Hidrant"."LokacijaId"))
+ </value>
+  </data>
+  <data name="customSqlQuery5.Sql" xml:space="preserve">
+    <value>select top(@CountAparat) "VatrogasniAparat"."BrojaAparata" as "Broj",
+       "VatrogasniAparatTip"."Naziv" as "Tip",
+       "VatrogasniAparat"."GodinaProizvodnje" as "Godina",
+       "VatrogasniAparat"."IspitivanjeVrijediDo" as "VrijediDo",
+       "EvidencijskaKartica"."BrojEvidencijskeKartice" as "BrojKartice",
+       "Lokacija"."Naziv" as "Lokacija",
+       "Ispravnost"."Naziv" as "Ispravnost"
+  from (((("dbo"."VatrogasniAparat"
+       "VatrogasniAparat"
+  left
+  join "dbo"."VatrogasniAparatTip"
+       "VatrogasniAparatTip"
+       on ("VatrogasniAparatTip"."VatrogasniAparatTipId" = "VatrogasniAparat"."VatrogasniAparatTipId"))
+  left
+  join "dbo"."EvidencijskaKartica"
+       "EvidencijskaKartica"
+       on ("EvidencijskaKartica"."EvidencijskaKarticaId" = "VatrogasniAparat"."EvidencijskaKarticaId"))
+  left
+  join "dbo"."Lokacija" "Lokacija"
+       on ("Lokacija"."LokacijaId" = "VatrogasniAparat"."LokacijaId"))
+  left
+  join "dbo"."Ispravnost" "Ispravnost"
+       on ("Ispravnost"."IspravnostId" = "VatrogasniAparat"."IspravnostId"))</value>
   </data>
   <data name="sqlDataSource1.ResultSchemaSerializable" xml:space="preserve">
-    <value>PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IlJhZG5pTmFsb2ciPjxGaWVsZCBOYW1lPSJEYXR1bU5hbG9nYSIgVHlwZT0iRGF0ZVRpbWUiIC8+PEZpZWxkIE5hbWU9Ikxva2FjaWphSWQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJOYXppdiIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJCcm9qTmFsb2dhIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iTmFydWNpbGFjIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkFkcmVzYSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJNamVzdG9fTmF6aXYiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iS29udGFrdCIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJBcGFyYXRpIiBUeXBlPSJCb29sZWFuIiAvPjxGaWVsZCBOYW1lPSJIaWRyYW50aSIgVHlwZT0iQm9vbGVhbiIgLz48L1ZpZXc+PFZpZXcgTmFtZT0iSGlkcmFudCI+PEZpZWxkIE5hbWU9Ik96bmFrYSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJOYXppdiIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJIaWRyb3N0YXRpY2tpUHJpdGlzYWsiIFR5cGU9IkRlY2ltYWwiIC8+PEZpZWxkIE5hbWU9IkhpZHJvZGluYW1pY2tpUHJpdGlzYWsiIFR5cGU9IkRlY2ltYWwiIC8+PEZpZWxkIE5hbWU9IktvbXBsZXRub3N0X05heml2IiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ikxva2FjaWphX05heml2IiBUeXBlPSJTdHJpbmciIC8+PC9WaWV3PjxWaWV3IE5hbWU9IlZhdHJvZ2FzbmlBcGFyYXQiPjxGaWVsZCBOYW1lPSJCcm9qIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRpcCIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJHb2RpbmEiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJWcmlqZWRpRG8iIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJCcm9qS2FydGljZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJMb2thY2lqYSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJJc3ByYXZub3N0IiBUeXBlPSJTdHJpbmciIC8+PC9WaWV3PjwvRGF0YVNldD4=</value>
+    <value>PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IlJhZG5pTmFsb2ciPjxGaWVsZCBOYW1lPSJEYXR1bU5hbG9nYSIgVHlwZT0iRGF0ZVRpbWUiIC8+PEZpZWxkIE5hbWU9Ikxva2FjaWphSWQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJCcm9qTmFsb2dhTWplc2VjIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iQnJvak5hbG9nYUdvZGluYSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9Ik5heml2IiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkJyb2pOYWxvZ2EiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJOYXJ1Y2lsYWMiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iQWRyZXNhIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ik1qZXN0b19OYXppdiIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJLb250YWt0IiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkFwYXJhdGkiIFR5cGU9IkJvb2xlYW4iIC8+PEZpZWxkIE5hbWU9IkhpZHJhbnRpIiBUeXBlPSJCb29sZWFuIiAvPjwvVmlldz48VmlldyBOYW1lPSJIaWRyYW50Ij48RmllbGQgTmFtZT0iT3puYWthIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ik5heml2IiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkhpZHJvc3RhdGlja2lQcml0aXNhayIgVHlwZT0iRGVjaW1hbCIgLz48RmllbGQgTmFtZT0iSGlkcm9kaW5hbWlja2lQcml0aXNhayIgVHlwZT0iRGVjaW1hbCIgLz48RmllbGQgTmFtZT0iS29tcGxldG5vc3RfTmF6aXYiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iTG9rYWNpamFfTmF6aXYiIFR5cGU9IlN0cmluZyIgLz48L1ZpZXc+PFZpZXcgTmFtZT0iVmF0cm9nYXNuaUFwYXJhdCI+PEZpZWxkIE5hbWU9IkJyb2oiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iVGlwIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkdvZGluYSIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IlZyaWplZGlEbyIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkJyb2pLYXJ0aWNlIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ikxva2FjaWphIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IklzcHJhdm5vc3QiIFR5cGU9IlN0cmluZyIgLz48L1ZpZXc+PFZpZXcgTmFtZT0iSGlkcmFudFBsYWluIj48RmllbGQgTmFtZT0iT3puYWthIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ik5heml2IiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IkhpZHJvc3RhdGlja2lQcml0aXNhayIgVHlwZT0iRGVjaW1hbCIgLz48RmllbGQgTmFtZT0iSGlkcm9kaW5hbWlja2lQcml0aXNhayIgVHlwZT0iRGVjaW1hbCIgLz48RmllbGQgTmFtZT0iS29tcGxldG5vc3RfTmF6aXYiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iTG9rYWNpamFfTmF6aXYiIFR5cGU9IlN0cmluZyIgLz48L1ZpZXc+PFZpZXcgTmFtZT0iQXBhcmF0UGxhaW4iPjxGaWVsZCBOYW1lPSJCcm9qIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9IlRpcCIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJHb2RpbmEiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJWcmlqZWRpRG8iIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJCcm9qS2FydGljZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJMb2thY2lqYSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJJc3ByYXZub3N0IiBUeXBlPSJTdHJpbmciIC8+PC9WaWV3PjwvRGF0YVNldD4=</value>
   </data>
 </root>

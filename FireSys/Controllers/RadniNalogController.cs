@@ -395,16 +395,41 @@ namespace FireSys.Controllers
         [HttpPost]
         public JsonResult Report(int id)
         {
-            RadniNalogReport report = new RadniNalogReport();
-            report.Parameters["ID"].Value = id;
-            report.RequestParameters = false;
-            report.CreateDocument();
-            //report.PrintingSystem.Document.AutoFitToPagesWidth = 1;
-
-            return Json(new
+            using (var context = new FireSysModel())
             {
-                content = GridViewHelper.RenderRazorViewToString(this, "~/Views/RadniNalog/Report.cshtml", report)
-            });
+                RadniNalogReport report = new RadniNalogReport();
+
+                RadniNalog radniNalog = context.RadniNalogs.Find(id);
+
+                if (radniNalog == null) return null;
+
+                int countAparati = 0, countHidranti = 0;
+
+                if (context.Zapisniks.Count(x => x.LokacijaId == radniNalog.LokacijaId && x.ZapisnikTipId == 1) == 0)
+                {
+                    countAparati = radniNalog.BrojAparata.Value;
+                }
+
+                if (context.Zapisniks.Count(x => x.LokacijaId == radniNalog.LokacijaId && x.ZapisnikTipId == 2) == 0)
+                {
+                    countHidranti = radniNalog.BrojHidranata.Value;
+                }
+
+                report.Parameters["ID"].Value = id;
+                report.Parameters["DatumKreiranja"].Value = radniNalog.DatumKreiranja.ToString("dd.MM.yyyy");
+                report.Parameters["CountAparat"].Value = countAparati;
+                report.Parameters["CountHidrant"].Value = countHidranti;
+                report.Parameters["Lokacija"].Value = radniNalog.LokacijaId;
+                report.Parameters["DatumNaloga"].Value = radniNalog.DatumKreiranja;
+
+                report.RequestParameters = false;
+                report.CreateDocument();
+
+                return Json(new
+                {
+                    content = GridViewHelper.RenderRazorViewToString(this, "~/Views/RadniNalog/Report.cshtml", report)
+                });
+            }
         }
 
         public ActionResult GetDetailsPartial(int? id)

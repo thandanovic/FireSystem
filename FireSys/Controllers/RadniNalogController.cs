@@ -31,7 +31,7 @@ namespace FireSys.Controllers
 
         // GET: RadniNalog
         public ActionResult Index()
-        {            
+        {
             Session["WorkingSheetModel"] = GetSheets();
             return View(Session["WorkingSheetModel"]);
         }
@@ -216,7 +216,7 @@ namespace FireSys.Controllers
         public ActionResult Create()
         {
             RadniNalogViewModel model = new RadniNalogViewModel();
-            ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv");            
+            ViewBag.LokacijaId = new SelectList(db.Lokacijas, "LokacijaId", "Naziv");
             return View(model);
         }
 
@@ -231,8 +231,9 @@ namespace FireSys.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    
-                    if (!String.IsNullOrEmpty(radniNalog.NoviKlijentNaziv)){
+
+                    if (!String.IsNullOrEmpty(radniNalog.NoviKlijentNaziv))
+                    {
                         Klijent klijent = new Klijent();
                         klijent.Naziv = radniNalog.NoviKlijentNaziv;
                         klijent.KorisnikKreiraoId = User.Identity.GetUserId();
@@ -250,7 +251,8 @@ namespace FireSys.Controllers
                         radniNalog.LokacijaId = lokacija.LokacijaId;
 
                     }
-                    else if (!String.IsNullOrEmpty(radniNalog.NovaLokacijaNaziv)){
+                    else if (!String.IsNullOrEmpty(radniNalog.NovaLokacijaNaziv))
+                    {
                         Lokacija lokacija = new Lokacija();
                         lokacija.KlijentId = radniNalog.SelectedKlijentId.Value;
                         lokacija.RegijaId = radniNalog.RegijaId;
@@ -262,7 +264,7 @@ namespace FireSys.Controllers
                         int lokacijaId = lokacijaManager.Add(lokacija);
                         radniNalog.LokacijaId = lokacija.LokacijaId;
                     }
-                    
+
                     radniNalogManager.Add(radniNalog.GetRadniNalog());
                     return RedirectToAction("Index");
                 }
@@ -368,16 +370,41 @@ namespace FireSys.Controllers
         [HttpPost]
         public JsonResult Report(int id)
         {
-            RadniNalogReport report = new RadniNalogReport();
-            report.Parameters["ID"].Value = id;
-            report.RequestParameters = false;
-            report.CreateDocument();
-            //report.PrintingSystem.Document.AutoFitToPagesWidth = 1;
-
-            return Json(new
+            using (var context = new FireSysModel())
             {
-                content = GridViewHelper.RenderRazorViewToString(this, "~/Views/RadniNalog/Report.cshtml", report)
-            });
+                RadniNalogReport report = new RadniNalogReport();
+
+                RadniNalog radniNalog = context.RadniNalogs.Find(id);
+
+                if (radniNalog == null) return null;
+
+                int countAparati = 0, countHidranti = 0;
+
+                if (context.Zapisniks.Count(x => x.LokacijaId == radniNalog.LokacijaId && x.ZapisnikTipId == 1) == 0)
+                {
+                    countAparati = radniNalog.BrojAparata.Value;
+                }
+
+                if (context.Zapisniks.Count(x => x.LokacijaId == radniNalog.LokacijaId && x.ZapisnikTipId == 2) == 0)
+                {
+                    countHidranti = radniNalog.BrojHidranata.Value;
+                }
+
+                report.Parameters["ID"].Value = id;
+                report.Parameters["DatumKreiranja"].Value = radniNalog.DatumKreiranja.ToString("dd.MM.yyyy");
+                report.Parameters["CountAparat"].Value = countAparati;
+                report.Parameters["CountHidrant"].Value = countHidranti;
+                report.Parameters["Lokacija"].Value = radniNalog.LokacijaId;
+                report.Parameters["DatumNaloga"].Value = radniNalog.DatumKreiranja;
+
+                report.RequestParameters = false;
+                report.CreateDocument();
+
+                return Json(new
+                {
+                    content = GridViewHelper.RenderRazorViewToString(this, "~/Views/RadniNalog/Report.cshtml", report)
+                });
+            }
         }
 
         public ActionResult GetDetailsPartial(int? id)
@@ -387,7 +414,7 @@ namespace FireSys.Controllers
             {
                 RadniNalog radniNalog = db.RadniNalogs.Find(id);
                 model.FillViewModel(radniNalog);
-            }          
+            }
             return PartialView("_Details", model);
         }
 
@@ -434,11 +461,11 @@ namespace FireSys.Controllers
         public JsonResult PoveziRadniNalog(string IDs)
         {
             int? lokacija = 0;
-            bool zapisnikHidrant = false ;
-            bool zapisnikAparat = false ;
+            bool zapisnikHidrant = false;
+            bool zapisnikAparat = false;
 
-            int brojHidranta=0;
-            int brojAparata=0;
+            int brojHidranta = 0;
+            int brojAparata = 0;
 
             if (string.IsNullOrEmpty(IDs))
             {
@@ -458,7 +485,7 @@ namespace FireSys.Controllers
                     lokacija = zapisnik.LokacijaId;
                 }
                 else if (lokacija != zapisnik.LokacijaId)
-                {        
+                {
                     return Json(new
                     {
                         message = "ERROR",
@@ -489,7 +516,7 @@ namespace FireSys.Controllers
 
             RadniNalog radniNalog = db.RadniNalogs.Find(lastRadniNalogId);
 
-            if(radniNalog.BrojNalogaGodina == DateTime.Now.Year)
+            if (radniNalog.BrojNalogaGodina == DateTime.Now.Year)
             {
                 newRadniNalog.BrojNaloga = radniNalog.BrojNaloga + 1;
             }

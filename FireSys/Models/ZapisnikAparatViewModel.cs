@@ -79,14 +79,17 @@ namespace FireSys.Models
     public class ZapisnikHidrantParticle
     {
         public int ZapisnikHidrantId { get; set; }
-        public int TipId { get; set; }
-        public string BrojAparata { get; set; }
-        public int GodinaProizvodnje { get; set; }
-        public int VrijediDo { get; set; }
-        public string BrojKartice { get; set; }
-        public string Napomena { get; set; }
-        public int IspravnostId { get; set; }
-        public int VrstaId { get; set; }
+        public string Oznaka { get; set; }
+        public int InstalacijaId { get; set; }
+        public string HidrostatickiPritisak { get; set; }
+        public string HidrodinamickiPritisak { get; set; }
+        public int PromjerMlazniceId { get; set; }
+        public int Protok { get; set; }
+        public int KompletnostId { get; set; }
+        public int HidrantTipId { get; set; }
+        public string Mikrolokacija { get; set; }
+        public string Komentar { get; set; }
+
         [JsonIgnore]
         public int LokacijaId { get; set; }
         [JsonIgnore]
@@ -96,39 +99,63 @@ namespace FireSys.Models
 
         public bool Validate()
         {
-            if (TipId == 0)
+            if (InstalacijaId == 0)
             {
                 ErrorMessage = "Tip aparata ne smije biti nedefinisan";
                 return false;
             }
 
-            if (string.IsNullOrEmpty(BrojAparata))
+            if (string.IsNullOrEmpty(Oznaka))
             {
-                ErrorMessage = "Broj aparata ne smije biti nedefinisan";
+                ErrorMessage = "Oznaka ne smije biti nedefinisana";
                 return false;
             }
 
-            if (GodinaProizvodnje == 0)
+            if (string.IsNullOrEmpty(HidrodinamickiPritisak))
             {
-                ErrorMessage = "Godina proizvodnje ne smije biti nedefinisana";
+                ErrorMessage = "HP ne smije biti nedefinisan";
                 return false;
             }
 
-            if (VrijediDo == 0)
+            if (string.IsNullOrEmpty(HidrostatickiPritisak))
             {
-                ErrorMessage = "Vrijedi do ne smije biti nedefinisan";
+                ErrorMessage = "HS ne smije biti nedefinisan";
                 return false;
             }
 
-            if (IspravnostId == 0)
+            //if (HidrostatickiPritisak == new decimal())
+            //{
+            //    ErrorMessage = "Hidrostaticki pritisak ne smije biti nedefinisan";
+            //    return false;
+            //}
+
+            //if (HidrodinamickiPritisak == new decimal())
+            //{
+            //    ErrorMessage = "Hidrodinamicki pritisak ne smije biti nedefinisan";
+            //    return false;
+            //}
+
+            if (PromjerMlazniceId == 0)
             {
-                ErrorMessage = "Ispravnost ne smije biti nedefinisana";
+                ErrorMessage = "Promjer mlaznice ne smije biti nedefinisan";
                 return false;
             }
 
-            if (VrstaId == 0)
+            if (Protok == 0)
             {
-                ErrorMessage = "Vrsta ne smije biti nedefinisana";
+                ErrorMessage = "Protok ne smije biti nedefinisan";
+                return false;
+            }
+
+            if (KompletnostId == 0)
+            {
+                ErrorMessage = "Kompletnost ne smije biti nedefinisana";
+                return false;
+            }
+
+            if (HidrantTipId == 0)
+            {
+                ErrorMessage = "Tip hidranta ne smije biti nedefinisan";
                 return false;
             }
 
@@ -136,10 +163,17 @@ namespace FireSys.Models
         }
     }
 
+    public class ZapisnikHidrantExtended: ZapisnikHidrantParticle
+    {
+        public string Instalacija { get; set; }
+        public int PromjerMlaznice { get; set; }
+        public string Kompletnost { get; set; }
+        public string HidrantTip { get; set; }
+    }
+
     public class ZapisnikAparatViewModel
     {
         public List<ZapisnikAparatParticle> Aparati { get; set; }
-        public List<ZapisnikHidrantParticle> Hidranti { get; set; }
 
         readonly IEnumerable _lokacije;
         readonly IEnumerable _klijenti;
@@ -193,6 +227,87 @@ namespace FireSys.Models
             _tipoviAparata = FireSys.Helpers.DataProvider.GetTipAparata();
             _ispravnost = FireSys.Helpers.DataProvider.GetIspravnost();
             _aparatVrsta = FireSys.Helpers.DataProvider.GetVrstaAparata();
+        }
+    }
+
+    public class ZapisnikHidrantViewModel
+    {
+        public List<ZapisnikHidrantParticle> Hidranti { get; set; }
+
+        readonly IEnumerable _lokacije;
+        readonly IEnumerable _klijenti;
+        readonly IEnumerable _tipoviZapisnika;
+        readonly IEnumerable _zaposlenici;
+        readonly IEnumerable _tipoviAparata;
+        readonly IEnumerable _ispravnost;
+        readonly IEnumerable _aparatVrsta;
+        readonly IEnumerable _instalacije;
+        readonly IEnumerable _kompletnost;
+        readonly IEnumerable _tipoviHidranata;
+
+        public IEnumerable<SelectListItem> Lokacije
+        {
+            get { return new SelectList(_lokacije, "LokacijaId", "Naziv"); }
+        }
+
+        public IEnumerable<SelectListItem> Klijenti
+        {
+            get { return new SelectList(_klijenti, "KlijentId", "Naziv"); }
+        }
+
+        public IEnumerable<SelectListItem> TipoviZapisnika
+        {
+            get { return new SelectList(_tipoviZapisnika, "ZapisnikTipId", "Naziv"); }
+        }
+
+        public IEnumerable<SelectListItem> Zaposlenici
+        {
+            get { return new SelectList(_zaposlenici, "KorisnikId", "Naziv"); }
+        }
+
+        public IEnumerable<SelectListItem> TipoviAparata
+        {
+            get { return new SelectList(_tipoviAparata, "VatrogasniAparatTipId", "Naziv"); }
+        }
+
+        public IEnumerable<SelectListItem> Ispravnost
+        {
+            get { return new SelectList(_ispravnost, "IspravnostId", "Naziv"); }
+        }
+
+        public IEnumerable<SelectListItem> VrstaAparata
+        {
+            get { return new SelectList(_aparatVrsta, "VatrogasniAparatVrstaId", "Naziv"); }
+        }
+
+        public IEnumerable<SelectListItem> Instalacije
+        {
+            get { return new SelectList(_instalacije, "Instalacija", "Naziv"); }
+        }
+
+        public IEnumerable<SelectListItem> Kompletnost
+        {
+            get { return new SelectList(_kompletnost, "Kompletnost", "Naziv"); }
+        }
+
+        public IEnumerable<SelectListItem> TipoviHidranata
+        {
+            get { return new SelectList(_instalacije, "HidrantTip", "Naziv"); }
+        }
+
+        public ZapisnikHidrantViewModel()
+        {
+            _lokacije = FireSys.Helpers.DataProvider.GetLocations();
+            _klijenti = FireSys.Helpers.DataProvider.GetKlijenti();
+            _tipoviZapisnika = FireSys.Helpers.DataProvider.GetZapisnikTip();
+            _zaposlenici = FireSys.Helpers.DataProvider.GetZaposlenici();
+            _tipoviAparata = FireSys.Helpers.DataProvider.GetTipAparata();
+            _ispravnost = FireSys.Helpers.DataProvider.GetIspravnost();
+            _aparatVrsta = FireSys.Helpers.DataProvider.GetVrstaAparata();
+            _instalacije = FireSys.Helpers.DataProvider.GetInstallations();
+            _kompletnost = FireSys.Helpers.DataProvider.GetKompletnost();
+            _tipoviHidranata = FireSys.Helpers.DataProvider.GetHidrantTypes();
+            
         }
     }
 }

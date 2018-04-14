@@ -1,0 +1,4 @@
+ERROR 2018-04-03 14:55:37,810 182390ms BaseController         DeleteConfirmed    - 
+System.InvalidOperationException: Collection was modified; enumeration operation may not execute.
+   at System.Collections.Generic.HashSet`1.Enumerator.MoveNext()
+   at FireSys.Controllers.ZapisnikController.DeleteConfirmed(Int32 id) in C:\dev\FireSystem\FireSys\Controllers\ZapisnikController.cs:line 691

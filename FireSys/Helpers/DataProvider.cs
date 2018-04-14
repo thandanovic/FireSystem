@@ -222,16 +222,45 @@ namespace FireSys.Helpers
             return query.ToList();
         }
 
-
-
+        public static IEnumerable GetPromjerMlaznice()
+        {
+            var query = from promjer in DB.PromjerMlaznices
+                        select new
+                        {
+                            PromjerMlazniceId = promjer.PromjerMlazniceId,
+                            Promjer = promjer.Promjer
+                        };
+            return query.ToList();
+        }
     }
-
 
     public static class Helper
     {
         public static string ToShortDate(DateTime datetime)
         {
             return datetime.ToString("dd.MM.yyyy");
+        }
+
+        public static decimal Decimal2String(string value)
+        {
+            if (string.IsNullOrEmpty(value))
+            {
+                return 0;
+            }
+            decimal val;
+            if (Decimal.TryParse(value, out val))
+            {
+                return val;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public static string AddQuotes(this String str)
+        {
+            return "\'" + str + "\'";
         }
 
         public static ZapisnikAparatParticle RenderZapisnikAparat(ZapisnikAparat aparat)
@@ -267,14 +296,48 @@ namespace FireSys.Helpers
 
             return ap;
         }
-    }
 
-    public class TestControl
-    {
-        public string nos { get; set; }
-        public string dos { get; set; }
-    }
+        public static ZapisnikHidrantParticle RenderZapisnikHidrant(ZapisnikHidrant zapisnikHidrant)
+        {
+            return new ZapisnikHidrantParticle()
+            {
+                ZapisnikHidrantId = zapisnikHidrant.ZapisnikHidrantId,
+                HidrantTipId = zapisnikHidrant.Hidrant.HidrantTipId.Value,
+                HidrodinamickiPritisak = zapisnikHidrant.Hidrant.HidrodinamickiPritisak.Value.ToString(),
+                HidrostatickiPritisak = zapisnikHidrant.Hidrant.HidrostatickiPritisak.Value.ToString(),
+                InstalacijaId = zapisnikHidrant.Hidrant.InstalacijaId,
+                KompletnostId = zapisnikHidrant.KompletnostId,
+                LokacijaId = zapisnikHidrant.Hidrant.LokacijaId,
+                Oznaka = zapisnikHidrant.Hidrant.Oznaka,
+                PromjerMlazniceId = zapisnikHidrant.Hidrant.PromjerMlazniceId.Value,
+                Protok = zapisnikHidrant.Hidrant.Protok.Value,
+                ZapisnikId = zapisnikHidrant.ZapisnikId
+            };
+        }
 
+        public static ZapisnikHidrantExtended RenderExtendedZapisnikHidrant(ZapisnikHidrant zapisnikHidrant)
+        {
+            return new ZapisnikHidrantExtended()
+            {
+                ZapisnikHidrantId = zapisnikHidrant.ZapisnikHidrantId,
+                HidrantTipId = zapisnikHidrant.Hidrant.HidrantTipId.Value,
+                HidrodinamickiPritisak = zapisnikHidrant.Hidrant.HidrodinamickiPritisak.Value.ToString(),
+                HidrostatickiPritisak = zapisnikHidrant.Hidrant.HidrostatickiPritisak.Value.ToString(),
+                InstalacijaId = zapisnikHidrant.Hidrant.InstalacijaId,
+                KompletnostId = zapisnikHidrant.KompletnostId,
+                LokacijaId = zapisnikHidrant.Hidrant.LokacijaId,
+                Oznaka = zapisnikHidrant.Hidrant.Oznaka,
+                PromjerMlazniceId = zapisnikHidrant.Hidrant.PromjerMlazniceId.Value,
+                Protok = zapisnikHidrant.Hidrant.Protok.Value,
+                ZapisnikId = zapisnikHidrant.ZapisnikId,
+
+                PromjerMlaznice = zapisnikHidrant.Hidrant.PromjerMlaznice.Promjer,
+                Kompletnost = zapisnikHidrant.Kompletnost.Naziv,
+                Instalacija = zapisnikHidrant.Hidrant.Instalacija.Naziv,
+                HidrantTip = zapisnikHidrant.Hidrant.HidrantTip.Naziv
+            };
+        }
+    }
 
     public class ContextElement
     {
@@ -312,12 +375,5 @@ namespace FireSys.Helpers
                 return instance;
             }
         }
-
-
-
-
     }
-
-   
-
 }

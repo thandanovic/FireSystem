@@ -30,8 +30,11 @@ $(document).ready(function () {
     $('.delete-row').on('click', function () {
         var URL = $(this).attr('data-ref');
 
-        $.get(URL, function (data) {
-            Utility.showErrorMessage(data);
+        $.ajax({
+            url: URL,
+            type: 'GET'
+        }).done(function (data) {
+            window.location = data;
         });
 
     });

@@ -336,7 +336,7 @@ namespace FireSys.Helpers
 
                 return gridSettings;
             }
-            catch (Exception ex)
+            catch 
             {
                 return null;
             }

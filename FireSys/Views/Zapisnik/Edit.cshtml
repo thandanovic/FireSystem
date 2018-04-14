@@ -124,147 +124,24 @@
 </style>
 
 <script>
+    var statusId = @Model.Zapisnik.StatusId;
+    var getExtinguishersUrl = "@Url.Action("GetZapisnikAparati", "Zapisnik")";
+    var pushExtinguisherUrl = "@Url.Action("InsertZapisnikAparat", "Zapisnik")";
+    var updateExtinguisherUrl = "@Url.Action("UpdateZapisnikAparat", "Zapisnik")";
+    var popExtinguisherUrl = "@Url.Action("DeleteZapisnikAparat", "Zapisnik")";
 
-    $(function () {
-
-        if ($('#Zapisnik_ZapisnikTipId').val() != 1) {
-            $('.zapisnik-container').css("grid-template-areas", "'zapisnik hidranti' 'zapisnik hidranti'");
-            $('.page-header-right').text('Lista hidranata na lokaciji');
-        } else {
-            $('.page-header-right').text('Lista aparata na lokaciji');
-        }
-
-        $('.header-left').html('<h1>Detalji zapisnika</h1>');
-
-        var ispravnost = JSON.parse($("#boxIspravnost").val());
-        var tip = JSON.parse($("#boxTip").val());
-        var vrsta = JSON.parse($("#boxVrste").val());
-
-        $("#aparatiGrid").jsGrid({
-            width: "100%",
-            height: "100%",
-            inserting: @Model.Zapisnik.StatusId != 2,
-            noDataContent: "Not found",
-            editing: @Model.Zapisnik.StatusId != 2,
-            sorting: true,
-            data: [],
-            paging: true,
-            autoload: true,
-            pageloading: true,
-            filtering: true,
-            controller: {
-                loadData: function () {
-                    var d = $.Deferred();
-
-                    $.ajax({
-                        url: "@Url.Action("GetZapisnikAparati", "Zapisnik")",
-                        data: { zapisnikId: parseInt($("#ZapisnikId").val()) },
-                        method: "GET",
-                        dataType: "json"
-                    }).done(function (response) {
-                        d.resolve(JSON.parse(response.streamAparati));
-                    });
-
-                    return d.promise();
-                },
-                insertItem: function (insertingItem) {
-                    insertingItem["LokacijaId"] = parseInt($("#LokacijaId").val());
-                    insertingItem["ZapisnikId"] = parseInt($("#ZapisnikId").val());
-                    var d = $.Deferred();
-                    $.ajax({
-                        type: "GET",
-                        url: "@Url.Action("InsertZapisnikAparat", "Zapisnik")",
-                        data: insertingItem
-                    }).success(function (response) {
-                        d.resolve(JSON.parse(response.item));
-                    }).error(function (xhr, ajaxOptions, thrownError) {
-                        d.resolve();
-                    });
-
-                    return d.promise();
-                },
-                updateItem: function (updatingItem) {
-                    var d = $.Deferred();
-                    $.ajax({
-                        type: "GET",
-                        url: "@Url.Action("UpdateZapisnikAparat", "Zapisnik")",
-                        data: updatingItem
-                    }).success(function (response) {
-                        d.resolve(JSON.parse(response.item));
-                    }).error(function (xhr, ajaxOptions, thrownError) {
-                        d.resolve(updatingItem);
-                    });
-
-                    return d.promise();
-                },
-                deleteItem: function (deletingItem) {
-                    var d = $.Deferred();
-                    $.ajax({
-                        type: "POST",
-                        url: "@Url.Action("DeleteZapisnikAparat", "Zapisnik")",
-                        data: deletingItem
-                    }).success(function (response) {
-                        d.resolve();
-                    }).error(function (xhr, ajaxOptions, thrownError) {
-                        d.resolve();
-                    });
-
-                    return d.promise();
-                }
-
-            },
-
-            fields: [
-
-                { name: "TipId", title: "Tip", type: "select", width: 70, items: tip, valueField: "VatrogasniAparatTipId", textField: "Naziv", validate: "required" },
-                { name: "BrojAparata", title: "Broj aparata", type: "text", width: 50, validate: "required" },
-                { name: "GodinaProizvodnje", title: "Godina proizvodnje", type: "number", width: 50, validate: "required" },
-                { name: "VrijediDo", title: "Vrijedi do", type: "number", width: 50, validate: "required" },
-                { name: "BrojKartice", title: "Broj kartice", type: "text", width: 50 },
-                { name: "Napomena", type: "text" },
-                { name: "IspravnostId", title: "Ispravnost", type: "select", width: 70, items: ispravnost, valueField: "IspravnostId", textField: "Naziv", validate: "required" },
-                { name: "VrstaId", title: "Vrsta", type: "select", width: 70, items: vrsta, valueField: "VatrogasniAparatVrstaId", textField: "Naziv", validate: "required" },
-                {
-                    type: "control",
-                    title: "Akcije",
-                    deleteButton: @Model.Zapisnik.StatusId != 2,
-                    editButton: @Model.Zapisnik.StatusId != 2
-                    //itemTemplate: function (_, item) {
-                    //    return '<a class="fa fa-edit" href="/Hidrants/Edit/' + item.ID + '"> </a> | <a class="fa fa-search" href="/Hidrants/Details/' + item.ID + '"> </a> | <a class="fa fa-trash-o" href="/Hidrants/Delete/' + item.ID + '"> </a>';
-                    //}
-                }
-            ]
-        });
-
-
-
-    });
-
-    function createWorkOrder(s, e){
-        var d = $.Deferred();
-        $.ajax({
-            type: "POST",
-            url: "@Url.Action("CreateWorkOrder", "Zapisnik")",
-            data: { zapisnikID: $("#ZapisnikId").val()}
-        }).success(function (response) {
-            d.resolve();
-            Utility.showErrorMessage(response.message);
-        }).error(function (xhr, ajaxOptions, thrownError) {
-            d.resolve();
-        });
-
-        return d.promise();
-    }
-
-    function returnOnOrderList(s, e){
-        window.location.href = '/Zapisnik/Index';
-    }
-
+    var getStandpipesUrl = "@Url.Action("GetZapisnikHidranti", "Zapisnik")";
+    var pushStandpipeUrl = "@Url.Action("InsertZapisnikHidrant", "Zapisnik")";
+    var updateStandpipeUrl = "@Url.Action("UpdateZapisnikHidrant", "Zapisnik")";
+    var popStandpipeUrl = "@Url.Action("DeleteZapisnikHidrant", "Zapisnik")";
 </script>
+
+@Scripts.Render("~/Scripts/app/zapisnik/crud.js");
 
 @section Actions {
 
     <script>
+
         function AddDevices(s, e) {
             var $extinguisher = $('#extinguishersModal');
 
@@ -276,21 +153,18 @@
         }
     </script>
 
-
     @if (Model.Zapisnik.StatusId != 2)
     {
         @Html.DevExpress().Button(btn =>
-{
-    btn.Name = "btnAddDevices";
-    btn.Text = "Dodaj aparate";
-    btn.UseSubmitBehavior = false;
-    btn.ClientSideEvents.Click = "AddDevices";
-    //btn.ControlStyle.CssClass = "export-button";
-    //btn.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
+               {
+                   btn.Name = "btnAddDevices";
+                   btn.Text = "Dodaj aparate";
+                   btn.UseSubmitBehavior = false;
+                   btn.ClientSideEvents.Click = "AddDevices";
+  //btn.ControlStyle.CssClass = "export-button";
+  //btn.ControlStyle.VerticalAlign = System.Web.UI.WebControls.VerticalAlign.Middle;
 }).GetHtml()
     }
-
-
 }
 
 
@@ -326,8 +200,6 @@
                             @Html.ValidationMessageFor(x => x.Zapisnik.BrojZapisnika)
                             @Html.ValidationMessageFor(x => x.Zapisnik.BrojZapisnikaMjesec)
                             @Html.ValidationMessageFor(x => x.Zapisnik.BrojZapisnikaGodina)
-
-
                         </div>
                     </div>
                 </div>
@@ -336,8 +208,6 @@
                     <div class="form-group col-md-6">
                         <label for="KlijentId">Klijent</label>
                         @Html.DropDownListFor(x => x.KlijentId, Model.Klijenti, new { @class = "form-control dropdown-klijenti" })
-
-
                     </div>
 
                     <div class="form-group col-md-6">
@@ -358,8 +228,6 @@
                     <label for="Zapisnik.ZapisnikTipId">Tip zapisnika</label>
                     @Html.DropDownListFor(x => x.Zapisnik.ZapisnikTipId, Model.TipoviZapisnika, new { @class = "form-control" })
                     @Html.ValidationMessageFor(x => x.Zapisnik.ZapisnikTipId)
-
-
                 </div>
 
                 <div class="form-row">
@@ -405,38 +273,38 @@
                 @*<a class="btn btn-default" href="@Url.Action("Index", "Zapisnik")">Zatvori</a>*@
 
                 @Html.DevExpress().Button(btn =>
-               {
-                   btn.Name = "btnClose";
-                   btn.Text = "Zatvori";
-                   btn.UseSubmitBehavior = false;
-                   btn.ClientSideEvents.Click = "returnOnOrderList";
-                   btn.ControlStyle.CssClass = "whiteButton";
+                              {
+                                  btn.Name = "btnClose";
+                                  btn.Text = "Zatvori";
+                                  btn.UseSubmitBehavior = false;
+                                  btn.ClientSideEvents.Click = "returnOnOrderList";
+                                  btn.ControlStyle.CssClass = "whiteButton";
 
-               }).GetHtml()
+                              }).GetHtml()
 
                 @if (Model.Zapisnik.StatusId == 2 && Model.Zapisnik.IzRadnogNalogaId == null && Model.Zapisnik.KreiraniRadniNalogId == null)
                 {
 
                     @Html.DevExpress().Button(btn =>
-               {
-                   btn.Name = "btnCreateWorkOrder";
-                   btn.Text = "Kreiraj radni nalog";
-                   btn.UseSubmitBehavior = false;
-                   btn.ClientSideEvents.Click = "createWorkOrder";
-                   btn.ControlStyle.CssClass = "yellowButton";
+                              {
+                                  btn.Name = "btnCreateWorkOrder";
+                                  btn.Text = "Kreiraj radni nalog";
+                                  btn.UseSubmitBehavior = false;
+                                  btn.ClientSideEvents.Click = "createWorkOrder";
+                                  btn.ControlStyle.CssClass = "yellowButton";
 
-               }).GetHtml();
+                              }).GetHtml();
                 }
 
-                    @if (Model.Zapisnik.StatusId != 2)
-                    {
+                @if (Model.Zapisnik.StatusId != 2)
+                {
                     @Html.DevExpress().Button(btn =>
-               {
-                   btn.Name = "btnSubmitRecord";
-                   btn.Text = "Spasi";
-                   btn.UseSubmitBehavior = true;
+                              {
+                                  btn.Name = "btnSubmitRecord";
+                                  btn.Text = "Spasi";
+                                  btn.UseSubmitBehavior = true;
 
-               }).GetHtml();
+                              }).GetHtml();
                     @*<button type="submit" class="btn btn-danger pull-right">Spasi</button>*@
                 }
             </div>
@@ -451,6 +319,11 @@
         </div>
 
         <div class="hidranti">
+            @Html.Hidden("boxHidrantTip", ViewData["HidrantTip"])
+            @Html.Hidden("boxInstalacije", ViewData["Instalacije"])
+            @Html.Hidden("boxKompletnost", ViewData["Kompletnost"])
+            @Html.Hidden("boxPromjerMlaznice", ViewData["PromjerMlaznice"])
+            <div id="hidrantiGrid"></div>
         </div>
     </div>
 }

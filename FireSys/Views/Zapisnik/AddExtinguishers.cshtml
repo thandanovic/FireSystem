@@ -54,7 +54,12 @@
                         data: parameters,
                         method: "GET"
                     }).done(function (response) {
-                        d.resolve(JSON.parse(response.streamAparati));
+                        if (response.streamAparati === undefined) {
+                            Utility.showErrorMessage(response.error);
+                            d.resolve();
+                        } else {
+                            d.resolve(JSON.parse(response.streamAparati));
+                        }
                     });
 
                     return d.promise();

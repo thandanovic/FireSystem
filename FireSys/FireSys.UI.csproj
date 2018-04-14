@@ -401,6 +401,8 @@
     <Content Include="Scripts\app\account\account.js" />
     <Content Include="Scripts\app\dashboard\dashboard.js" />
     <Content Include="Scripts\app\validate\jquery.validate.bootstrap-tooltip.js" />
+    <Content Include="Scripts\app\zapisnik\crud.js" />
+    <Content Include="Scripts\app\zapisnik\index.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
@@ -606,6 +608,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="firesys-log.log" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <Content Include="Views\RadniNalog\Report.cshtml" />
     <Content Include="Views\Zapisnik\Reports\ZapisnikReport.cshtml" />

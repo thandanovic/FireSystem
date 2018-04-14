@@ -22,6 +22,8 @@ namespace FireSys
 
             ModelBinders.Binders.DefaultBinder = new DevExpress.Web.Mvc.DevExpressEditorsBinder();
             DevExpress.Utils.UrlAccessSecurityLevelSetting.SecurityLevel = DevExpress.Utils.UrlAccessSecurityLevel.Unrestricted;
+
+            log4net.Config.XmlConfigurator.Configure();
         }
 
         protected void Application_Error(object sender, EventArgs e)
@@ -32,7 +34,7 @@ namespace FireSys
             {
                 Server.ClearError();
                 HttpContext.Current.Response.Redirect("~/404.html");
-            }
+            }       
         }
     }
 }
